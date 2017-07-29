@@ -1,7 +1,7 @@
 # Laravel How To
 
 ## Installation
-- [how to create a project with composer][]
+- [how to create a project with composer][create-project]
 - [how to remove 500 internal server error][]
 
 ## Model
@@ -18,6 +18,15 @@
 [extend]:#how-to-extend-a-blade-layout
 [control]:#how-to-create-a-controller
 [data-info]:#how-to-add-your-database-information
+[create-project]:#how-to-create-a-project-with-composer
+
+### HOW TO CREATE A PROJECT WITH COMPOSER
+- the command formula is: composer create-project **PACKAGE** **DESINATION PATH**
+```
+    composer create-project laravel/laravel insertNameOfProject
+```
+- this should create laravel project, there are different options that you can set it up
+with, but I don't have all the information available right now.
 
 ### HOW TO ADD YOUR DATABASE INFORMATION
 - go to the command line and type
