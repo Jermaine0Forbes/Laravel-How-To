@@ -6,7 +6,7 @@
 - [how to generate a new application key][new-key]
 
 ## Model
-- [how to create a model][]
+- [how to create a model][create-model]
 - [how to add your database information][data-info]
 
 ## View
@@ -22,6 +22,7 @@
 [create-project]:#how-to-create-a-project-with-composer
 [new-key]:#how-to-generate-a-new-application-key
 [500]:#how-to-remove-500-internal-server-error
+[create-model]:#how-to-create-a-model
 
 ### HOW TO CREATE A PROJECT WITH COMPOSER
 - the command formula is: composer create-project **PACKAGE** **DESINATION PATH**
