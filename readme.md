@@ -7,6 +7,9 @@
 
 ## Model
 - [how to create a model][create-model]
+- [how to alter the model name][name-model]
+- [how to change primary key name][prime-name]
+- [how to disable timestamps][timestamps]
 - [how to add your database information][data-info]
 
 ## View
@@ -23,6 +26,9 @@
 [new-key]:#how-to-generate-a-new-application-key
 [500]:#how-to-remove-500-internal-server-error
 [create-model]:#how-to-create-a-model
+[name-model]:#how-to-alter-model-name
+[prime-name]:#how-to-change-primary-key-name
+[timestamps]:#how-to-disable-timestamps
 
 ### HOW TO CREATE A PROJECT WITH COMPOSER
 - the command formula is: composer create-project **PACKAGE** **DESINATION PATH**
@@ -52,7 +58,7 @@ with, but I don't have all the information available right now.
 ### HOW TO GENERATE A NEW APPLICATION KEY
 - if you create a laravel project with composer, then it will automatically
 create the key. However, **if you pull a project from github**, then it will not
-have the application key so you have to generate a new key. I don't know the 
+have the application key so you have to generate a new key. I don't know the
 purpose of this. Supposedly it protects your application so... okay
 
 ```
@@ -64,8 +70,72 @@ purpose of this. Supposedly it protects your application so... okay
 
 
 ### HOW TO CREATE A MODEL
+- write this is in the command line. The model file will located in the "app" folder
 ```
+    php artisan make:model insertTableName
 ```
+- you can also create the model and generate a database migration with this command
+```
+    php artisan make:model insertTableName --migration
+
+    php artisan make:model insertTableName -m
+```
+- Now a **migration** is a process of creating a file that has the typical schema
+of the table that you created. With this file you can alter the schema's data types
+and other shit. Well, at least that is what I read from this
+- [how do laravel migrations work?][https://stackoverflow.com/questions/30220377/how-do-laravel-migrations-work]
+
+
+[go back to home][home]
+
+
+### HOW TO ALTER MODEL NAME
+- laravel will naturally believe that your table name will end in a 's'. For example,
+if you create a  dog model they will assume the table will be called 'dogs'. If you
+did not create a plural table name then you need to make sure that. You change the
+name with this method
+```
+ // the command to make the model
+ php artisan make:model Dog
+
+ // the Dog model file
+ <?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Dog extends Model
+{
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'dog';
+}
+```
+- the protected **$table** variable will allow you to change the table name it is
+looking for.
+
+[go back to home][home]
+
+
+### HOW TO CHANGE PRIMARY KEY NAME
+
+```
+
+```
+
+[go back to home][home]
+
+
+### HOW TO DISABLE TIMESTAMPS
+
+```
+
+```
+
 [go back to home][home]
 
 
