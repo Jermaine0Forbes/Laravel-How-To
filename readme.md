@@ -122,18 +122,18 @@ looking for.
 
 
 ### HOW TO CHANGE PRIMARY KEY NAME
-
+- write this in the model
 ```
-
+    public $primaryKey = "new_id";
 ```
 
 [go back to home][home]
 
 
 ### HOW TO DISABLE TIMESTAMPS
-
+- write this in the model
 ```
-
+    public $timestamps = false;
 ```
 
 [go back to home][home]
