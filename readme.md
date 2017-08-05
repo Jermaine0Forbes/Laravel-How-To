@@ -11,6 +11,7 @@
 - [how to change primary key name][prime-name]
 - [how to disable timestamps][timestamps]
 - [how to add your database information][data-info]
+- [how to change the created and updated timestamps][create-update]
 
 ## View
 - [how to extend a blade layout][extend]
@@ -29,6 +30,21 @@
 [name-model]:#how-to-alter-model-name
 [prime-name]:#how-to-change-primary-key-name
 [timestamps]:#how-to-disable-timestamps
+[create-update]:#how-to-change-the-timestamps
+
+### HOW TO CHANGE THE TIMESTAMPS
+- If you want to change the created_at and updated_at column then you
+can alter the model.
+```
+class Dog extends Model{
+    
+    const $CREATED_AT = 'created_date'
+
+    const $UPDATED_AT = 'update_bitch'
+}
+```
+
+[go back to home][home]
 
 ### HOW TO CREATE A PROJECT WITH COMPOSER
 - the command formula is: composer create-project **PACKAGE** **DESINATION PATH**
