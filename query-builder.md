@@ -5,6 +5,9 @@
 - [how to use the limit method][limit]
 - [how to use the first method][first]
 - [how to retrieve one value from a table][value]
+- [how to retrieve all the columns and rows from a table][all]
+- [how to retrieve a row by its primary key][find]
+- [how to create data][create]
 
 [home]:#query-builder
 [select]:#how-to-use-the-select-method
@@ -12,6 +15,46 @@
 [first]:#how-to-use-the-first-method
 [value]:#how-to-retrieve-one-value-from-a-table
 [alias]:#how-to-shorten-the-name-of-model-path
+[all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
+[find]:#how-to-retrieve-a-row-by-its-primary-key
+[create]:#how-to-create-data
+
+
+### how to create data
+```
+	public function insert(Request $req){
+		$pokemon = new poke;
+
+		$pokemon->name = $req->name;
+
+		$pokemon->save();
+
+	}
+```
+
+[go back to home][home]
+
+### how to retrieve a row by its primary key
+- how to grab 1 key
+```
+	//grabs the row with the primary key of 1
+    $result = poke::find(1);
+```
+- how to grab multiple keys
+```
+	//grabs the row with the primary key of 1, 2, 3
+    $result = poke::find([1,2,3]);
+```
+
+[go back to home][home]
+
+### how to retrieve all the columns and rows from a table
+- its pretty easy
+```
+    $result = poke::all();
+```
+
+[go back to home][home]
 
 ### how to shorten the name of the model path
 - the mode path is actually a namespace, but I probably wouldn't know what
@@ -30,7 +73,7 @@ giving it an **alias**, so like you will see in the code
 
 
 ### how to retrieve one value from a table
--  If you want to retrieve a single value from a row 
+-  If you want to retrieve a single value from a row
 you do it like this
 ```
 	$result = poke::where('name','charmander')->value('attack');

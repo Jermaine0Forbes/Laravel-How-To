@@ -13,6 +13,7 @@
 - [how to add your database information][data-info]
 - [how to change the created and updated timestamps][create-update]
 
+
 ## View
 - [how to extend a blade layout][extend]
 
@@ -32,12 +33,13 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 
+
 ### HOW TO CHANGE THE TIMESTAMPS
 - If you want to change the created_at and updated_at column then you
 can alter the model.
 ```
 class Dog extends Model{
-    
+
     const $CREATED_AT = 'created_date'
 
     const $UPDATED_AT = 'update_bitch'
