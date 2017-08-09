@@ -101,7 +101,7 @@ purpose of this. Supposedly it protects your application so... okay
 - Now a **migration** is a process of creating a file that has the typical schema
 of the table that you created. With this file you can alter the schema's data types
 and other shit. Well, at least that is what I read from this
-- [how do laravel migrations work?][https://stackoverflow.com/questions/30220377/how-do-laravel-migrations-work]
+- [how do laravel migrations work?](https://stackoverflow.com/questions/30220377/how-do-laravel-migrations-work)
 
 
 [go back to home][home]
