@@ -19,6 +19,7 @@
 
 ## Controller
 - [how to create a controller][control]
+- [how to create a single action controller][single-control]
 
 [home]:#laravel-how-to
 [extend]:#how-to-extend-a-blade-layout
@@ -32,6 +33,28 @@
 [prime-name]:#how-to-change-primary-key-name
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
+[single-control]:#how-to-create-a-single-action-controller
+
+
+### HOW TO CREATE A SINGLE ACTION CONTROLLER
+- If you are only going to use the controller for one action then
+you have to add the **_invoke** function in the controller
+
+```php
+    class Index extends Controller{
+
+        public function _invoke(){
+
+            // add some code
+        }
+    }
+
+    // and in the routes or web.php
+
+    Route::get(''/someRoute' , 'Index');
+```
+
+[go back to home][home]
 
 
 ### HOW TO CHANGE THE TIMESTAMPS
