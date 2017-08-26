@@ -4,6 +4,7 @@
 - [how to create a project with composer][create-project]
 - [how to remove 500 internal server error][500]
 - [how to generate a new application key][new-key]
+- [how to make your laravel project work when pulling it from github][pulling]
 
 ## Model
 - [how to create a model][create-model]
@@ -21,6 +22,7 @@
 - [how to create a controller][control]
 - [how to create a single action controller][single-control]
 
+[pulling]:#how-to-make-your-laravel-project-work-when-pulling-it-from-github
 [home]:#laravel-how-to
 [extend]:#how-to-extend-a-blade-layout
 [control]:#how-to-create-a-controller
@@ -35,6 +37,21 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+
+### HOW TO MAKE YOUR LARAVEL PROJECT WORK WHEN PULLING IT FROM GITHUB
+- follow these simple commands in the terminal
+
+```
+    sudo chmod -R 755 ./
+
+    sudo chmod -R o+w ./storage
+
+    composer update
+
+    sudo cp .env.example .env
+
+    php artisan key:generate
+```
 
 ### HOW TO CREATE A SINGLE ACTION CONTROLLER
 - If you are only going to use the controller for one action then
