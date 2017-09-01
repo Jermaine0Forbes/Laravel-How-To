@@ -1,6 +1,7 @@
 # Laravel How To
 
 ## Installation
+- [how to setup laravel][laravel]
 - [how to create a project with composer][create-project]
 - [how to remove 500 internal server error][500]
 - [how to generate a new application key][new-key]
@@ -22,6 +23,7 @@
 - [how to create a controller][control]
 - [how to create a single action controller][single-control]
 
+[laravel]:#how-to-setup-laravel
 [pulling]:#how-to-make-your-laravel-project-work-when-pulling-it-from-github
 [home]:#laravel-how-to
 [extend]:#how-to-extend-a-blade-layout
@@ -37,11 +39,61 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+### HOW TO SETUP LARAVEL
+
+```
+sudo apt-get update upgrade
+
+sudo apt-get install git zip
+
+sudo apt-get install curl php-curl php-mcrypt php-mbstring php-gettext
+
+sudo phpenmod mcrypt; sudo phpenmod mbstring; sudo a2enmod rewrite
+
+sudo service apache2 restart
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/local/bin/composer
+
+composer create-project laravel/laravel your-project --prefer-dist
+
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/laravel.conf
+
+sudo nano laravel.conf
+
+// inside laravel.conf
+<VirtualHost *:80>
+        ServerName work.com
+        DocumentRoot /var/www/html/your-project/public
+
+        <Directory /var/www/html/your-project/public>
+            AllowOverride All
+            Require all granted
+        </Directory>
+</VirtualHost>
+
+sudo a2ensite laravel.conf; sudo service apache2 reload
+
+cd your-project
+
+sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+
+```
+**reference**
+- [Install laravel 5 on Ubuntu 16.04](https://askubuntu.com/questions/764782/install-laravel-5-on-ubuntu-16-04)
+- [Installing Laravel PHP Framework on Ubuntu](https://www.howtoforge.com/tutorial/install-laravel-on-ubuntu-for-apache/)
+
+[go back home][home]
+
+
 
 ### HOW TO MAKE YOUR LARAVEL PROJECT WORK WHEN PULLING IT FROM GITHUB
 - follow these simple commands in the terminal
 
 ```
+    // if you are inside the laravel project
+
     sudo chmod -R 755 ./
 
     sudo chmod -R o+w ./storage
