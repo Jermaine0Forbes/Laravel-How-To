@@ -1,5 +1,6 @@
 # Query Builder
 
+- [all query builder options][all]
 - [how to shorten the name of the model path][alias]
 - [how to use the select method][select]
 - [how to use the limit method][limit]
@@ -9,6 +10,7 @@
 - [how to retrieve a row by its primary key][find]
 - [how to create data][create]
 
+[all]:#all-query-builder-options
 [home]:#query-builder
 [select]:#how-to-use-the-select-method
 [limit]:#how-to-use-the-limit-method
@@ -18,6 +20,15 @@
 [all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
+
+### all query builder options
+Here is the link to see all of the different commands. Or at least the most common
+ones.
+
+**reference**
+- [query builder](https://laravel.com/docs/4.2/queries)
+
+[go back home][home]
 
 
 ### how to create data
