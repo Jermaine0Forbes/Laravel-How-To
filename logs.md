@@ -1,5 +1,58 @@
 # laravel logs
 
+## 10/12/17
+
+### One of the ways to do a form validation
+
+```php
+<?php
+
+public function store(Request $req){
+
+    $this->validate(request(),[
+        'title' => 'required|min:12',
+        'body' => 'required'
+    ])
+}
+
+
+```
+#### I think this is the second way
+
+```php
+<?php
+
+public function store(Request $request){
+
+            $request->validate([
+            'title' => 'required|unique:posts|max:255',
+            'body' => 'required',
+            'publish_at' => 'nullable|date',
+        ]);
+}
+
+
+```
+
+### if you want to print out form validation errors on the view page
+
+make sure you put this somewhere in the form page so that it will return the validation
+errors. I am assuming the **$errors**  variable is global so you can call it anytime
+
+```php
+@if($errors->any())
+  <div class="alert alert-danger">
+    <ul>
+    @foreach ($errors->all() as $err )
+        <li > {{$err}}</li>
+    @endforeach
+    </ul>
+  </div>
+
+@endif
+
+```
+
 ## 8/30/17
 
 ### tasks

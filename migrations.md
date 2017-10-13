@@ -30,11 +30,18 @@ create when you enter in the command **php artisan migrate**
 
 
 ### view all schema options
-I might create my own table to I don't have to do the link. But I am too lazy to
+I might create my own table to I don't have to use the link. But I am too lazy to
 do it right now
 
 **reference**
 - [schema table](https://laravel.com/docs/4.2/schema)
+
+Command|Description
+--|--
+`$table->bigIncrements('id')`|Incrementing ID using a "big integer" equivalent.
+`$table->date('created_at')`|DATE equivalent to the table
+`$table->increments('id')` | Incrementing ID to the table (primary key).
+`$table->integer('votes')` | INTEGER equivalent to the table
 
 [go back to home][home]
 

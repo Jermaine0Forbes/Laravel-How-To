@@ -28,6 +28,13 @@ ones.
 **reference**
 - [query builder](https://laravel.com/docs/4.2/queries)
 
+Commands|Description
+--|--
+`$users = DB::table('users')->get();`|Retrieving All Rows From A Table
+`$user = DB::table('users')->where('name', 'John')->first();` |Retrieving A Single Row From A Table
+`$name = DB::table('users')->where('name', 'John')->pluck('name');` |Retrieving A Single Column From A Row
+`$roles = DB::table('roles')->lists('title');` |Retrieving A List Of Column Values
+
 [go back home][home]
 
 

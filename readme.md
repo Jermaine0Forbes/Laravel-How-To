@@ -22,7 +22,14 @@
 ## Controller
 - [how to create a controller][control]
 - [how to create a single action controller][single-control]
+- [how to create a controller with all the CRUD methods][crud-control]
 
+
+## Form
+- [how to create a proper form structure][form]
+
+[form]:#how-to-create-a-proper-form-structure
+[crud-control]:#how-to-create-a-controller-with-all-the-crud-methods
 [laravel]:#how-to-setup-laravel
 [pulling]:#how-to-make-your-laravel-project-work-when-pulling-it-from-github
 [home]:#laravel-how-to
@@ -38,6 +45,37 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+### HOW TO CREATE A PROPER FORM STRUCTURE
+
+**reference**
+- [csrf](https://laravel.com/docs/5.5/csrf)
+
+just the add the csrf token and you are good
+
+```php
+
+<form method="POST" action="/profile">
+    {{ csrf_field() }}
+    ...
+</form>
+```
+
+[go back home][home]
+
+
+
+### HOW TO CREATE A CONTROLLER WITH ALL THE CRUD METHODS
+
+```
+php artisan make:controller insertController -r
+
+OR
+
+php artisan make:controller insertController --resource
+```
+
+[go back home][home]
 
 ### HOW TO SETUP LARAVEL
 
