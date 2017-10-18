@@ -79,6 +79,8 @@ php artisan make:controller insertController --resource
 
 ### HOW TO SETUP LARAVEL
 
+1. in the terminal
+
 ```
 sudo apt-get update upgrade
 
@@ -95,9 +97,17 @@ curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
 composer create-project laravel/laravel your-project --prefer-dist
+```
 
+2. copy default config file to new config
+
+```
 sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/laravel.conf
 
+```
+3. make changes to the config file
+
+```
 sudo nano laravel.conf
 
 // inside laravel.conf
@@ -110,7 +120,11 @@ sudo nano laravel.conf
             Require all granted
         </Directory>
 </VirtualHost>
+```
 
+4. enable site and give 'others' authorization to write
+
+```
 sudo a2ensite laravel.conf; sudo service apache2 reload
 
 cd your-project
@@ -142,6 +156,9 @@ sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 
     php artisan key:generate
 ```
+[go back home][home]
+
+
 
 ### HOW TO CREATE A SINGLE ACTION CONTROLLER
 - If you are only going to use the controller for one action then
@@ -189,6 +206,7 @@ with, but I don't have all the information available right now.
 [go back to home][home]
 
 
+
 ### HOW TO REMOVE 500 INTERNAL SERVER ERROR
 - to remove the 500 error signal you need to type in the command line
 
@@ -203,6 +221,7 @@ with, but I don't have all the information available right now.
 [go back to home][home]
 
 
+
 ### HOW TO GENERATE A NEW APPLICATION KEY
 - if you create a laravel project with composer, then it will automatically
 create the key. However, **if you pull a project from github**, then it will not
@@ -215,6 +234,7 @@ purpose of this. Supposedly it protects your application so... okay
   Application key [Idgz1PE3zO9iNc0E3oeH3CHDPX9MzZe3] set successfully.
 ```
 [go back to home][home]
+
 
 
 ### HOW TO CREATE A MODEL
@@ -235,6 +255,8 @@ and other shit. Well, at least that is what I read from this
 
 
 [go back to home][home]
+
+
 
 
 ### HOW TO ALTER MODEL NAME
@@ -267,6 +289,7 @@ class Dog extends Model
 looking for.
 
 [go back to home][home]
+
 
 
 ### HOW TO CHANGE PRIMARY KEY NAME

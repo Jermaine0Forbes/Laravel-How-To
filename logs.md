@@ -1,5 +1,100 @@
 # laravel logs
 
+## 10/17/17
+
+### how to format date data
+
+```
+    {{$post->updated_at->format('m/d/y')}}
+
+    // this will output the date in a day / month / year format
+    // for example: 10/17/17
+```
+
+### how to format a date in a human readable format
+
+```
+    {{$post->updated_at->diffForHumans()}}
+
+    // for example: 0 seconds ago
+```
+
+### method field function
+in laravel the method field function replaces the **post** request for patch,
+delete, and put since most browsers only operate on post and get
+
+```
+<form  >
+
+{{ method_field('PATCH')}}
+ ...
+```
+
+### to check the route name
+Route::is checks the route name for  the current route that you are in and returns
+the bool value. This is greate if you want to make things visible on some routes or
+not.
+
+````
+@if( Route::is('post.index'))
+     do something
+@else
+    do something else
+@endif
+
+```
+
+
+## 10/13/17
+
+### getting recent data
+
+This will get the data in ascending order
+
+```
+public function index($id){
+
+    $post = Post::latest()->get();
+
+    return view('post',['blog' =>$post]);
+}
+```
+
+### this command creates a model and a migration
+
+```
+php artisan make:model <insert name> -m
+```
+
+### what does this tinker do?
+
+**reference**
+- [laravel-news](https://laravel-news.com/laravel-tinker)
+
+So I keep seeing tinker in a tutorial about laravel. And I believe it can show you
+data inserted from the database, the code of functions, the code of classes and other things
+
+```
+    php artisan tinker
+
+    App\Post::all();
+
+    // this will get all the data from the Post model and print it to the terminal
+```
+
+### creating custom methods in model?
+
+So I am watching a tutorial on how to do comments in laravel. And they just made a
+addComment method in a model that they were using in a controller method. I want
+to copy what I saw but I don't know how useful it will be to me
+
+```
+
+public function addComment(){
+
+}
+```
+
 ## 10/12/17
 
 ### One of the ways to do a form validation
