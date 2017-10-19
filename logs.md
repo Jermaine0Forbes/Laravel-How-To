@@ -1,5 +1,122 @@
 # laravel logs
 
+---
+## 10/19/17
+
+### the location to find Auth::routes()
+`/vendor/laravel/framework/src/Illuminate/Routing/Router.php`
+
+Use the find method and search for **auth**. There you will find all of the routes
+
+### Some information about Facades, things that look like this Class::method()
+[sitepoint](https://www.sitepoint.com/how-laravel-facades-work-and-how-to-use-them-elsewhere/)
+
+### helpers and facades
+
+**Auth::guard()** this is a facade
+
+**auth()->guard()** this is a helper function
+
+apparently they both do the same thing and there is not really a difference in
+when to use these methods, so you can use one or the other
+
+---
+## 10/18/17
+
+### finally learned how to use form builder from laravel
+First off, you need to go to [this](https://laravelcollective.com/docs/5.4/html) website to learn how to download and add
+the classes in the config/app file in order for it to run. Then you need to look
+at the [api](https://laravel.com/api/5.4/Illuminate/Html/FormBuilder.html).This
+information will show you how to parameters to the most common methods that you
+will use to create form elements like **submit, text,textarea, input,label** and the
+like. I still don't know why it would be advantageous to use this method instead of
+just creating forms with regular html and adding a csrf_token
+
+### things to remember
+
+this is a simple way to login
+
+```
+    public function store(){
+
+        $this->validate([
+            'name' => 'required',
+            'password' => 'required',
+            'email' => 'required|email'
+            ]);
+
+        $user = User::create(request([
+             'name',
+             'email',
+             'password'
+            ]));
+
+        auth()->login($user);
+    }
+
+```
+
+this is a simple way to logout
+
+`auth()->logout();`
+
+### password confirmation
+
+In order to have a password confirmation in laravel you need to add **confirm** in
+the validate method and have a **_confirmation** as the name to a field
+
+```
+// In form
+
+<div class="form-group">
+    <label for="password_confirmation">Password Confirmation </label>
+    <input type="password" name="password_confirmation" />
+</div>
+
+```
+
+
+```
+// In controller
+public function store(){
+
+    $this->validate([
+        'name' => 'required',
+        'password' => 'required|confirm',
+        'email' => 'required|email'
+        ]);
+
+        ....
+}
+```
+
+### Auth::check()
+
+okay, based on the tutorial I am watching I believe that this method is to check
+whether a user is signed in or not. The method seems to return a boolean value and
+if it is true then you will execute some code
+
+```
+@if(Auth::check())
+    //do something
+@endif
+
+```
+
+### auth()->attempt()
+
+I think this checks if your login credentials are valid or not.
+
+```
+// In controller
+
+if(!auth()->attempt(request(['username','password']))){
+
+    return back();
+}
+
+```
+---
 ## 10/17/17
 
 ### how to format date data
@@ -35,7 +152,7 @@ Route::is checks the route name for  the current route that you are in and retur
 the bool value. This is greate if you want to make things visible on some routes or
 not.
 
-````
+```
 @if( Route::is('post.index'))
      do something
 @else
