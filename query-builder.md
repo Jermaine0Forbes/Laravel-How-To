@@ -26,21 +26,50 @@ Here is the link to see all of the different commands. Or at least the most comm
 ones.
 
 **reference**
-- [query builder](https://laravel.com/docs/4.2/queries)
+- [query builder 4.2](https://laravel.com/docs/4.2/queries)
+- [query builder 5.5](https://laravel.com/docs/4.2/queries)
+
+#### Select
 
 Commands|Description
 --|--
 `$users = DB::table('users')->get();`|Retrieving all rows from a table
-`$user = DB::table('users')->where('name', 'John')->first();` |Retrieving a single row from a table
-`$name = DB::table('users')->where('name', 'John')->pluck('name');` |Retrieving a single column from a row
 `$users = DB::table('users')->select('name')->get();` |Retrieving all names
 `$users = DB::table('users')->select('name as user_name')->get();` |Retrieving all names as user_name
 `$users = DB::table('users')->select('name' , 'email', 'sex')->get();` |Retrieving all rows that have name, email, and sex
 `$query = DB::table('users')->select('name');$users = $query->addSelect('age')->get();` |Adding a select clause to an existing query
+`$users = Users::selectRaw('account * ? as price_with_tax', [1.0825])->get();` |Making a raw SQL query
+
+
+#### Where
+
+Commands|Description
+--|--
+`$user = DB::table('users')->where('name', 'John')->first();` |Retrieving a single row from a table
+`$name = DB::table('users')->where('name', 'John')->pluck('name');` |Retrieving a single column from a row
 `$email = DB::table('users')->where('name', 'John')->value('email');` |Retrieving a value from one column
+
+#### Numbers
+
+Commands|Description
+--|--
 `$users = DB::table('users')->count();` |Retrieves the total number of columns
 `$price = DB::table('price')->max();` |Retrieves the max value of a column
+`$price = DB::table('price')->sum();` |Retrieves the total sum of a column
+
+#### Date
+
+Commands|Description
+--|--
 `$price = DB::table('price')->latest();` |Retrieves the most recent column
+`$price = DB::table('price')->oldest();` |Retrieves the oldest column
+
+#### Order
+
+Commands|Description
+--|--
+`$users = DB::table('users')->orderBy('name', 'desc')->get();;` |Retrieves rows in descending order
+
 
 [go back home][home]
 

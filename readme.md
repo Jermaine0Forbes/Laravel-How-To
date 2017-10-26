@@ -27,7 +27,9 @@
 
 ## Form
 - [how to create a proper form structure][form]
+- [form builder table][form-table]
 
+[form-table]:#form-builder-table
 [form]:#how-to-create-a-proper-form-structure
 [crud-control]:#how-to-create-a-controller-with-all-the-crud-methods
 [laravel]:#how-to-setup-laravel
@@ -46,10 +48,12 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+
 ### HOW TO CREATE A PROPER FORM STRUCTURE
 
 **reference**
 - [csrf](https://laravel.com/docs/5.5/csrf)
+- [form builder](https://laravelcollective.com/docs/master/html)
 
 just the add the csrf token and you are good
 
@@ -60,6 +64,56 @@ just the add the csrf token and you are good
     ...
 </form>
 ```
+
+#### With Form Builder
+
+1. in terminal
+
+```
+composer require "laravelcollective/html":"^5.4.0"
+```
+
+2. in **providers** and **aliases** of `config\app.php`
+
+```
+'providers' => [
+    // ...
+    Collective\Html\HtmlServiceProvider::class,
+    // ...
+  ],
+
+  'aliases' => [
+    // ...
+      'Form' => Collective\Html\FormFacade::class,
+      'Html' => Collective\Html\HtmlFacade::class,
+    // ...
+  ],
+```
+
+3. how to create a form in view template
+
+```
+{!! Form::open(['url' => 'foo/bar']) !!}
+    //
+{!! Form::close() !!}
+```
+
+4. that's pretty much it
+
+[go back home][home]
+
+
+### FORM BUILDER TABLE
+
+**reference**
+- [form builder methods](https://laravel.com/api/5.4/Illuminate/Html/FormBuilder.html)
+
+Method|Description
+--|--
+`{!! Form::label('title','',['class'=>'h3']) !!}` |Label element
+`{!! Form::text('title','',['class'=>'form-control']) !!}` |Text input
+`{!! Form::textarea('body','',['class'=>'form-control', 'rows'=>'4' , 'required']) !!}` |Textarea element
+`{!! Form::submit('submit',['class'=>'btn btn-primary']) !!}` |Submit button
 
 [go back home][home]
 
