@@ -30,10 +30,17 @@ ones.
 
 Commands|Description
 --|--
-`$users = DB::table('users')->get();`|Retrieving All Rows From A Table
-`$user = DB::table('users')->where('name', 'John')->first();` |Retrieving A Single Row From A Table
-`$name = DB::table('users')->where('name', 'John')->pluck('name');` |Retrieving A Single Column From A Row
-`$roles = DB::table('roles')->lists('title');` |Retrieving A List Of Column Values
+`$users = DB::table('users')->get();`|Retrieving all rows from a table
+`$user = DB::table('users')->where('name', 'John')->first();` |Retrieving a single row from a table
+`$name = DB::table('users')->where('name', 'John')->pluck('name');` |Retrieving a single column from a row
+`$users = DB::table('users')->select('name')->get();` |Retrieving all names
+`$users = DB::table('users')->select('name as user_name')->get();` |Retrieving all names as user_name
+`$users = DB::table('users')->select('name' , 'email', 'sex')->get();` |Retrieving all rows that have name, email, and sex
+`$query = DB::table('users')->select('name');$users = $query->addSelect('age')->get();` |Adding a select clause to an existing query
+`$email = DB::table('users')->where('name', 'John')->value('email');` |Retrieving a value from one column
+`$users = DB::table('users')->count();` |Retrieves the total number of columns
+`$price = DB::table('price')->max();` |Retrieves the max value of a column
+`$price = DB::table('price')->latest();` |Retrieves the most recent column
 
 [go back home][home]
 

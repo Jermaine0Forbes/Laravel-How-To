@@ -42,6 +42,11 @@ Command|Description
 `$table->date('created_at')`|DATE equivalent to the table
 `$table->increments('id')` | Incrementing ID to the table (primary key).
 `$table->integer('votes')` | INTEGER equivalent to the table
+`$table->dateTime('created_at');` | DATETIME equivalent to the table
+`$table->decimal('amount', 5, 2);` | DECIMAL equivalent with a precision and scale
+`$table->timestamps();` | Adds created_at and updated_at columns
+`$table->text('description');` | TEXT equivalent to the table
+`$table->string('name', 100);` | VARCHAR equivalent with a length
 
 [go back to home][home]
 

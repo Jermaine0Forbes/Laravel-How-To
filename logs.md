@@ -1,5 +1,54 @@
 # laravel logs
 
+
+---
+## 10/25/17
+
+### cache:clear?
+
+**reference**
+- [stackoverflow](https://stackoverflow.com/questions/43718391/laravel-throws-the-bootstrap-cache-directory-must-be-present-and-writable-erro)
+
+I think the purpose of `php artisan cache:clear` is to refresh the application . I found out that when you
+change `app:name` and you try to go to the website you get an error, unless you do **cache:clear**.  So if I ever
+change anything in the `config\app.php` location I need to run cache:clear in order for it to save or refresh the
+changes that I made.
+
+
+
+---
+## 10/24/17
+
+### different ways to update data
+
+**reference**
+- [laracasts](https://laracasts.com/discuss/channels/general-discussion/update-multiple-records-using-eloquent)
+- [Stackoverflow](https://stackoverflow.com/questions/32473870/how-to-update-a-record-in-laravel-eloquent)
+
+I have seen two ways so far to update data. This is one I am going to show will
+be good if you are trying to update multiple rows of data
+
+```
+public function store(){
+
+    User::where('name','john')->update('sex','female');
+}
+
+```
+#### OR
+
+
+```
+public function store(){
+
+    $user = User::find(10);
+    $user->name  = "myBooty";
+    $user->save();
+}
+
+```
+
+
 ---
 ## 10/19/17
 
@@ -19,6 +68,69 @@ Use the find method and search for **auth**. There you will find all of the rout
 
 apparently they both do the same thing and there is not really a difference in
 when to use these methods, so you can use one or the other
+
+### static methods?
+
+` static::selectRaw( select * from Post)`, If you see something like this where the
+static keyword is in front of the command, then I believe it is return a value from
+a facade. You know the class that call methods like `Post::comments()`. Here is an example
+
+```
+// In controller
+
+public function show(){
+
+    $post = Post::archives();
+}
+
+```
+```
+// In model
+
+public static function archives(){
+
+    return static::selectRaw(select month, year from archives )
+    ->groupBy('month');
+}
+
+```
+
+### view composer
+
+`view->composer()` : Allows you to add a variable to any view template that you
+want . Make sure you go to `./app/Providers/AppServiceProvider.php`, and add the
+ code in the **boot** method in order for it to work. This is what I saw in the tutorial
+
+```
+public function boot(){
+
+    $post = new Post;
+
+    view()->composer('layouts.sidebar', function($view){
+            $view->with('sidebar', $post->archives() )
+        })
+}
+```
+
+### view()->with()
+
+The _with_ method is similar to doing `return view('home',['var'=>$data])`, except
+you do `return view('home')->with('var',$data)` instead.
+
+### dependency injection, what does it mean?
+
+[sitepoint](https://www.sitepoint.com/dependency-injection-laravels-ioc/)
+
+I have no fucking clue. All the examples I see of it have to do with you passing a
+class into a method or constructor of another class. So I am assuming that is what it
+means. I think I read an article that said it is passing a component into a method of
+a class, but the component is a class though so... yeah.
+
+### App::bind does ...
+
+I don't know, all I am hearing throughout this tutorial is about service containers.
+I don't know useful service containers are and why should I give a fuck. I might have
+to look into what a **service container**  purpose is anyways.
 
 ---
 ## 10/18/17

@@ -79,6 +79,11 @@ php artisan make:controller insertController --resource
 
 ### HOW TO SETUP LARAVEL
 
+**reference**
+- [Install laravel 5 on Ubuntu 16.04](https://askubuntu.com/questions/764782/install-laravel-5-on-ubuntu-16-04)
+- [Installing Laravel PHP Framework on Ubuntu](https://www.howtoforge.com/tutorial/install-laravel-on-ubuntu-for-apache/)
+
+
 1. in the terminal
 
 ```
@@ -132,12 +137,9 @@ cd your-project
 sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 
 ```
-**reference**
-- [Install laravel 5 on Ubuntu 16.04](https://askubuntu.com/questions/764782/install-laravel-5-on-ubuntu-16-04)
-- [Installing Laravel PHP Framework on Ubuntu](https://www.howtoforge.com/tutorial/install-laravel-on-ubuntu-for-apache/)
 
 [go back home][home]
-
+---
 
 
 ### HOW TO MAKE YOUR LARAVEL PROJECT WORK WHEN PULLING IT FROM GITHUB
