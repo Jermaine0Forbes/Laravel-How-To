@@ -14,7 +14,7 @@
 - [how to disable timestamps][timestamps]
 - [how to add your database information][data-info]
 - [how to change the created and updated timestamps][create-update]
-- [how to create a model and migration][mode-migrate]
+- [how to create a model and migration][model-migrate]
 
 
 ## View
