@@ -2,15 +2,32 @@
 
 ## Authentication
 
+[how to create multiple authentication][multi-auth]
+
 [how to create a simple auth][auth]
 
 [how to redirect after login][redirect]
 
 ## API Authentication
 
+[multi-auth]:#how-to-create-multiple-authentication
 [redirect]:#how-to-redirect
 [auth]:#how-to-create-a-simple-auth
 [home]:#security-with-laravel
+
+### how to create multiple authentication
+
+1. create auth
+
+```
+php artisan make:auth
+```
+
+2. create admin model and migration table
+
+```
+
+```
 
 ### how to redirect after login
 In the **LoginController, RegisterController, and ResetPasswordController**

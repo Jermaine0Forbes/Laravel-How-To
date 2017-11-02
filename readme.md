@@ -14,6 +14,7 @@
 - [how to disable timestamps][timestamps]
 - [how to add your database information][data-info]
 - [how to change the created and updated timestamps][create-update]
+- [how to create a model and migration][mode-migrate]
 
 
 ## View
@@ -29,6 +30,7 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 
+[model-migrate]:#how-to-create-a-model-and-migration
 [form-table]:#form-builder-table
 [form]:#how-to-create-a-proper-form-structure
 [crud-control]:#how-to-create-a-controller-with-all-the-crud-methods
@@ -48,6 +50,14 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+
+### HOW TO CREATE A MODEL AND MIGRATION
+
+```
+php artisan make:model <insert name> -m
+```
+
+[go back home][home]
 
 ### HOW TO CREATE A PROPER FORM STRUCTURE
 
