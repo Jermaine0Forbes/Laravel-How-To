@@ -15,6 +15,8 @@
 - [how to add your database information][data-info]
 - [how to change the created and updated timestamps][create-update]
 - [how to create a model and migration][model-migrate]
+- [how to create a hasMany relationship][hasMany]
+- [how to create a belongsTo relationship][belongsTo]
 
 
 ## View
@@ -30,6 +32,8 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 
+[belongsTo]:#how-to-create-a-belongsTo-relationship
+[hasMany]:#how-to-create-a-hasMany-relationship
 [model-migrate]:#how-to-create-a-model-and-migration
 [form-table]:#form-builder-table
 [form]:#how-to-create-a-proper-form-structure
@@ -50,6 +54,46 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+
+### HOW TO CREATE A BELONGSTO RELATIONSHIP
+
+**reference**
+- [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
+
+```
+class User extends Model
+{
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function community()
+    {
+        return $this->belongsTo('App\Phone');
+    }
+}
+```
+
+[go back home][home]
+
+### HOW TO CREATE A HASMANY RELATIONSHIP
+
+**reference**
+- [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
+
+```
+class User extends Model
+{
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function girlfriends()
+    {
+        return $this->hasMany('App\Girlfriends');
+    }
+}
+```
+
+[go back home][home]
 
 ### HOW TO CREATE A MODEL AND MIGRATION
 
