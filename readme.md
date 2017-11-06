@@ -21,6 +21,7 @@
 
 ## View
 - [how to extend a blade layout][extend]
+- [how to include files ][include]
 
 ## Controller
 - [how to create a controller][control]
@@ -32,6 +33,7 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 
+[include]:#how-to-include-files
 [belongsTo]:#how-to-create-a-belongsTo-relationship
 [hasMany]:#how-to-create-a-hasMany-relationship
 [model-migrate]:#how-to-create-a-model-and-migration
@@ -55,10 +57,47 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 
+### HOW TO INCLUDE TO FILES
+
+Easy, just add `@include('file')`. If the file is another folder then put
+`@include('folder.file')`. And that is it
+
+```
+!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>Jermaine Forbes</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <header class="fluid menu-visible">
+                @include('header')
+            </header>
+                @include('components.button-group')
+            <main>
+                @yield('main')
+            </main>
+            <footer class="fluid">
+                @include('footer')
+            </footer >
+        </div>
+
+```
+[go back home][home]
+
 ### HOW TO CREATE A BELONGSTO RELATIONSHIP
 
 **reference**
 - [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
+
+**Note**: if your relationship a.k.a **foreign key** is something other than the name
+**id**. Then, you have to write add the foreign key name in second parameter like this
+`return $this->hasMany(Model::class,'other_id')`
 
 ```
 class User extends Model
@@ -79,6 +118,10 @@ class User extends Model
 
 **reference**
 - [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
+
+**Note**: if your relationship a.k.a **foreign key** is something other than the name
+**id**. Then, you have to write add the foreign key name in second parameter like this
+`return $this->hasMany(Model::class,'other_id')`
 
 ```
 class User extends Model
@@ -481,6 +524,35 @@ function and the section() function inside of it
     @stop
 
 ```
+
+### IF LAYOUT IS ANOTHER FOLDER
+
+you need to add `@extends('folder.file')`
+
+**layout.blade.php**
+
+```php
+    <html>
+        <head>
+        </head>
+        <body>
+            yield('main')
+        </body>
+    </html>
+
+```
+**main.blade.php**
+
+```php
+    @extends('layouts.layout')
+    @section('main')
+        <main>
+           this is the main content
+        </main>
+    @stop
+
+```
+
 [go back to home][home]
 
 ### HOW TO CREATE A CONTROLLER
