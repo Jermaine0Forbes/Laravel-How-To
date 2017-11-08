@@ -190,10 +190,127 @@ Route::prefix('admin')->group(function() {
   Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 });
 ```
-12. possibly create AdminForgotPasswordController and AdminResetPasswordController
+12.  create AdminLoginController and add this
 
+```
+public function __construct()
+{
+  $this->middleware('guest:admin');
+}
 
-13. in `/app/Exceptions/Handler.php` add this to the report method
+public function showLoginForm()
+{
+  return view('auth.admin-login');
+}
+
+public function login(Request $request)
+{
+  // Validate the form data
+  $this->validate($request, [
+    'email'   => 'required|email',
+    'password' => 'required|min:6'
+  ]);
+
+  // Attempt to log the user in
+  if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
+    // if successful, then redirect to their intended location
+    return redirect()->intended(route('admin.dashboard'));
+  }
+
+  // if unsuccessful, then redirect back to the login with the form data
+  return redirect()->back()->withInput($request->only('email', 'remember'));
+}
+```
+
+13. create AdminResetPasswordController and add this
+
+```
+/*
+|--------------------------------------------------------------------------
+| Password Reset Controller
+|--------------------------------------------------------------------------
+|
+| This controller is responsible for handling password reset requests
+| and uses a simple trait to include this behavior. You're free to
+| explore this trait and override any methods you wish to tweak.
+|
+*/
+
+use ResetsPasswords;
+
+/**
+ * Where to redirect users after resetting their password.
+ *
+ * @var string
+ */
+protected $redirectTo = '/admin';
+
+/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    $this->middleware('guest:admin');
+}
+
+protected function guard()
+{
+  return Auth::guard('admin');
+}
+
+protected function broker()
+{
+  return Password::broker('admins');
+}
+
+public function showResetForm(Request $request, $token = null)
+{
+    return view('auth.passwords.reset-admin')->with(
+        ['token' => $token, 'email' => $request->email]
+    );
+}
+```
+
+14. create AdminForgotPasswordController and add this
+
+```
+/*
+|--------------------------------------------------------------------------
+| Password Reset Controller
+|--------------------------------------------------------------------------
+|
+| This controller is responsible for handling password reset emails and
+| includes a trait which assists in sending these notifications from
+| your application to your users. Feel free to explore this trait.
+|
+*/
+
+use SendsPasswordResetEmails;
+
+/**
+ * Create a new controller instance.
+ *
+ * @return void
+ */
+public function __construct()
+{
+    $this->middleware('guest:admin');
+}
+
+protected function broker()
+{
+  return Password::broker('admins');
+}
+
+public function showLinkRequestForm()
+{
+    return view('auth.passwords.email-admin');
+}
+```
+
+15. in `/app/Exceptions/Handler.php` add this to the report method
 
 ```
 if($exception instanceof AuthenticationException){
@@ -214,9 +331,29 @@ if($exception instanceof AuthenticationException){
        parent::report($exception);
 ```
 
-14. in `/app/Exceptions/RedirectIfAuthenticated.php` add this to the handle method
+16. in `/app/Http/Middleware/RedirectIfAuthenticated.php` add this to the handle method
 
 ```
+public function handle (){
+
+    switch ($guard) {
+      case 'admin':
+        if (Auth::guard($guard)->check()) {
+          return redirect()->route('admin.dashboard');
+        }
+        break;
+
+      default:
+       if (Auth::guard($guard)->check()) {
+            return redirect('/home');
+        }
+        break;
+    }
+
+    return $next($request);
+
+}
+
 
 ```
 

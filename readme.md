@@ -33,6 +33,12 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 
+## Other
+- [how to add wysiwyg editor in laravel][wysiwyg]
+- [how to create a search engine][search-engine]
+
+[search-engine]:#how-to-create-a-search-engine
+[wysiwyg]:#how-to-add-wysiwyg-editor-in-laravel
 [include]:#how-to-include-files
 [belongsTo]:#how-to-create-a-belongsTo-relationship
 [hasMany]:#how-to-create-a-hasMany-relationship
@@ -55,6 +61,51 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+
+### HOW TO CREATE A SEARCH ENGINE
+
+**reference**
+- [Laravel search engine](https://stackoverflow.com/questions/28319061/laravel-search-engine)
+
+
+[go back home][home]
+
+
+### HOW TO ADD WYSIWYG EDITOR IN LARAVEL
+
+**reference**
+- [How to Add Wysiwyg Editor in Laravel?](https://www.technig.com/how-to-add-wysiwyg-editor-in-laravel/)
+
+#### Summernote Wysiwyg Editor
+
+[getting started](https://summernote.org/getting-started/#compiled-css-js)
+
+1. Add jquery and summernote files to the head tag
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js" ></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+  </head>
+```
+
+2. in body tag give an id to  an element that has **summernote** or whatever
+identification
+
+```html
+<div id="summernote">
+</div>
+```
+3. in the bottom of the body tag, make sure you intialize the summernote
+
+```js
+$(document).ready(function() {
+    $('#summernote').summernote();
+    });
+```
+
+[go back home][home]
 
 
 ### HOW TO INCLUDE TO FILES
