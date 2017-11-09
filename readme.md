@@ -63,6 +63,9 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 
+
+
+
 ### HOW TO CREATE A SEARCH ENGINE
 
 **reference**
@@ -341,7 +344,7 @@ sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 ```
 
 [go back home][home]
----
+
 
 
 ### HOW TO MAKE YOUR LARAVEL PROJECT WORK WHEN PULLING IT FROM GITHUB
