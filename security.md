@@ -64,6 +64,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Admin extends Authenticatable
 {
     //
+    use Notifiable;
 
     protected $guard = "admins";
 
@@ -150,12 +151,16 @@ public function index()
 
 10. duplicate login blade template from `/resources/views/auth/` and change the name to
 admin-login. Make minor modifications into the template by making sure the name
-**Admin** is placed in the blade file. Also **make sure you change the route name in the form**
+**Admin** is placed in the blade file. Also **make sure you change the route name in the form to**
+`admin.login.submit`
 
 ```
-<div class="panel panel-default">
+// At line 8
     <div class="panel-heading">ADMIN Login</div>
-    <div class="panel-body">
+```
+```
+// At line 11
+    <form class="form-horizontal" method="POST" action="{{ route('admin.login.submit') }}">
 ```
 
 11. duplicate the home blade and name it admin. Add the name admin into the file
@@ -182,7 +187,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 });
 ```
-13.  create AdminLoginController and add this
+13.  Add this into AdminLoginController
 
 ```
 public function __construct()
@@ -302,7 +307,7 @@ public function showLinkRequestForm()
 }
 ```
 
-16. in `/app/Exceptions/Handler.php` add this to the report method
+16. in `/app/Exceptions/Handler.php` add this to the **report method**
 
 ```
 if($exception instanceof AuthenticationException){
