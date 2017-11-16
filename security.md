@@ -102,12 +102,12 @@ class Admin extends Authenticatable
    'providers' => [
        'users' => [
            'driver' => 'eloquent',
-           'model' => App\Models\User::class,
+           'model' => App\\User::class,
        ],
 
        'admins' => [
            'driver' => 'eloquent',
-           'model' => App\Models\Admin::class,
+           'model' => App\Admin::class,
        ],
 
    ],
@@ -173,7 +173,7 @@ so that you know you logged in as admin
 
 12. add this into `/routes/web.php`
 
-```
+```php
 Route::prefix('admin')->group(function() {
   Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
   Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -189,7 +189,7 @@ Route::prefix('admin')->group(function() {
 ```
 13.  Add this into AdminLoginController
 
-```
+```php
 public function __construct()
 {
   $this->middleware('guest:admin');
@@ -221,7 +221,7 @@ public function login(Request $request)
 
 14. create AdminResetPasswordController and add this
 
-```
+```php
 /*
 |--------------------------------------------------------------------------
 | Password Reset Controller
