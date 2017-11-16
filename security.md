@@ -45,7 +45,13 @@ public function up()
         $table->timestamps();
     });
 ```
-4. also copy the user model to the admin model
+4. Migrate the tables
+
+```
+php artisan migrate
+```
+
+5. also copy the user model to the admin model
 
 ```
 <?php
@@ -67,7 +73,7 @@ class Admin extends Authenticatable
 }
 ```
 
-5. add admin guard to  `config/auth.php`
+6. add admin guard to  `config/auth.php`
 
 ```
 'guards' => [
@@ -106,19 +112,19 @@ class Admin extends Authenticatable
    ],
 ```
 
-6. create a Admin controller
+7. create a Admin controller
 
 ```
 php artisan make:controller AdminController
 ```
 
-7. create a AdminLogin controller
+8. create a AdminLogin controller
 
 ```
 php artisan make:controller  AdminLoginController
 ```
 
-8. copy all this shit into Admin controller
+9. copy all this shit into Admin controller
 
 ```
 /**
@@ -142,7 +148,7 @@ public function index()
 }
 ```
 
-9. duplicate login blade template from `/resources/views/auth/` and change the name to
+10. duplicate login blade template from `/resources/views/auth/` and change the name to
 admin-login. Make minor modifications into the template by making sure the name
 **Admin** is placed in the blade file. Also **make sure you change the route name in the form**
 
@@ -152,7 +158,7 @@ admin-login. Make minor modifications into the template by making sure the name
     <div class="panel-body">
 ```
 
-10. duplicate the home blade and name it admin. Add the name admin into the file
+11. duplicate the home blade and name it admin. Add the name admin into the file
 so that you know you logged in as admin
 
 ```
@@ -160,7 +166,7 @@ so that you know you logged in as admin
     <div class="panel-heading">ADMIN Dashboard</div>
 ```
 
-11. add this into `/routes/web.php`
+12. add this into `/routes/web.php`
 
 ```
 Route::prefix('admin')->group(function() {
@@ -176,7 +182,7 @@ Route::prefix('admin')->group(function() {
   Route::get('/password/reset/{token}', 'Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
 });
 ```
-12.  create AdminLoginController and add this
+13.  create AdminLoginController and add this
 
 ```
 public function __construct()
@@ -208,7 +214,7 @@ public function login(Request $request)
 }
 ```
 
-13. create AdminResetPasswordController and add this
+14. create AdminResetPasswordController and add this
 
 ```
 /*
@@ -259,7 +265,7 @@ public function showResetForm(Request $request, $token = null)
 }
 ```
 
-14. create AdminForgotPasswordController and add this
+15. create AdminForgotPasswordController and add this
 
 ```
 /*
@@ -296,7 +302,7 @@ public function showLinkRequestForm()
 }
 ```
 
-15. in `/app/Exceptions/Handler.php` add this to the report method
+16. in `/app/Exceptions/Handler.php` add this to the report method
 
 ```
 if($exception instanceof AuthenticationException){
@@ -317,7 +323,7 @@ if($exception instanceof AuthenticationException){
        parent::report($exception);
 ```
 
-16. in `/app/Http/Middleware/RedirectIfAuthenticated.php` add this to the handle method
+17. in `/app/Http/Middleware/RedirectIfAuthenticated.php` add this to the handle method
 
 ```
 public function handle (){

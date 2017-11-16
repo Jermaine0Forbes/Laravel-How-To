@@ -47,6 +47,8 @@ Command|Description
 `$table->timestamps();` | Adds created_at and updated_at columns
 `$table->text('description');` | TEXT equivalent to the table
 `$table->string('name', 100);` | VARCHAR equivalent with a length
+`$table->enum('level', ['easy', 'hard']);` | ENUM equivalent column.
+`$table->ipAddress('visitor');` | IP address equivalent column.
 
 [go back to home][home]
 
