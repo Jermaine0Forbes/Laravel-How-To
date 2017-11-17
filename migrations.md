@@ -23,7 +23,7 @@ create when you enter in the command **php artisan migrate**
 - [migrations](https://laravel.com/docs/5.5/migrations)
 
 ```
-    php artisan make:migrations create_users_table --table=users
+    php artisan make:migration create_users_table --table=users
 ```
 
 [go back home][home]
