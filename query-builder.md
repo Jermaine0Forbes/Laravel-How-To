@@ -60,7 +60,9 @@ use App\Pokemon;
 class PokemonController extends Controller{
 
 	public function index(){
-		$pokemon = Pokemon::get->groupBy('trainer_id');
+		$pokemon = Pokemon::get->groupBy(function($data){
+			return $data->trainer_id;
+		});
 
 		return view('home',"pokemon"=>$pokemon);
 	}
@@ -105,7 +107,7 @@ Collection {#187 ▼
 }
 ```
 
-
+[go back home][home]
 
 ### all query builder options
 Here is the link to see all of the different commands. Or at least the most common
