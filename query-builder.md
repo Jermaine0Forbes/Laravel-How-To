@@ -9,7 +9,9 @@
 - [how to retrieve all the columns and rows from a table][all]
 - [how to retrieve a row by its primary key][find]
 - [how to create data][create]
+- [how to group data by a column][groupBy]
 
+[groupBy]:#how-to-group-data-by-a-column
 [all]:#all-query-builder-options
 [home]:#query-builder
 [select]:#how-to-use-the-select-method
@@ -20,6 +22,90 @@
 [all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
+
+
+### how to group data by a column
+
+**reference**
+- [Laravel groupBy column](https://stackoverflow.com/questions/32978842/laravel-group-by-date-to-month-only-and-get-count)
+
+Let's look at this table for a second
+```
+
++----+------------+---------+-----+--------+---------+-------+------------+
+| id | name       | type    | hp  | attack | defense | speed | trainer_id |
++----+------------+---------+-----+--------+---------+-------+------------+
+|  1 | ghastly    | ghost   |  30 |     35 |      30 |    80 |          1 |
+|  2 | bulbasaur  | grass   | 110 |     65 |      85 |    27 |          2 |
+|  3 | weedle     | bug     |  75 |     87 |      35 |    50 |          3 |
+|  4 | abra       | psychic |  85 |     45 |      90 |    60 |          4 |
+|  5 | charmander | fire    | 100 |    130 |      56 |    46 |          1 |
+|  6 | psyduck    | water   |  90 |     75 |      66 |    33 |          3 |
+|  7 | ekans      | poison  |  35 |     60 |      44 |    55 |          4 |
+|  8 | geodude    | rock    |  40 |     80 |     100 |    20 |          5 |
+|  9 | staryu     | water   |  30 |     45 |      55 |    85 |          3 |
+| 10 | dragonair  | dragon  |  61 |     84 |      65 |    70 |          2 |
++----+------------+---------+-----+--------+---------+-------+------------+
+
+```
+
+There are multiple pokemon with similar trainers/trainer_id .  So lets say that I want
+to group the pokemon together based on the trainer ID.  I would do this in the controller
+
+```php
+
+<?php
+
+use App\Pokemon;
+class PokemonController extends Controller{
+
+	public function index(){
+		$pokemon = Pokemon::get->groupBy('trainer_id');
+
+		return view('home',"pokemon"=>$pokemon);
+	}
+}
+
+```
+
+This is what it looks like if you use the method `dd`. It will show you how the
+pokemon have been grouped based on the trainer_id 1-5.
+```
+Collection {#187 ▼
+  #items: array:5 [▼
+    1 => Collection {#178 ▼
+      #items: array:2 [▼
+        0 => pokemon {#193 ▶}
+        1 => pokemon {#197 ▶}
+      ]
+    }
+    2 => Collection {#177 ▼
+      #items: array:2 [▼
+        0 => pokemon {#194 ▶}
+        1 => pokemon {#202 ▶}
+      ]
+    }
+    3 => Collection {#190 ▼
+      #items: array:3 [▼
+        0 => pokemon {#195 ▶}
+        1 => pokemon {#198 ▶}
+        2 => pokemon {#201 ▶}
+      ]
+    }
+    4 => Collection {#189 ▼
+      #items: array:2 [▼
+        0 => pokemon {#196 ▶}
+        1 => pokemon {#199 ▶}
+      ]
+    }
+    5 => Collection {#188 ▼
+      #items: array:1 [▶]
+    }
+  ]
+}
+```
+
+
 
 ### all query builder options
 Here is the link to see all of the different commands. Or at least the most common
