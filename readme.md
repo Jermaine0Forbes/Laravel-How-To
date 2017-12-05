@@ -18,6 +18,9 @@
 - [how to create a hasMany relationship][hasMany]
 - [how to create a belongsTo relationship][belongsTo]
 
+## Mix/Webpack
+- [how to make 'npm run dev' work][mix-work]
+- [how to make typescript work][typescript]
 
 ## View
 - [how to extend a blade layout][extend]
@@ -37,6 +40,8 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[typescript]:#how-to-make-typescript-work
+[mix-work]:#how-to-make-npm-run-dev-work
 [search-engine]:#how-to-create-a-search-engine
 [wysiwyg]:#how-to-add-wysiwyg-editor-in-laravel
 [include]:#how-to-include-files
@@ -62,8 +67,53 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+### HOW TO MAKE TYPESCRIPT WORK
+
+Recently laravel has a way compile typescript code with `mix.ts(fileToCompile, LocationToSend)`
+
+1. You need to  create a tsconfig file
+
+```
+touch tsconfig.json
+```
+
+2. Put this code inside the config file
+
+```
+{
+    "lib": [
+        "dom",
+        "es5",
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "sourceMap": true,
+    },
+    "exclude":[
+	"node_modules",
+	"vendor"
+	],
+
+}
+```
+3. In the `webpack.mix.js` add the ts function
+
+```
+mix.ts('/resources/assets/typescript/example.ts', '/public/js/');
+
+```
+
+[go back home][home]
+
+### HOW TO MAKE NPM RUN DEV WORK
+
+If you are trying to compile sass, js, typescript, etc. with `webpack.mix.js`.
+And you get an error message when running `npm run dev` or any other command that
+is supposed to start the webpack. **Just run** `npm i`
 
 
+[go back home][home]
 
 
 ### HOW TO CREATE A SEARCH ENGINE
