@@ -1,9 +1,11 @@
 # Laravel How To
 
 ## Installation
+- [how to setup laravel][laravel]
 - [how to create a project with composer][create-project]
 - [how to remove 500 internal server error][500]
 - [how to generate a new application key][new-key]
+- [how to make your laravel project work when pulling it from github][pulling]
 
 ## Model
 - [how to create a model][create-model]
@@ -12,21 +14,49 @@
 - [how to disable timestamps][timestamps]
 - [how to add your database information][data-info]
 - [how to change the created and updated timestamps][create-update]
+- [how to create a model and migration][model-migrate]
+- [how to create a hasMany relationship][hasMany]
+- [how to create a belongsTo relationship][belongsTo]
 
+## Mix/Webpack
+- [how to make 'npm run dev' work][mix-work]
+- [how to make typescript work][typescript]
 
 ## View
 - [how to extend a blade layout][extend]
+- [how to include files ][include]
 
 ## Controller
 - [how to create a controller][control]
 - [how to create a single action controller][single-control]
+- [how to create a controller with all the CRUD methods][crud-control]
 
 ## Middleware
 
-## Other
-- [how to create authentication][auth]
 
-[auth]:#how-to-create-authentication
+
+## Form
+- [how to create a proper form structure][form]
+- [form builder table][form-table]
+
+## Other
+- [how to add wysiwyg editor in laravel][wysiwyg]
+- [how to create a search engine][search-engine]
+
+[typescript]:#how-to-make-typescript-work
+[mix-work]:#how-to-make-npm-run-dev-work
+[search-engine]:#how-to-create-a-search-engine
+[wysiwyg]:#how-to-add-wysiwyg-editor-in-laravel
+[include]:#how-to-include-files
+[belongsTo]:#how-to-create-a-belongsTo-relationship
+[hasMany]:#how-to-create-a-hasMany-relationship
+[model-migrate]:#how-to-create-a-model-and-migration
+[form-table]:#form-builder-table
+[form]:#how-to-create-a-proper-form-structure
+[crud-control]:#how-to-create-a-controller-with-all-the-crud-methods
+[laravel]:#how-to-setup-laravel
+[pulling]:#how-to-make-your-laravel-project-work-when-pulling-it-from-github
+>>>>>>> fa2e312c3c9bbab4f9362a695b76e78465d90d08
 [home]:#laravel-how-to
 [extend]:#how-to-extend-a-blade-layout
 [control]:#how-to-create-a-controller
@@ -40,6 +70,355 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+### HOW TO MAKE TYPESCRIPT WORK
+
+Recently laravel has a way compile typescript code with `mix.ts(fileToCompile, LocationToSend)`
+
+1. You need to  create a tsconfig file
+
+```
+touch tsconfig.json
+```
+
+2. Put this code inside the config file
+
+```
+{
+    "lib": [
+        "dom",
+        "es5",
+    ],
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "sourceMap": true,
+    },
+    "exclude":[
+	"node_modules",
+	"vendor"
+	],
+
+}
+```
+3. In the `webpack.mix.js` add the ts function
+
+```
+mix.ts('/resources/assets/typescript/example.ts', '/public/js/');
+
+```
+
+[go back home][home]
+
+### HOW TO MAKE NPM RUN DEV WORK
+
+If you are trying to compile sass, js, typescript, etc. with `webpack.mix.js`.
+And you get an error message when running `npm run dev` or any other command that
+is supposed to start the webpack. **Just run** `npm i`
+
+
+[go back home][home]
+
+
+### HOW TO CREATE A SEARCH ENGINE
+
+**reference**
+- [Laravel search engine](https://stackoverflow.com/questions/28319061/laravel-search-engine)
+
+
+[go back home][home]
+
+
+### HOW TO ADD WYSIWYG EDITOR IN LARAVEL
+
+**reference**
+- [How to Add Wysiwyg Editor in Laravel?](https://www.technig.com/how-to-add-wysiwyg-editor-in-laravel/)
+
+#### Summernote Wysiwyg Editor
+
+[getting started](https://summernote.org/getting-started/#compiled-css-js)
+
+1. Add jquery and summernote files to the head tag
+
+```html
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js" ></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote.js"></script>
+  </head>
+```
+
+2. in body tag give an id to  an element that has **summernote** or whatever
+identification
+
+```html
+<div id="summernote">
+</div>
+```
+3. in the bottom of the body tag, make sure you intialize the summernote
+
+```js
+$(document).ready(function() {
+    $('#summernote').summernote();
+    });
+```
+
+[go back home][home]
+
+
+### HOW TO INCLUDE TO FILES
+
+Easy, just add `@include('file')`. If the file is another folder then put
+`@include('folder.file')`. And that is it
+
+```
+!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>Jermaine Forbes</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <header class="fluid menu-visible">
+                @include('header')
+            </header>
+                @include('components.button-group')
+            <main>
+                @yield('main')
+            </main>
+            <footer class="fluid">
+                @include('footer')
+            </footer >
+        </div>
+
+```
+[go back home][home]
+
+### HOW TO CREATE A BELONGSTO RELATIONSHIP
+
+**reference**
+- [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
+
+**Note**: if your relationship a.k.a **foreign key** is something other than the name
+**id**. Then, you have to write add the foreign key name in second parameter like this
+`return $this->hasMany(Model::class,'other_id')`
+
+```
+class User extends Model
+{
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function community()
+    {
+        return $this->belongsTo('App\Phone');
+    }
+}
+```
+
+[go back home][home]
+
+### HOW TO CREATE A HASMANY RELATIONSHIP
+
+**reference**
+- [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
+
+**Note**: if your relationship a.k.a **foreign key** is something other than the name
+**id**. Then, you have to write add the foreign key name in second parameter like this
+`return $this->hasMany(Model::class,'other_id')`
+
+```
+class User extends Model
+{
+    /**
+     * Get the phone record associated with the user.
+     */
+    public function girlfriends()
+    {
+        return $this->hasMany('App\Girlfriends');
+    }
+}
+```
+
+[go back home][home]
+
+### HOW TO CREATE A MODEL AND MIGRATION
+
+```
+php artisan make:model <insert name> -m
+```
+
+[go back home][home]
+
+### HOW TO CREATE A PROPER FORM STRUCTURE
+
+**reference**
+- [csrf](https://laravel.com/docs/5.5/csrf)
+- [form builder](https://laravelcollective.com/docs/master/html)
+
+just the add the csrf token and you are good
+
+```php
+
+<form method="POST" action="/profile">
+    {{ csrf_field() }}
+    ...
+</form>
+```
+
+#### With Form Builder
+
+1. in terminal
+
+```
+composer require "laravelcollective/html":"^5.4.0"
+```
+
+2. in **providers** and **aliases** of `config\app.php`
+
+```
+'providers' => [
+    // ...
+    Collective\Html\HtmlServiceProvider::class,
+    // ...
+  ],
+
+  'aliases' => [
+    // ...
+      'Form' => Collective\Html\FormFacade::class,
+      'Html' => Collective\Html\HtmlFacade::class,
+    // ...
+  ],
+```
+
+3. how to create a form in view template
+
+```
+{!! Form::open(['url' => 'foo/bar']) !!}
+    //
+{!! Form::close() !!}
+```
+
+4. that's pretty much it
+
+[go back home][home]
+
+
+### FORM BUILDER TABLE
+
+**reference**
+- [form builder methods](https://laravel.com/api/5.4/Illuminate/Html/FormBuilder.html)
+
+Method|Description
+--|--
+`{!! Form::label('title','',['class'=>'h3']) !!}` |Label element
+`{!! Form::text('title','',['class'=>'form-control']) !!}` |Text input
+`{!! Form::textarea('body','',['class'=>'form-control', 'rows'=>'4' , 'required']) !!}` |Textarea element
+`{!! Form::submit('submit',['class'=>'btn btn-primary']) !!}` |Submit button
+
+[go back home][home]
+
+
+
+### HOW TO CREATE A CONTROLLER WITH ALL THE CRUD METHODS
+
+```
+php artisan make:controller insertController -r
+
+OR
+
+php artisan make:controller insertController --resource
+```
+
+[go back home][home]
+
+### HOW TO SETUP LARAVEL
+
+**reference**
+- [Install laravel 5 on Ubuntu 16.04](https://askubuntu.com/questions/764782/install-laravel-5-on-ubuntu-16-04)
+- [Installing Laravel PHP Framework on Ubuntu](https://www.howtoforge.com/tutorial/install-laravel-on-ubuntu-for-apache/)
+
+
+1. in the terminal
+
+```
+sudo apt-get update upgrade
+
+sudo apt-get install git zip
+
+sudo apt-get install curl php-curl php-mcrypt php-mbstring php-gettext
+
+sudo phpenmod mcrypt; sudo phpenmod mbstring; sudo a2enmod rewrite
+
+sudo service apache2 restart
+
+curl -sS https://getcomposer.org/installer | php
+
+sudo mv composer.phar /usr/local/bin/composer
+
+composer create-project laravel/laravel your-project --prefer-dist
+```
+
+2. copy default config file to new config
+
+```
+sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/laravel.conf
+
+```
+3. make changes to the config file
+
+```
+sudo nano laravel.conf
+
+// inside laravel.conf
+<VirtualHost *:80>
+        ServerName work.com
+        DocumentRoot /var/www/html/your-project/public
+
+        <Directory /var/www/html/your-project/public>
+            AllowOverride All
+            Require all granted
+        </Directory>
+</VirtualHost>
+```
+
+4. enable site and give 'others' authorization to write
+
+```
+sudo a2ensite laravel.conf; sudo service apache2 reload
+
+cd your-project
+
+sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+
+```
+
+[go back home][home]
+
+
+
+### HOW TO MAKE YOUR LARAVEL PROJECT WORK WHEN PULLING IT FROM GITHUB
+- follow these simple commands in the terminal
+
+```
+    // if you are inside the laravel project
+
+    sudo chmod -R 755 ./
+
+    sudo chmod -R o+w ./storage
+
+    composer update
+
+    sudo cp .env.example .env
+
+    php artisan key:generate
+```
+[go back home][home]
+
 
 
 ### HOW TO CREATE AUTHENTICATION
@@ -91,6 +470,7 @@ with, but I don't have all the information available right now.
 [go back to home][home]
 
 
+
 ### HOW TO REMOVE 500 INTERNAL SERVER ERROR
 - to remove the 500 error signal you need to type in the command line
 
@@ -105,6 +485,7 @@ with, but I don't have all the information available right now.
 [go back to home][home]
 
 
+
 ### HOW TO GENERATE A NEW APPLICATION KEY
 - if you create a laravel project with composer, then it will automatically
 create the key. However, **if you pull a project from github**, then it will not
@@ -117,6 +498,7 @@ purpose of this. Supposedly it protects your application so... okay
   Application key [Idgz1PE3zO9iNc0E3oeH3CHDPX9MzZe3] set successfully.
 ```
 [go back to home][home]
+
 
 
 ### HOW TO CREATE A MODEL
@@ -137,6 +519,8 @@ and other shit. Well, at least that is what I read from this
 
 
 [go back to home][home]
+
+
 
 
 ### HOW TO ALTER MODEL NAME
@@ -169,6 +553,7 @@ class Dog extends Model
 looking for.
 
 [go back to home][home]
+
 
 
 ### HOW TO CHANGE PRIMARY KEY NAME
@@ -250,6 +635,35 @@ function and the section() function inside of it
     @stop
 
 ```
+
+### IF LAYOUT IS ANOTHER FOLDER
+
+you need to add `@extends('folder.file')`
+
+**layout.blade.php**
+
+```php
+    <html>
+        <head>
+        </head>
+        <body>
+            yield('main')
+        </body>
+    </html>
+
+```
+**main.blade.php**
+
+```php
+    @extends('layouts.layout')
+    @section('main')
+        <main>
+           this is the main content
+        </main>
+    @stop
+
+```
+
 [go back to home][home]
 
 ### HOW TO CREATE A CONTROLLER
