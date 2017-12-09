@@ -21,6 +21,12 @@
 - [how to create a controller][control]
 - [how to create a single action controller][single-control]
 
+## Middleware
+
+## Other
+- [how to create authentication][auth]
+
+[auth]:#how-to-create-authentication
 [home]:#laravel-how-to
 [extend]:#how-to-extend-a-blade-layout
 [control]:#how-to-create-a-controller
@@ -34,6 +40,9 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+
+### HOW TO CREATE AUTHENTICATION
 
 
 ### HOW TO CREATE A SINGLE ACTION CONTROLLER
