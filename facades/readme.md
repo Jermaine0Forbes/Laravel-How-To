@@ -4,6 +4,12 @@
 
 ## Route 
 
+## Session
+
+- [Session::put]
+- [Session::has]
+- [Session::flash]
+
 ## Questions
 [what is a facade][what-facade]
 
