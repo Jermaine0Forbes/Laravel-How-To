@@ -35,6 +35,8 @@
 - [how to publicly store a file][file-store-public]
 - [how to retrieve a file][file-retrieve]
 
+## Middleware
+
 
 ## Form
 - [how to create a proper form structure][form]
@@ -513,6 +515,9 @@ sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 ```
 [go back home][home]
 
+
+
+### HOW TO CREATE AUTHENTICATION
 
 
 ### HOW TO CREATE A SINGLE ACTION CONTROLLER
