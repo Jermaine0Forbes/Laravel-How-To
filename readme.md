@@ -31,6 +31,10 @@
 - [how to create a single action controller][single-control]
 - [how to create a controller with all the CRUD methods][crud-control]
 
+## File Storage
+- [how to publicly store a file][file-store-public]
+- [how to retrieve a file][file-retrieve]
+
 
 ## Form
 - [how to create a proper form structure][form]
@@ -40,6 +44,8 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[file-retrieve]:#how-to-retrieve-a-file
+[file-store-public]:#how-to-publicly-store-a-file
 [typescript]:#how-to-make-typescript-work
 [mix-work]:#how-to-make-npm-run-dev-work
 [search-engine]:#how-to-create-a-search-engine
@@ -66,6 +72,98 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+### HOW TO RETRIEVE A FILE
+
+1. First create a symbolic link between `/public/storage` and `storage/app/public`
+
+```
+php artisan storage:link
+```
+
+2. Retrieve the file based on the name of it
+
+```php
+//in controller
+public function retrieveFile(){
+
+    $content = Storage::url('nameOfFile.jpg');
+
+    return view('home',['content'=>$content]);
+}
+```
+
+3. In the view put it in the src field -- if it is an image
+
+```php
+<img src="{{$content}}" />
+```
+
+[go back home][home]
+
+
+### HOW TO PUBLICLY STORE A FILE
+
+There are several ways to store a file with the `store()`,`storeAs`,`storePublicly()`,
+and`storePubliclyAs()` methods in the **request** object. I am going to use storePubliclyAs
+because I feel a little bit more comfortable with it.
+
+`request->file($key)->storePubliclyAs($pathToStoreIt,$nameOfFile,$otherOptions)`
+
+#### Some things to note
+- If you don't want to store the file in another folder you add **null** to the first
+parameter like so  `request->file($key)->storePubliclyAs(null,"dog.jpg")`
+
+**in the view**
+```php
+<form  action="" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+
+    @if($errors->any())
+      <div class="alert alert-danger my-3">
+        <ul>
+        @foreach ($errors->all() as $err )
+            <li > {{$err}}</li>
+        @endforeach
+        </ul>
+      </div>
+
+    @endif
+
+        <div class="form-group row">
+            <div class="col-md-2">
+                <label for="title">Upload an image</label>
+            </div>
+            <div class="col-md-8">
+                <input class="form-control" type="file" name="document" required>
+            </div>
+        </div>
+
+        <div class="form-group py-2">
+            <div class="col-md-2">
+                <input class="form-control btn btn-primary" type="submit" name="submit">
+            </div>
+        </div>
+
+</form>
+```
+
+**in the controller**
+
+```php
+public function uploadStore(Request $request){
+
+
+    $request->file("document")->storePubliclyAs(null,'one.jpg',['disk'=> 'public']);
+
+    return redirect('home');
+}
+```
+<div style="color:white; text-align:center; text-transform:uppercase; background:teal; width:200px; padding:1em;">
+[go back home][home]
+</div>
+
+
 
 ### HOW TO MAKE TYPESCRIPT WORK
 
