@@ -114,7 +114,7 @@ because I feel a little bit more comfortable with it.
 
 #### Some things to note
 - If you don't want to store the file in another folder you add **null** to the first
-parameter like so  `request->file($key)->storePubliclyAs(null,"dog.jpg")`
+parameter like so `request->file($key)->storePubliclyAs(null,"dog.jpg")`
 
 **in the view**
 ```php
@@ -230,6 +230,96 @@ is supposed to start the webpack. **Just run** `npm i`
 **reference**
 - [How to Add Wysiwyg Editor in Laravel?](https://www.technig.com/how-to-add-wysiwyg-editor-in-laravel/)
 
+#### TinyMCE Editor
+
+0. Go to [tinymce](https://www.tinymce.com/) and sign up for a free trial.
+
+01. There is a [page](https://store.ephox.com/my-account/api-key-manager/) where you have to add the websites where you are going to use
+the editor, so that tinymce can generate a specific key that will only work on the
+specified websites
+
+1. Now that you have the specified script with the api key, create a view that has
+a text area and paste the script
+
+```html
+<div class="card">
+    <div class="card-header">
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input class="form-control" type="text" name="title" value="Laravel Editor">
+        </div>
+        <div class="form-group">
+            <label for="title">Slug:</label>
+            <input class="form-control" type="text" name="slug" value="">
+        </div>
+
+    </div>
+
+    <div class="card-body">
+        <textarea name="name" rows="8" cols="80"></textarea>
+    </div>
+</div>
+<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=5xht8ww5c487c80xrgpi3ea81bid3wg3ffuzqijt3r9p61uo"></script>
+
+```
+2. Now you have to add another script to add in the options of how you want the editor
+to be displayed and shit. I literally copied some stuff off the [website](https://www.tinymce.com/docs/demo/image-tools/), there is
+other examples you can use though
+
+```html
+<script type="text/javascript">
+    tinymce.init({
+    selector: 'textarea',
+    height: 500,
+    menubar: false,
+    plugins: [
+    'advlist autolink lists link image charmap print preview anchor textcolor',
+    'searchreplace visualblocks code fullscreen',
+    'insertdatetime media table contextmenu paste code help'
+    ],
+    toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+    content_css: [
+    '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//www.tinymce.com/css/codepen.min.css']
+    });
+</script>
+```
+
+3. That is about it.
+
+#### Laravel CKEditor
+
+**reference**
+- [CKEditor Package](https://github.com/UniSharp/laravel-ckeditor)
+
+1. download package
+
+```
+composer require unisharp/laravel-ckeditor
+```
+2. add this class in `./config/app.php` in the providers section
+
+```
+Unisharp\Ckeditor\ServiceProvider::class,
+```
+3. run this command
+
+```
+php artisan vendor:publish --tag=ckeditor
+```
+
+4. After you create a view to hold the editor, add this javascript code in the bottom
+of the file
+
+```javascript
+<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+    <script src="/vendor/unisharp/laravel-ckeditor/adapters/jquery.js"></script>
+    <script>
+        $('textarea').ckeditor();
+        // $('.textarea').ckeditor(); // if class is prefered.
+    </script>
+```
+
 #### Summernote Wysiwyg Editor
 
 [getting started](https://summernote.org/getting-started/#compiled-css-js)
@@ -257,6 +347,17 @@ $(document).ready(function() {
     $('#summernote').summernote();
     });
 ```
+
+#### Froala WYSIWYG Editor
+
+1. download this package
+
+```
+composer require froala/wysiwyg-editor-php-sdk
+```
+2. Nevermind, this fucker wants you pay money for their editor
+
+
 
 [go back home][home]
 
