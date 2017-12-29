@@ -36,7 +36,8 @@
 - [how to retrieve a file][file-retrieve]
 
 ## Middleware
-
+- [how to create a middleware][middleware]
+- [make middleware global][global-middleware]
 
 ## Form
 - [how to create a proper form structure][form]
@@ -46,6 +47,8 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[global-middleware]:#make-middleware-global
+[middleware]:#how-to-create-a-middleware
 [file-retrieve]:#how-to-retrieve-a-file
 [file-store-public]:#how-to-publicly-store-a-file
 [typescript]:#how-to-make-typescript-work
@@ -74,6 +77,31 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+### MAKE MIDDLEWARE GLOBAL
+
+In `app/Http/Kernel.php` put your new middleware into **routeMiddleware** property
+
+```php
+protected $routeMiddleware = [
+    ..........
+
+    'newShit' => \App\Http\Middleware\NewShit::class,
+];
+```
+
+[go back home][home]
+
+### HOW TO CREATE A MIDDLEWARE
+
+**Note:** if you want to make it global you have to add it to **routeMiddleware**
+in the `app/Http/Kernel.php` location
+
+```
+php artisan create:middleware <insert name>
+```
+
+[go back home][home]
 
 ### HOW TO RETRIEVE A FILE
 
