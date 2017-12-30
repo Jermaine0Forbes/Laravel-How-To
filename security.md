@@ -32,7 +32,7 @@ php artisan make:model Admin -m
 3. copy user migration from `nameOfApp/database/migrations` and paste it into admin
 migration
 
-```
+```php
 // inside admins migration schema
 
 public function up()
@@ -54,7 +54,7 @@ php artisan migrate
 
 5. also copy the user model to the admin model
 
-```
+```php
 <?php
 
 namespace App;
@@ -77,7 +77,7 @@ class Admin extends Authenticatable
 
 6. add admin guard to  `config/auth.php`
 
-```
+```php
 'guards' => [
        'web' => [
            'driver' => 'session',
@@ -128,7 +128,7 @@ php artisan make:controller  AdminLoginController
 
 9. copy all this shit into Admin controller
 
-```
+```php
 /**
  * Create a new controller instance.
  *
@@ -273,7 +273,7 @@ public function showResetForm(Request $request, $token = null)
 
 15. create AdminForgotPasswordController and add this
 
-```
+```php
 /*
 |--------------------------------------------------------------------------
 | Password Reset Controller
@@ -310,7 +310,7 @@ public function showLinkRequestForm()
 
 16. in `/app/Exceptions/Handler.php` add this to the **report method**
 
-```
+```php
 if($exception instanceof AuthenticationException){
            $guard = array_get($exception->guards(),0);
 
@@ -331,7 +331,7 @@ if($exception instanceof AuthenticationException){
 
 17. in `/app/Http/Middleware/RedirectIfAuthenticated.php` add this to the handle method
 
-```
+```php
 public function handle (){
 
     switch ($guard) {
