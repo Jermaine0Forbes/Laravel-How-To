@@ -149,8 +149,8 @@ Commands|Description
 
 Commands|Description
 --|--
-`$price = DB::table('price')->latest();` |Retrieves the most recent column
-`$price = DB::table('price')->oldest();` |Retrieves the oldest column
+`$price = DB::table('price')->all()->last();` |Retrieves the most recent column
+`$price = DB::table('price')->first();` |Retrieves the oldest column
 
 #### Order
 

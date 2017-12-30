@@ -25,6 +25,7 @@
 ## View
 - [how to extend a blade layout][extend]
 - [how to include files ][include]
+- [how to unescape html][html-unescape]
 
 ## Controller
 - [how to create a controller][control]
@@ -47,6 +48,7 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[html-unescape]:#how-to-unescape-html
 [global-middleware]:#make-middleware-global
 [middleware]:#how-to-create-a-middleware
 [file-retrieve]:#how-to-retrieve-a-file
@@ -77,6 +79,18 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+
+### HOW TO UNESCAPE HTML
+
+If you need output data that has HTML. This is what you need to do
+
+```php
+{!! $content !!}
+```
+
+[go back home][home]
+
 
 ### MAKE MIDDLEWARE GLOBAL
 
