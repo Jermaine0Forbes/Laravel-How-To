@@ -1,10 +1,32 @@
 # laravel logs
 
 ---
-## 10/26/17
+## 1/5/18
+
+### Note about CKEditor 
+
+It sucks, well, at least the free version sucks. I was trying to get the 
+editor to not strip away the classes in the elements for about ... a long time
+I was looking through the documentation, trying to figure out how to configure  
+this editor. However, I still have not succeeded in this simple task so I am moving 
+on to other wysiwyg editors
 
 
+---
+## 1/4/18
 
+### TokenMisMatchException in Laravel 5.4
+
+If you get this error it could be either two things
+
+1. You don't have the csrf_token in the form 
+
+```php
+
+ {{ csrf_field() }}
+```
+
+2. You have more than one submit buttons
 
 ---
 ## 10/25/17

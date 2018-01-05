@@ -272,6 +272,32 @@ is supposed to start the webpack. **Just run** `npm i`
 **reference**
 - [How to Add Wysiwyg Editor in Laravel?](https://www.technig.com/how-to-add-wysiwyg-editor-in-laravel/)
 
+#### Markdown Editor 
+
+**reference**
+- [simple intructions](https://github.com/Vinelab/laravel-editor)
+
+1. In the termial 
+
+```
+composer require vinelab/laravel-editor
+```
+
+2. In `config/app.php` inside **providers** add this 
+
+```
+Vinelab\Editor\EditorServiceProvider',
+```
+
+3. Now publish the assets by running 
+
+```
+php artisan asset:publish vinelab/laravel-editor
+```
+
+[go back home][home]
+
+
 #### TinyMCE Editor
 
 0. Go to [tinymce](https://www.tinymce.com/) and sign up for a free trial.
@@ -329,6 +355,8 @@ other examples you can use though
 
 3. That is about it.
 
+[go back home][home]
+
 #### Laravel CKEditor
 
 **reference**
@@ -361,6 +389,7 @@ of the file
         // $('.textarea').ckeditor(); // if class is prefered.
     </script>
 ```
+[go back home][home]
 
 #### Summernote Wysiwyg Editor
 
@@ -389,6 +418,8 @@ $(document).ready(function() {
     $('#summernote').summernote();
     });
 ```
+
+[go back home][home]
 
 #### Froala WYSIWYG Editor
 
