@@ -150,13 +150,15 @@ Commands|Description
 Commands|Description
 --|--
 `$price = DB::table('price')->all()->last();` |Retrieves the most recent column
+`$price = DB::table('price')->latest()->first();` |Retrieves the most recent column
 `$price = DB::table('price')->first();` |Retrieves the oldest column
 
 #### Order
 
 Commands|Description
 --|--
-`$users = DB::table('users')->orderBy('name', 'desc')->get();;` |Retrieves rows in descending order
+`$users = DB::table('users')->orderBy('name', 'desc')->get();` |Retrieves rows in descending order
+`$users = DB::table('users')->select("name")->latest()->get();` |Retrieves rows in descending order
 
 
 [go back home][home]
