@@ -292,7 +292,7 @@ Vinelab\Editor\EditorServiceProvider',
 3. Now publish the assets by running 
 
 ```
-php artisan asset:publish vinelab/laravel-editor
+php artisan vendor:publish 
 ```
 
 [go back home][home]
