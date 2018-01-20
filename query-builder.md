@@ -1,6 +1,7 @@
 # Query Builder
 
 - [all query builder options][all]
+- [how to check if a record or data exists][data-exists]
 - [how to shorten the name of the model path][alias]
 - [how to use the select method][select]
 - [how to use the limit method][limit]
@@ -11,6 +12,7 @@
 - [how to create data][create]
 - [how to group data by a column][groupBy]
 
+[data-exists]:#how-to-check-if-a-record-or-data-exists
 [groupBy]:#how-to-group-data-by-a-column
 [all]:#all-query-builder-options
 [home]:#query-builder
@@ -23,6 +25,18 @@
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
 
+### how to check if a record or data exists
+
+**reference**
+- [Laravel checking if record exists](https://stackoverflow.com/questions/27095090/laravel-checking-if-record-exists)
+
+```php
+if (User::where('email', '=', Input::get('email'))->exists()) {
+   // user found
+}
+```
+
+[go back home][home]
 
 ### how to group data by a column
 
