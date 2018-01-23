@@ -17,6 +17,7 @@
 - [how to create a model and migration][model-migrate]
 - [how to create a hasMany relationship][hasMany]
 - [how to create a belongsTo relationship][belongsTo]
+- [how to use Carbon methods on datetime data][carbon-meth]
 
 ## Mix/Webpack
 - [how to make 'npm run dev' work][mix-work]
@@ -48,6 +49,7 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[carbon-meth]:#how-use-carbon-methods-on-datetime-data
 [html-unescape]:#how-to-unescape-html
 [global-middleware]:#make-middleware-global
 [middleware]:#how-to-create-a-middleware
@@ -80,6 +82,23 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+### HOW TO USE CARBON ON DATETIME DATA 
+
+Carbon is a Facade that extends the DateTime class. So that means that is has the 
+methods of the DateTime class and new methods to make it easier to format time. But in order 
+to use carbon in the view you have to add the specific columns that are going to use it in 
+the model.
+
+**reference**
+-  [Use carbon on Views laravel](https://stackoverflow.com/questions/27181009/use-carbon-on-views-laravel)
+
+
+```php
+protected $dates = ['created_at', 'updated_at', 'disabled_at','mydate'];
+
+```
+
+[go back home][home]
 
 ### HOW TO UNESCAPE HTML
 
