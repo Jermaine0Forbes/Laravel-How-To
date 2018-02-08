@@ -2,18 +2,50 @@
 
 ## Authentication
 
-[how to create multiple authentication][multi-auth]
+- [how to create multiple authentication][multi-auth]
 
-[how to create a simple auth][auth]
+- [how to create a simple auth][auth]
 
-[how to redirect after login][redirect]
+- [how to redirect after login][redirect]
+
+- [how to change route redirection when trying to login][route-redirection]
+
+
 
 ## API Authentication
 
+[route-redirection]:#how-to-change-route-redirection-when-trying-to-login
 [multi-auth]:#how-to-create-multiple-authentication
-[redirect]:#how-to-redirect
+[redirect]:#how-to-redirect-after-login
 [auth]:#how-to-create-a-simple-auth
 [home]:#security-with-laravel
+
+
+
+
+### how to change route redirection when trying to login 
+
+if you are trying to login as an admin, but you keep getting redirected to 
+the typical user login route. This is how you change it.
+
+**In app/Exceptions/Handler.php**
+```php
+
+protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if ($request->expectsJson()) {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+		// this is where you change the route
+        return redirect()->guest(route('admin.login'));
+    }
+
+```
+
+
+[go back home][home]
+
 
 ### how to create multiple authentication
 
