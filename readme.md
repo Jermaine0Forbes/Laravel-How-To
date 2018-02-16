@@ -18,6 +18,7 @@
 - [how to create a hasMany relationship][hasMany]
 - [how to create a belongsTo relationship][belongsTo]
 - [how to use Carbon methods on datetime data][carbon-meth]
+- [how to create a model, migration, and controller at the same time][create-alot]
 
 ## Mix/Webpack
 - [how to make 'npm run dev' work][mix-work]
@@ -42,6 +43,10 @@
 - [how to send mail to your gmail for the first time][first-mail]
 - [how to send mail the simple way][mail-simple]
 - [how to send mail with Mailable][mailable]
+- [how to make a markdown Mailable][md-mailable]
+- [how to send a markdown Mailable][md-send]
+- [how to customize markdown components]
+- [how to customize markdown css]
 
 
 ## Middleware
@@ -56,6 +61,9 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[create-alot]:#how-to-create-a-model-migration-and-controller
+[md-send]:#how-to-send-a-markdown-mailable
+[md-mailable]:#how-to-make-a-markdown-mailable
 [mailable]:#how-to-send-mail-with-mailable
 [mail-simple]:#how-to-send-mail-the-simple-way
 [first-mail]:#how-to-send-mail-to-your-gmail-for-the-first-time
@@ -92,6 +100,88 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+### HOW TO CREATE A MODEL, MIGRATION, AND CONTROLLER
+
+```
+php artisan make:model <insert name> -rm
+```
+
+[go back home][home]
+
+### HOW TO SEND A MARKDOWN MAILABLE
+
+This is pretty much 99% identical to a regular mailable 
+except that you need to change the `view()` to `markdown()`
+for example 
+
+1. first create the markdown file 
+
+```
+php artisan make:mail sendMark --markdown=email.mark
+```
+
+2. now in the file itself add this 
+
+
+```php
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class sendMark extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    protected $mail;
+    public function __construct($data)
+    {
+       $this->mail = $data;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {   $m = $this->mail;
+        return $this->from($m["email"])
+            ->to("jermaine0forbes@gmail.com")
+            ->subject($m["subject"])
+            ->markdown('email.mark',$m);
+    }
+}
+
+```
+
+[go back home][home]
+
+### HOW TO MAKE A MARKDOWN MAILABLE
+
+**reference**
+- [laravel](https://laravel.com/docs/5.4/mail#markdown-mailables)
+
+```
+php artisan make:mail <insert name> --markdown= <insert path of view>
+```
+
+**example**
+
+```
+php artisan make:mail orderShipped --markdown=orders.shipped
+```
+
+[go back home][home]
 
 ### HOW TO SEND MAIL WITH MAILABLE
 
@@ -483,9 +573,8 @@ public function uploadStore(Request $request){
     return redirect('home');
 }
 ```
-<div style="color:white; text-align:center; text-transform:uppercase; background:teal; width:200px; padding:1em;">
 [go back home][home]
-</div>
+
 
 
 
