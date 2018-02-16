@@ -58,7 +58,7 @@
 
 [mailable]:#how-to-send-mail-with-mailable
 [mail-simple]:#how-to-send-mail-the-simple-way
-[first-mail]:#how-to-send-mail-to-your-gmail-for-first-time
+[first-mail]:#how-to-send-mail-to-your-gmail-for-the-first-time
 [carbon-meth]:#how-use-carbon-methods-on-datetime-data
 [html-unescape]:#how-to-unescape-html
 [global-middleware]:#make-middleware-global
@@ -241,7 +241,7 @@ entities.
 **reference**
 - [stackoverflow](https://stackoverflow.com/questions/42558903/expected-response-code-250-but-got-code-535-with-message-535-5-7-8-username)
 
-- Go to your .env file and enter in your email information
+1. Go to your .env file and enter in your email information
 
 ```
 
@@ -254,13 +254,13 @@ MAIL_ENCRYPTION=tls
 
 ```
 
-- Create an email folder to hold your views
+2. Create an email folder to hold your views
 
 ```
 mkdir ./resources/views/email
 ```
 
-- Create a simple email view in the folder
+3. Create a simple email view in the folder
 
 ```php
 
@@ -273,7 +273,7 @@ you got a message from {{$email}}
 
 ```
 
-- If you have not already, create a controller method to receive the form data and create a 
+4. If you have not already, create a controller method to receive the form data and create a 
 class property to hold the form data to send the data to the mail. Also include the `Illuminate\Support\Facades\Mail`
 namespace. Basically, copy all that I have made;
 
@@ -322,11 +322,11 @@ class ContactController extends Controller
 
 ```
 
-- Next, you need to enable a 2-step verification in Google with [this](https://www.google.com/landing/2step/) link
+5. Next, you need to enable a 2-step verification in Google with [this](https://www.google.com/landing/2step/) link
 
-- Now you have to go to this [link](https://security.google.com/settings/security/apppasswords), and make sure you choose the option **Others (custom name)** to generate a password
+6. Now you have to go to this [link](https://security.google.com/settings/security/apppasswords), and make sure you choose the option **Others (custom name)** to generate a password
 
-- Once you have gotten that password, place this new password in .env file and after you save the file 
+7. Once you have gotten that password, place this new password in .env file and after you save the file 
 execute the command `php artisan config:cache`
 
 ```
@@ -338,7 +338,7 @@ MAIL_PASSWORD=yourNewGooglePassword
 MAIL_ENCRYPTION=tls
 ```
 
-- So once you submit a form now it should be sent to your gmail account
+8. So once you submit a form now it should be sent to your gmail account
 
 
 [go back home][home]
