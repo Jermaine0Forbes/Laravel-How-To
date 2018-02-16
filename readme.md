@@ -37,6 +37,13 @@
 - [how to publicly store a file][file-store-public]
 - [how to retrieve a file][file-retrieve]
 
+
+## Mail
+- [how to send mail to your gmail for the first time][first-mail]
+- [how to send mail the simple way][mail-simple]
+- [how to send mail with Mailable][mailable]
+
+
 ## Middleware
 - [how to create a middleware][middleware]
 - [make middleware global][global-middleware]
@@ -49,6 +56,9 @@
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 
+[mailable]:#how-to-send-mail-with-mailable
+[mail-simple]:#how-to-send-mail-the-simple-way
+[first-mail]:#how-to-send-mail-to-your-gmail-for-first-time
 [carbon-meth]:#how-use-carbon-methods-on-datetime-data
 [html-unescape]:#how-to-unescape-html
 [global-middleware]:#make-middleware-global
@@ -81,6 +91,257 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+
+### HOW TO SEND MAIL WITH MAILABLE
+
+1. create a mailable file 
+
+```
+php artisan make:mail mailSend
+```
+
+2. In the controller that you are going to send the form data to the Mailable
+make sure that you include the namespace of the mail facade and the mailable.
+Look at the code to get a understanding 
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\mailSend;
+use App\Contact;
+
+class ContactController extends Controller
+{
+    
+    
+    public function index(){
+
+    	return view("contact");
+    }
+    
+    
+    public function send(Request $r){
+        $data =[
+            "subject" => $r->subject,
+            "email" => $r->email,
+            "body" => $r->message
+        ];
+        
+         Mail::send(new mailSent($data));
+        
+        return redirect("/");
+    }
+}
+
+```
+
+3. In the `./app/Mai/mailSend.php` insert this code in the class
+
+```php
+ use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    protected $mail;
+    public function __construct($data)
+    {
+      $this->mail = $data;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->from($this->mail["email"])
+            ->subject($this->mail["subject"])
+            ->to("jermaine0forbes@gmail.com")
+            ->view('email.test',$this->mail);
+    }
+```
+
+4. As long as you created the view, and have similar array properties then this 
+should work.
+
+[go back home][home]
+
+### HOW TO SEND MAIL THE SIMPLE WAY 
+
+**Note**: This should work as long as you have already created the view 
+`email.test`, the contact form, and the routes that are pointing to **index**
+and **send**. Obviously you can change the names around of the view, methods, and controlles and it should still be good
+
+**reference**
+- [artsian web](https://artisansweb.net/sending-email-via-gmail-smtp-server-laravel/) , this reference is 
+fine but he does have the wrong port and host information
+- [laravel](https://laravel.com/docs/5.6/mail#sending-mail)
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Contact;
+
+class ContactController extends Controller
+{
+    
+    // This is the property where you store the email information
+    protected $mail;
+    
+    public function index(){
+
+    	return view("contact");
+    }
+    
+    
+    public function send(Request $r){
+        $data =[
+            "subject" => $r->subject,
+            "email" => $r->email,
+            "body" => $r->message
+        ];
+        
+		//You have to store the data in a property because the $data will not recognized
+		// and be considered undefined when you try to add into the call back function
+        $this->mail = $data;
+        
+        Mail::send("email.test",$data,function($message){
+             $message->to('jermaine0forbes@gmail.com', "jermaine forbes")
+            ->subject($this->mail["subject"]);
+            $message->from($this->mail["email"]);
+        });
+        
+        return redirect("/");
+    }
+}
+
+```
+
+[go back home][home]
+
+### HOW TO SEND MAIL TO YOUR GMAIL FOR THE FIRST TIME 
+
+This was a little bit tricky, and there are some things you need to do first 
+so that GMAIL will know that you are sending the mail, and not hackers or harmful 
+entities.
+
+**reference**
+- [stackoverflow](https://stackoverflow.com/questions/42558903/expected-response-code-250-but-got-code-535-with-message-535-5-7-8-username)
+
+- Go to your .env file and enter in your email information
+
+```
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=yourEmail
+MAIL_PASSWORD=yourPassword
+MAIL_ENCRYPTION=tls
+
+```
+
+- Create an email folder to hold your views
+
+```
+mkdir ./resources/views/email
+```
+
+- Create a simple email view in the folder
+
+```php
+
+Hi <strong>Jermaine</strong>,
+you got a message from {{$email}}
+
+<strong>Subject: {{$subject}}</strong>
+
+<p>{{ $body }}</p>
+
+```
+
+- If you have not already, create a controller method to receive the form data and create a 
+class property to hold the form data to send the data to the mail. Also include the `Illuminate\Support\Facades\Mail`
+namespace. Basically, copy all that I have made;
+
+```php
+
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Contact;
+
+class ContactController extends Controller
+{
+    
+    // This is the property where you store the email information
+    protected $mail;
+    
+    public function index(){
+
+    	return view("contact");
+    }
+    
+    
+    public function send(Request $r){
+        $data =[
+            "subject" => $r->subject,
+            "email" => $r->email,
+            "body" => $r->message
+        ];
+        
+		//You have to store the data in a property because the $data will not recognized
+		// and be considered undefined when you try to add into the call back function
+        $this->mail = $data;
+        
+        Mail::send("email.test",$data,function($message){
+             $message->to('jermaine0forbes@gmail.com', "jermaine forbes")
+            ->subject($this->mail["subject"]);
+            $message->from($this->mail["email"]);
+        });
+        
+        return redirect("/");
+    }
+}
+
+```
+
+- Next, you need to enable a 2-step verification in Google with [this](https://www.google.com/landing/2step/) link
+
+- Now you have to go to this [link](https://security.google.com/settings/security/apppasswords), and make sure you choose the option **Others (custom name)** to generate a password
+
+- Once you have gotten that password, place this new password in .env file and after you save the file 
+execute the command `php artisan config:cache`
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=yourEmail
+MAIL_PASSWORD=yourNewGooglePassword
+MAIL_ENCRYPTION=tls
+```
+
+- So once you submit a form now it should be sent to your gmail account
+
+
+[go back home][home]
 
 ### HOW TO USE CARBON ON DATETIME DATA 
 

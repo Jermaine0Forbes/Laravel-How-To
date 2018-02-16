@@ -28,6 +28,9 @@
 if you are trying to login as an admin, but you keep getting redirected to 
 the typical user login route. This is how you change it.
 
+**reference**
+- [ Change /login auth redirection](https://laracasts.com/discuss/channels/laravel/laravel-53-change-login-auth-redirection)
+
 **In app/Exceptions/Handler.php**
 ```php
 
