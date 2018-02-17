@@ -62,7 +62,7 @@
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
 
-[404-page]
+[404-page]:#how-to-create-a-404-page
 [create-alot]:#how-to-create-a-model-migration-and-controller
 [md-send]:#how-to-send-a-markdown-mailable
 [md-mailable]:#how-to-make-a-markdown-mailable
