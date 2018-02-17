@@ -60,7 +60,9 @@
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
+- [how to create a 404 page][404-page]
 
+[404-page]
 [create-alot]:#how-to-create-a-model-migration-and-controller
 [md-send]:#how-to-send-a-markdown-mailable
 [md-mailable]:#how-to-make-a-markdown-mailable
@@ -99,6 +101,17 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+
+### HOW TO CREATE A 404 PAGE 
+
+**reference**
+- [laravel](https://laravel.com/docs/5.6/errors#http-exceptions)
+
+Create a `resources/views/errors/404.blade.php` and add your message 
+when a 404 error happens.
+
+[go back home][home]
 
 ### HOW TO CREATE A MODEL, MIGRATION, AND CONTROLLER
 
