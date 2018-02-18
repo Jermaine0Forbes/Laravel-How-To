@@ -46,7 +46,8 @@
 - [how to make a markdown Mailable][md-mailable]
 - [how to send a markdown Mailable][md-send]
 - [how to customize markdown components]
-- [how to customize markdown css]
+- [how to customize markdown css][md-css]
+- [how to preview markdown Mailable][preview-mailable]
 
 
 ## Middleware
@@ -62,6 +63,8 @@
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
 
+[md-css]:#how-to-customize-markdown-css
+[preview-mailable]:#how-to-preview-markdown-mailable
 [404-page]:#how-to-create-a-404-page
 [create-alot]:#how-to-create-a-model-migration-and-controller
 [md-send]:#how-to-send-a-markdown-mailable
@@ -102,6 +105,67 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+### HOW TO CUSTOMIZE MARKDOWN CSS
+
+#### How to add a new css file
+
+1. The css that markdown uses is called `default` in 
+order to change it you have to go to `config/mail.php`. 
+And at the bottom you will see a markdown value that has 
+the property called **theme** change the name of the theme 
+to whatever the new css is called.
+
+2. Next the location where to hold the css files should be 
+in `resources/views/vendor/mail/html/themes` so if you want to 
+see the changes take place you need add your css files in that area
+
+#### How to add a scss file
+
+1. You typicall do the same thing that you do all the time when 
+you create scss files, except in the **webpack.mix.js** file you 
+need to create the output path like this
+
+
+```js
+//if you scss is name my-theme.scss then leave it alone
+.sass('resources/assets/sass/mail/my-theme.scss', '../resources/views/vendor/mail/html/themes')
+```
+
+[go back home][home]
+
+### HOW TO PREVIEW A MARKDOWN MAILABLE
+
+1. Make sure you add the mailable you want to preview in your
+contoller like this `use  App\Mail\<insert name>;`
+
+2. In the controller add this content in your method
+
+```php
+
+ public function preview(){
+
+        $data =[
+            "subject" => "This is a subject",
+            "email" => "skivac3@gmail.com",
+            "body" => "This is a body"
+        ];
+        
+    // sendMark is the markdown mailable that I created 
+
+       $mail = new sendMark($data);
+       $mail = $mail->build();
+       return $mail->buildView()["html"];
+
+
+    }
+```
+3. Go to `/home/jermaine/Portfolio-Website/vendor/laravel/framework/src/Illuminate/Mail/Mailable.php`,
+  find the method **buildView**, and make sure you change modifier to public 
+
+4. After that you're all good
+
+
+[go back home][home]
 
 ### HOW TO CREATE A 404 PAGE 
 
