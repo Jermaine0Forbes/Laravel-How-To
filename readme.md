@@ -28,6 +28,8 @@
 - [how to extend a blade layout][extend]
 - [how to include files ][include]
 - [how to unescape html][html-unescape]
+- [how to use @auth][@auth]
+
 
 ## Controller
 - [how to create a controller][control]
@@ -63,8 +65,10 @@
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
 
+
+[@auth]:#how-to-use-@auth
 [md-css]:#how-to-customize-markdown-css
-[preview-mailable]:#how-to-preview-markdown-mailable
+[preview-mailable]:#how-to-preview-a-markdown-mailable
 [404-page]:#how-to-create-a-404-page
 [create-alot]:#how-to-create-a-model-migration-and-controller
 [md-send]:#how-to-send-a-markdown-mailable
@@ -105,6 +109,21 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+
+### HOW TO USE @auth
+
+```php
+
+@auth('master')
+    
+    If you are logged in under a master guard you will be able to see this
+
+@endauth
+```
+
+
+[go back home][home]
+
 ### HOW TO CUSTOMIZE MARKDOWN CSS
 
 #### How to add a new css file
@@ -121,7 +140,7 @@ see the changes take place you need add your css files in that area
 
 #### How to add a scss file
 
-1. You typicall do the same thing that you do all the time when 
+1. You typically do the same thing that you do all the time when 
 you create scss files, except in the **webpack.mix.js** file you 
 need to create the output path like this
 
