@@ -60,6 +60,8 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 
+## Errors 
+
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
@@ -1152,6 +1154,21 @@ sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 
     php artisan key:generate
 ```
+
+#### Option 2: when you have a `.env.save`
+
+```
+composer update
+
+sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+
+sudo chmod -R 777 ./storage;sudo chmod -R 777 ./bootstrap
+
+cp .env.save .env
+
+    
+```
+
 [go back home][home]
 
 
