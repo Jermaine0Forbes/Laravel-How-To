@@ -30,6 +30,8 @@
 - [how to unescape html][html-unescape]
 - [how to use @auth][@auth]
 
+## Carbon 
+- [Carbon table][carbon]
 
 ## Controller
 - [how to create a controller][control]
@@ -67,8 +69,8 @@
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
 
-
-[@auth]:#how-to-use-@auth
+[carbon]:#carbon-table
+[@auth]:#how-to-use-auth
 [md-css]:#how-to-customize-markdown-css
 [preview-mailable]:#how-to-preview-a-markdown-mailable
 [404-page]:#how-to-create-a-404-page
@@ -110,6 +112,23 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+### Carbon Table 
+
+**reference**
+- []()
+
+Here are the common methods I will use with the Carbon class 
+
+method|description|example 
+-|-|-
+now()|gets the current datetime|Carbon::now() //2018-02-23 18:11:35.0 UTC (+00:00)
+addYear(year)|adds the amount of years to date, it will default to 1|Carbon::addYear(5) // 2023-02-23 18:17:38.0 UTC (+00:00)
+diffForHumans()|makes the value human readable|Carbon::now()->addYear(5)->diffForHumans()  // "5 years from now"
+tzName|this property gets the current timezone you are in|Carbon::now()->tzName // "UTC"
+createFromDate(year,month,day,timezone)|creates a date with parameters you added|Carbon::createFromDate(2022,4,17,"America/New_York") // 2022-04-17 18:29:04.0 America/New_York (-04:00)
+
+[go back home][home]
 
 
 ### HOW TO USE @auth
@@ -1173,7 +1192,6 @@ cp .env.save .env
 
 
 
-### HOW TO CREATE AUTHENTICATION
 
 
 ### HOW TO CREATE A SINGLE ACTION CONTROLLER
