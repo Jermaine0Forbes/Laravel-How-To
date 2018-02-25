@@ -70,7 +70,7 @@
 - [how to create a 404 page][404-page]
 
 
-## Seeding
+## Seeding / Faker
 - [how to generate fake data][fake-data]
 - [how to create fake data][create-fake]
 - [faker reference table][faker-reference]
@@ -129,11 +129,32 @@
 **reference**
 - [faker reference](https://github.com/fzaninotto/Faker#fakerproviderlorem)
 
+`$faker->methodName() // returns something`
+
+method | description|example
+-|-
+randomDigit|creates a random number|7
+sentence|creates one sentence|Sit vitae voluptas sint non voluptates.
+paragraph|creates one paragraph|Hella art party master cleanse, poutine twee migas...
+firstName($gender = null|'male'|'female')|self explanatory| Johnathan
+lastName|self explanatory|Johnson
+randomNumber($nbDigits = NULL, $strict = false)|creates a random number based on the digits you provided|234
+numberBetween($min = 1000, $max = 9000)|self explanatory|8967
+phoneNumber|self explanatory|201-886-0269 x3767
+streetAddress|self explanatory|439 Karley Loaf Suite 897
+state|self explanatory| Ohio
+city|self explanatory| Tallahassee
+email|self explanatory|tkshlerin@collins.com
+userName|self explanatory|wade55
+password|self explanatory|k&|X+a45*2[
+slug|self explanatory|aut-repellat-commodi-vel-itaque
+
 [go back home][home]
 
 ### How to create fake data
 
-In the console write this
+In the console write this, also make sure you generate all 
+the faker data before you do the command
 
 ```
 php artisan db:seed
