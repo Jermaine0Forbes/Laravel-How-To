@@ -132,7 +132,7 @@
 `$faker->methodName() // returns something`
 
 method | description|example
--|-
+-|-|-
 randomDigit|creates a random number|7
 sentence|creates one sentence|Sit vitae voluptas sint non voluptates.
 paragraph|creates one paragraph|Hella art party master cleanse, poutine twee migas...
