@@ -136,7 +136,7 @@ method | description|example
 randomDigit|creates a random number|7
 sentence|creates one sentence|Sit vitae voluptas sint non voluptates.
 paragraph|creates one paragraph|Hella art party master cleanse, poutine twee migas...
-firstName($gender = null|'male'|'female')|self explanatory| Johnathan
+firstName($gender = null 'male' or 'female')|self explanatory| Johnathan
 lastName|self explanatory|Johnson
 randomNumber($nbDigits = NULL, $strict = false)|creates a random number based on the digits you provided|234
 numberBetween($min = 1000, $max = 9000)|self explanatory|8967
