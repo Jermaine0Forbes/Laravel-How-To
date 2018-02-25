@@ -70,6 +70,14 @@
 - [how to create a 404 page][404-page]
 
 
+## Seeding
+- [how to generate fake data][fake-data]
+- [how to create fake data][create-fake]
+- [faker reference table][faker-reference]
+
+[faker-reference]:#faker-reference-table
+[create-fake]:#how-to-create-fake-data
+[fake-data]:#how-to-generate-fake-data
 [carbon]:#carbon-table
 [@auth]:#how-to-use-auth
 [md-css]:#how-to-customize-markdown-css
@@ -113,6 +121,77 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+
+
+
+### Faker reference table
+
+**reference**
+- [faker reference](https://github.com/fzaninotto/Faker#fakerproviderlorem)
+
+[go back home][home]
+
+### How to create fake data
+
+In the console write this
+
+```
+php artisan db:seed
+```
+
+[go back home][home]
+
+### How to generate fake data
+
+1. create a factory model, also make sure that you have the database
+and model created 
+
+```
+php artisan make:factory <insert name>
+```
+
+2. then go to `databases\factories\Factory.php`, and add the faker property
+
+```php
+<?php
+
+use Faker\Generator as Faker;
+use App\Article;
+
+$factory->define(Article::class, function (Faker $faker) {
+     return [
+        'title' => $faker->title,
+        'content' => $faker->paragraph,
+        'author_id' => $faker->randomDigit
+    ];
+});
+```
+
+3. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the 
+method
+
+```php 
+<?php
+
+use Illuminate\Database\Seeder;
+use App\Article;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // $this->call(UsersTableSeeder::class);
+        factory(Article::class,1000)->create();
+    }
+}
+
+```
+[go back home][home]
 
 ### Carbon Table 
 
