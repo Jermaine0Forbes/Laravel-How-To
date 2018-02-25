@@ -66,7 +66,7 @@
 - [how to create a 404 page][404-page]
 
 
-[@auth]:#how-to-use-@auth
+[@auth]:#how-to-use-auth
 [md-css]:#how-to-customize-markdown-css
 [preview-mailable]:#how-to-preview-a-markdown-mailable
 [404-page]:#how-to-create-a-404-page
