@@ -1,5 +1,39 @@
 # laravel logs
 
+## 2/29/18
+
+Okay, so I am finding out that dusk cannot run on a server and that you possibly need 
+to use phantom.js to make it work. I will investigate that later
+
+
+## 2/28/18
+
+### use DatabaseTransactions if you are going to use PHP Testing
+
+I need to remember to inlcude the DatabaseTransactions class in whatever test example 
+when testing out the database or an eloquent model
+
+`use Illuminate\Foundation\Testing\DatabaseTransactions`
+
+
+### Error: Cannot open file "/home/jermaine/lavy/bootstrap/autoload
+
+I got this error when trying to use dusk. I see something on [github](Cannot open file "/home/jermaine/lavy/bootstrap/autoload) that I am going to
+try, wish me luck
+
+### Error: Failed to connect to localhost port 9515: Connection refused
+
+I'm still trying to learn how to use this php unit testing and I realize
+that all the tutorials that I have been looking at are antiquated because the 
+methods to use them don't exist anymore. This is why I am trying to use dusk but Im 
+getting errors messages as well. I think this error message is for the fact that I am
+using localhost to see my laravel app. But, I am not too sure
+
+### Doing too much shit just for dusk
+
+I am getting the connection refused error, but I am trying some technique that is said to work 
+for dusk  
+
 ---
 ## 1/5/18
 

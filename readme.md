@@ -70,11 +70,18 @@
 - [how to create a 404 page][404-page]
 
 
+## PHP Unit
+
+- [how to test databases with phpunit][data-phpunit]
+- [how to setup a basic phpunit test][basic-phpunit]
+
 ## Seeding / Faker
 - [how to generate fake data][fake-data]
 - [how to create fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[data-phpunit]:#how-to-test-databases-with-phpunit
+[basic-phpunit]:#how-to-setup-a-basic-phpunit-test
 [faker-reference]:#faker-reference-table
 [create-fake]:#how-to-create-fake-data
 [fake-data]:#how-to-generate-fake-data
@@ -122,7 +129,191 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 
+---
 
+### how to test databases with phpunit
+
+<details>
+<summary>
+View Content
+</summary>
+
+1. assuming that you already have created a model and table in the database named `Article`
+you can easily follow along, if you haven't then create your own shit
+
+2. make a test 
+
+```
+php artisan make:test DataTest
+```
+
+3. in the `tests/Feature/DataTest.php` add in the DatabaseTransactions like so
+
+```php
+
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
+class DataTest extends TestCase
+{
+    
+	use DatabaseTransactions;// this will prevent fake data being saved in your database
+	/**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testBasicTest()
+    {
+        $this->assertTrue(true);
+    }
+}
+```
+
+4. Now create fake data with the factory like so, and add the `Article` model or 
+whatever model you created so that you can create fake data
+
+```php
+
+<?php
+
+namespace Tests\Unit;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Article; //adding the model
+
+class DataTest extends TestCase
+{
+    
+	use DatabaseTransactions;
+	/**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testBasicTest()
+    {
+        
+		$content = "And my balls were really chilly on that fateful day";
+		// this creates a row of data
+       factory(Article::class)->create([
+            "title" => "It was a dark and stormy night",
+            "content" => $content,
+            "author_id" =>28
+        ]);
+		
+		// assertContains will look at an array or string to see if second parameter
+		// contains the first parameter
+		$this->assertContains($content,Article::where("author_id",28)->get());
+		
+		
+		
+    }
+}
+
+```
+
+5. so now run phpunit, and it should be successful because author_id=28 does contain the specific content 
+string 
+
+```
+./vendor/bin/phpunit
+```
+
+
+</details>
+
+[go back :house:][home]
+
+### how to setup a basic phpunit test 
+
+<details>
+<summary>
+View Content
+</summary>
+1. make a test 
+
+```
+php artisan make:test HomeTest
+```
+
+2. in `tests/Feature` location you will find your new test so open it up 
+and you will see something like this 
+
+```php
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class HomeTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        
+        
+    }
+}
+
+```
+
+3. let's just create a simple test to determine if **phpunit** can access a certain page 
+in your website, so copy this down 
+
+
+```php
+
+<?php
+
+namespace Tests\Feature;
+
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+class HomeTest extends TestCase
+{
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testExample()
+    {
+        
+        $response = $this->get("/");
+        
+        $response->Status(200);// this should determine if a route can be accessed
+        
+    }
+}
+```
+
+4. now run the **phpunit** command
+
+```
+./vendor/bin/phpunit
+```
+
+5. Now phpunit should pass with flying colors. If it doesn't then you are doing something wrong
+
+</details>
+
+
+[go back :house:][home]
 
 ### Faker reference table
 
