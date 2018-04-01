@@ -6,6 +6,7 @@
 - [how to remove 500 internal server error][500]
 - [how to generate a new application key][new-key]
 - [how to make your laravel project work when pulling it from github][pulling]
+- [how to install Voyager][install-voyager]
 
 ## Model
 - [how to create a model][create-model]
@@ -80,6 +81,7 @@
 - [how to create fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[install-voyager]:#how-to-install-voyager
 [data-phpunit]:#how-to-test-databases-with-phpunit
 [basic-phpunit]:#how-to-setup-a-basic-phpunit-test
 [faker-reference]:#faker-reference-table
@@ -130,6 +132,93 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+### how to install voyager
+
+<details>
+<summary>
+View Content
+</summary>
+
+1. create a laravel project 
+
+```
+composer create-project laravel/laravel <insert name of project>
+```
+
+2. create a config file that will serve your laravel app 
+
+```
+cd /etc/apache2/sites-available 
+
+sudo nano voyager.conf 
+
+// paste this into the conf file 
+
+<VirtualHost *:80>
+        ServerName work.com
+        DocumentRoot /var/www/html/your-project/public
+
+        <Directory /var/www/html/your-project/public>
+            AllowOverride All
+            Require all granted
+        </Directory>
+</VirtualHost>
+
+```
+
+3. enable the site and reload it 
+
+```
+sudo a2ensite voyager.conf 
+
+sudo service apache2 reload
+```
+
+4. allow laravel to access certain folders 
+
+```
+cd <insert name of project>
+
+sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+```
+
+5. now require voyager 
+
+```
+composer require tcg/voyager
+```
+
+6. in the env file make sure you add your info 
+
+```
+APP_URL=http://localhost
+DB_HOST=localhost
+DB_DATABASE=Voyager
+DB_USERNAME=jermaine
+DB_PASSWORD=secret
+
+```
+
+7. now install voyager 
+
+```
+php artisan voyager:install 
+```
+
+8. create an admin user to access the backend
+
+```
+php artisan voyager:admin your@email.com --create
+```
+
+9. now  visit your websites `http://yourWebsite.com/admin` to access the admin page
+
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to test databases with phpunit
 
