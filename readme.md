@@ -64,11 +64,14 @@
 - [form builder table][form-table]
 
 ## Errors 
+- [The bootstrap/cache directory must be present and writable][boot-error]
+- [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
 
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
+
 
 
 ## PHP Unit
@@ -77,10 +80,12 @@
 - [how to setup a basic phpunit test][basic-phpunit]
 
 ## Seeding / Faker
-- [how to generate fake data][fake-data]
-- [how to create fake data][create-fake]
+- [how to generate a factory for fake data][fake-data]
+- [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[cipher-error]:#the-only-supported-ciphers-are
+[boot-error]:#the-bootstrapcache-directory-must-be-present-and-writable
 [install-voyager]:#how-to-install-voyager
 [data-phpunit]:#how-to-test-databases-with-phpunit
 [basic-phpunit]:#how-to-setup-a-basic-phpunit-test
@@ -132,6 +137,41 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+
+
+
+### The bootstrap/cache directory must be present and writable
+
+<details>
+<summmary>
+View Content
+</summmary>
+
+**reference**
+- [stackoverflow](https://stackoverflow.com/questions/43718391/laravel-throws-the-bootstrap-cache-directory-must-be-present-and-writable-erro)
+
+</details>
+
+[go back :house:][home]
+
+
+
+### The only supported ciphers are 
+
+<details>
+<summmary>
+View Content
+</summmary>
+
+**reference**
+- [stackoverflow](https://stackoverflow.com/questions/39693312/the-only-supported-ciphers-are-aes-128-cbc-and-aes-256-cbc-with-the-correct-key)
+
+</details>
+
+[go back :house:][home]
+
+
 
 ### how to install voyager
 
