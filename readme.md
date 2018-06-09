@@ -30,6 +30,7 @@
 - [how to include files ][include]
 - [how to unescape html][html-unescape]
 - [how to use @auth][@auth]
+- [how to create components][create-component]
 
 ## Carbon 
 - [Carbon table][carbon]
@@ -50,10 +51,11 @@
 - [how to send mail with Mailable][mailable]
 - [how to make a markdown Mailable][md-mailable]
 - [how to send a markdown Mailable][md-send]
-- [how to customize markdown components]
+- [how to customize markdown components][customize-components]
 - [how to customize markdown css][md-css]
 - [how to preview markdown Mailable][preview-mailable]
 - [how to pass data to a Mailable][data-mailable]
+
 
 
 ## Middleware
@@ -86,6 +88,8 @@
 - [faker reference table][faker-reference]
 
 
+[create-component]:#how-to-create-components
+[customize-components]:#how-to-customize-markdown-components
 [data-mailable]:#how-to-pass-data-to-a-mailable
 [cipher-error]:#the-only-supported-ciphers-are
 [boot-error]:#the-bootstrapcache-directory-must-be-present-and-writable
@@ -140,6 +144,68 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+### How to create components
+
+<details>
+<summary>
+View Content
+</summary>
+
+**references**
+- [how do you create markdown mailable components](https://laracasts.com/discuss/channels/general-discussion/how-do-you-create-markdown-mailable-components)
+
+
+1. in the `resources/views` create a folder to hold components
+
+```
+mkdir components
+```
+
+2. Now create a  blade file and add content similar to this
+
+```
+touch components/alert.blade.php
+``` 
+
+```php
+
+<div style="background: yellow;">
+    {{ $slot }}
+</div>
+
+```
+
+3. Now when you try to add the component you call it like this 
+
+```php
+@component('components.alert')
+    This will go into the slot!
+@endcomponent
+
+```
+
+
+</details>
+
+[go back :house:][home]
+
+### How to customize markdown components
+
+<details>
+<summary>
+View Content
+</summary>
+
+This will create a vendor folder in views where you can alter components
+
+```
+php artisan vendor:publish --tag=laravel-mail
+```
+</details>
+
+[go back :house:][home]
+
 
 ### How to pass data to a Mailable
 
