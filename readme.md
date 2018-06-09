@@ -53,6 +53,7 @@
 - [how to customize markdown components]
 - [how to customize markdown css][md-css]
 - [how to preview markdown Mailable][preview-mailable]
+- [how to pass data to a Mailable][data-mailable]
 
 
 ## Middleware
@@ -84,6 +85,8 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+
+[data-mailable]:#how-to-pass-data-to-a-mailable
 [cipher-error]:#the-only-supported-ciphers-are
 [boot-error]:#the-bootstrapcache-directory-must-be-present-and-writable
 [install-voyager]:#how-to-install-voyager
@@ -137,6 +140,123 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+### How to pass data to a Mailable
+
+<details>
+<summmary>
+View Content
+</summmary>
+
+```
+create a controller, and a markdown mailable 
+
+
+php artisan make:controller <insert name>
+
+php artisan make:mail <insert name> --markdown=<insert name>
+
+```
+
+2. Inside controller do this 
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\mailShit;
+
+class MailController extends Controller
+{
+    //
+    
+    public function preview(){
+        
+        $data = [
+            "subject" => "this is a subject",
+            "email" => "jermaine@boogietown",
+            "body" => "this is a body"
+        ];
+        
+//         Mail::send(new mailShit($data));
+        
+         return new mailShit($data); // this will preview the mail that you are sending
+        
+    }
+}
+
+```
+
+3. In `app/Mail/<insert name>` add this to the build method 
+
+```php
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class mailShit extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    
+    public $mail;
+    
+    public function __construct($data)
+    {
+        $this->mail = $data;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {	// this with method will add values from $this->mail
+        return $this->markdown('mail.shit')->with($this->mail);
+    }
+}
+
+```
+
+4. In the markdown that you created 
+
+```
+@component('mail::message')
+# Introduction
+
+
+<!--This will output : this is a body-->
+## {{$body}}
+
+@component('mail::button', ['url' => ''])
+Button Text
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent
+
+
+```
+
+
+</details>
+
+[go back :house:][home]
 
 
 
@@ -454,6 +574,7 @@ class HomeTest extends TestCase
 method | description|example
 -|-|-
 randomDigit|creates a random number|7
+randomElement($array = array ('a','b','c'))|gets a random value from an array you created|'b'
 sentence|creates one sentence|Sit vitae voluptas sint non voluptates.
 paragraph|creates one paragraph|Hella art party master cleanse, poutine twee migas...
 firstName($gender = null 'male' or 'female')|self explanatory| Johnathan
@@ -624,6 +745,30 @@ contoller like this `use  App\Mail\<insert name>;`
   find the method **buildView**, and make sure you change modifier to public 
 
 4. After that you're all good
+
+
+#### 2ND OPTION
+
+```php
+
+
+public function preview(){
+
+        $data =[
+            "subject" => "This is a subject",
+            "email" => "skivac3@gmail.com",
+            "body" => "This is a body"
+        ];
+        
+    // sendMark is the markdown mailable that I created 
+
+       return new sendMark($data);
+       
+
+
+    }
+
+```
 
 
 [go back home][home]

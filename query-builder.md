@@ -175,6 +175,12 @@ Commands|Description
 `$users = DB::table('users')->select("name")->latest()->get();` |Retrieves rows in descending order
 
 
+##### JSON
+Commands|Description
+--|--
+`$users = DB::table('users')->limit(15)->get()->toJson;` |Retrieves 15 users and turns the data to a JSON format
+
+
 [go back home][home]
 
 

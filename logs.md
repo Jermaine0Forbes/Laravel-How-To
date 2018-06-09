@@ -1,5 +1,24 @@
 # laravel logs
 
+## 6/8/18
+
+### How to get convert data to json 
+
+```php
+  public function json(){
+        
+        $cust = Customer::limit(20)->get()->toJson();
+        
+        $farm = Farmer::leftJoin('animals','farmers.id', '=','animals.farmer_id')
+            ->get()
+            ->toJson();
+        
+        $filename = getcwd()."/farmer.json";
+        file_put_contents($filename,$farm);
+        chmod($filename,0775);
+	}
+```
+
 ## 2/29/18
 
 Okay, so I am finding out that dusk cannot run on a server and that you possibly need 
