@@ -41,6 +41,7 @@
 - [how to create a controller with all the CRUD methods][crud-control]
 
 ## File Storage
+- [how to create a public disk][public-disk]
 - [how to publicly store a file][file-store-public]
 - [how to retrieve a file][file-retrieve]
 
@@ -87,7 +88,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
-
+[public-disk]:#how-to-create-a-public-disk
 [create-component]:#how-to-create-components
 [customize-components]:#how-to-customize-markdown-components
 [data-mailable]:#how-to-pass-data-to-a-mailable
@@ -144,6 +145,20 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+### How to create a public disk
+<details>
+<summary>
+View Content
+</summary>
+
+```
+php artisan storage:link
+```
+</details>
+
+[go back :house:][home]
+
 
 ### How to create components
 

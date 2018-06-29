@@ -1,5 +1,47 @@
 # laravel logs
 
+## 6/20/18
+
+### How to convert data to json, nest data inside other data, and send it to a json file 
+
+```php
+
+    public function json(){
+        
+
+        $farm = Farmer::get();
+        $ani = Animal::get();
+        $arr = [];
+        
+        foreach($farm as $f){
+            $id = $f->id;
+            
+            foreach($ani as $a){
+                if($id == $a->farmer_id){
+                    array_push($arr, $a);
+                }
+            }
+            
+            $f->animal = $arr;
+            $arr =[];
+            
+        }
+        
+        $farm = json_encode($farm);
+        
+
+        
+        
+        $filename = getcwd()."/farmer.json";
+        file_put_contents($filename,$farm);
+        chmod($filename,0775);
+		chown($filename, "jermaine");
+		
+		return redirect("/");
+ 
+    }
+```
+
 ## 6/8/18
 
 ### How to get convert data to json 
