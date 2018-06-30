@@ -1,5 +1,240 @@
 # laravel logs
 
+## 6/29/18
+
+### How to create an endless scroll with jquery ajax 
+
+I'm just going to put all the files that you need to create an endless scrolling page 
+
+#### PaginateController 
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Customer;
+use Illuminate\Routing\Route;
+
+class PaginateController extends Controller
+{
+    //
+    
+    public function index(){
+        
+        $customer = Customer::paginate(51);
+       
+        
+        return view("paginate.index",["customer"=>$customer]);
+    }
+    
+    
+    public function endless(Request $request){
+        
+        $customer = Customer::paginate(51);
+       
+        if ($request->ajax()) {
+    		$view = view('components.endless-post',compact('customer'))->render();
+            return response()->json(['html'=>$view]);
+        }
+
+        
+        return view("paginate.endless",["customer"=>$customer]);
+    }
+}
+
+```
+
+#### paginate.blade.php 
+
+```php
+<!DOCTYPE html>
+<html lang="{{ app()->getLocale() }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>Pagination</title>
+
+    <!-- Styles -->
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <header id="app">
+        @include('components.page-nav')
+    </header>
+    <main class="row w-100 justify-content-center">
+         @yield('content')
+    </main>
+    
+  
+    <!-- Scripts -->
+    @if(Route::is("endless"))
+        <script src="{{ asset('js/pagination.js') }}"></script>
+    @endif
+
+    
+    
+<!--    <script src="{{ asset('js/app.js') }}"></script>-->
+</body>
+
+</html>
+
+
+```
+
+#### page-nav.blade.php 
+
+```php
+<nav class="navbar navbar-default navbar-static-top mb-0">
+    <div class="container">
+        <div class="navbar-header">
+
+            <!-- Branding Image -->
+            <a class="navbar-brand" href="{{ url('/') }}">
+                        {{ config('app.name', 'Laravel') }}
+                    </a>
+        </div>
+
+        <div class="" id="app-navbar-collapse">
+
+
+            <!-- Right Side Of Navbar -->
+            <ul class="nav  row justified-content-between">
+                <!-- Authentication Links -->
+                @guest
+                
+                <li><a href="{{ route('page') }}">Paginate</a></li>
+                <li><a href="{{ route('endless') }}">Endless</a></li>
+                @else
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                            Logout
+                                        </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                @endguest
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+```
+
+
+#### endless.blade.php 
+
+```php
+@extends('layouts.paginate') 
+
+@section('content')
+<div class="col-8">
+    <h1 class="text-center">Paginate</h1>
+    <div id="endless-post" class="row">
+        @include('components.endless-post')
+    </div>
+    <div id="ajax-load">
+        <img class="text-center" src="/img/Spinner-1s-200px.gif" />
+    </div>
+</div>
+
+@stop
+
+```
+
+
+#### endless-post.blade.php 
+
+```php
+@foreach( $customer as $c)
+        <div class="my-4 col-md-4">
+            <h2>{{$c->id}}: {{$c->name}}</h2>
+            <ul>
+                <li>Email: {{$c->email}}</li>
+                <li>Age: {{$c->age}}</li>
+                <li>Money: ${{$c->money}}</li>
+            </ul>
+    
+        </div>
+@endforeach
+
+```
+
+#### pagination.js 
+
+```js
+(function(){
+   console.log("she's ready");
+    
+    var page = 1;
+	$(window).scroll(function() {
+        let windHeight = $(window).scrollTop() + $(window).height(), 
+            docHeight = $(document).height();
+        //console.log(`window height: ${windHeight} vs. document height: ${docHeight}`)
+        
+	    if( windHeight >= docHeight) {
+	        page++;
+	        loadMoreData(page);
+	    }
+	});
+
+
+	function loadMoreData(page){
+	  $.ajax(
+	        {
+	            url: '?page=' + page,
+	            type: "get",
+	            beforeSend: function()
+	            {
+	                $('#ajax-load').show();
+	            }
+	        })
+	        .done(function(data)
+	        {
+	            if(data.html == " "){
+	                $('#ajax-load').html("No more records found");
+	                return;
+	            }
+	            $('.ajax-load').hide();
+                console.log(data)
+	            $("#endless-post").append(data.html);
+	        })
+	        .fail(function(jqXHR, ajaxOptions, thrownError)
+	        {
+	              alert('server not responding...');
+	        });
+	}
+    
+})();
+
+```
+
+
 ## 6/20/18
 
 ### How to convert data to json, nest data inside other data, and send it to a json file 
