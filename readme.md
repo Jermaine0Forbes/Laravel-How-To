@@ -32,7 +32,7 @@
 - [how to use @auth][@auth]
 - [how to create components][create-component]
 
-## Carbon 
+## Carbon
 - [Carbon table][carbon]
 
 ## Controller
@@ -67,7 +67,7 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 
-## Errors 
+## Errors
 - [The bootstrap/cache directory must be present and writable][boot-error]
 - [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
 
@@ -111,7 +111,7 @@
 [mailable]:#how-to-send-mail-with-mailable
 [mail-simple]:#how-to-send-mail-the-simple-way
 [first-mail]:#how-to-send-mail-to-your-gmail-for-the-first-time
-[carbon-meth]:#how-use-carbon-methods-on-datetime-data
+[carbon-meth]:#how-to-use-carbon-on-datetime-data
 [html-unescape]:#how-to-unescape-html
 [global-middleware]:#make-middleware-global
 [middleware]:#how-to-create-a-middleware
@@ -122,8 +122,8 @@
 [search-engine]:#how-to-create-a-search-engine
 [wysiwyg]:#how-to-add-wysiwyg-editor-in-laravel
 [include]:#how-to-include-files
-[belongsTo]:#how-to-create-a-belongsTo-relationship
-[hasMany]:#how-to-create-a-hasMany-relationship
+[belongsTo]:#how-to-create-a-belongsto-relationship
+[hasMany]:#how-to-create-a-hasmany-relationship
 [model-migrate]:#how-to-create-a-model-and-migration
 [form-table]:#form-builder-table
 [form]:#how-to-create-a-proper-form-structure
@@ -181,7 +181,7 @@ mkdir components
 
 ```
 touch components/alert.blade.php
-``` 
+```
 
 ```php
 
@@ -191,7 +191,7 @@ touch components/alert.blade.php
 
 ```
 
-3. Now when you try to add the component you call it like this 
+3. Now when you try to add the component you call it like this
 
 ```php
 @component('components.alert')
@@ -230,7 +230,7 @@ View Content
 </summmary>
 
 ```
-create a controller, and a markdown mailable 
+create a controller, and a markdown mailable
 
 
 php artisan make:controller <insert name>
@@ -239,7 +239,7 @@ php artisan make:mail <insert name> --markdown=<insert name>
 
 ```
 
-2. Inside controller do this 
+2. Inside controller do this
 
 ```php
 <?php
@@ -253,25 +253,25 @@ use App\Mail\mailShit;
 class MailController extends Controller
 {
     //
-    
+
     public function preview(){
-        
+
         $data = [
             "subject" => "this is a subject",
             "email" => "jermaine@boogietown",
             "body" => "this is a body"
         ];
-        
+
 //         Mail::send(new mailShit($data));
-        
+
          return new mailShit($data); // this will preview the mail that you are sending
-        
+
     }
 }
 
 ```
 
-3. In `app/Mail/<insert name>` add this to the build method 
+3. In `app/Mail/<insert name>` add this to the build method
 
 ```php
 <?php
@@ -292,9 +292,9 @@ class mailShit extends Mailable
      *
      * @return void
      */
-    
+
     public $mail;
-    
+
     public function __construct($data)
     {
         $this->mail = $data;
@@ -313,7 +313,7 @@ class mailShit extends Mailable
 
 ```
 
-4. In the markdown that you created 
+4. In the markdown that you created
 
 ```
 @component('mail::message')
@@ -358,7 +358,7 @@ View Content
 
 
 
-### The only supported ciphers are 
+### The only supported ciphers are
 
 <details>
 <summmary>
@@ -381,20 +381,20 @@ View Content
 View Content
 </summary>
 
-1. create a laravel project 
+1. create a laravel project
 
 ```
 composer create-project laravel/laravel <insert name of project>
 ```
 
-2. create a config file that will serve your laravel app 
+2. create a config file that will serve your laravel app
 
 ```
-cd /etc/apache2/sites-available 
+cd /etc/apache2/sites-available
 
-sudo nano voyager.conf 
+sudo nano voyager.conf
 
-// paste this into the conf file 
+// paste this into the conf file
 
 <VirtualHost *:80>
         ServerName work.com
@@ -408,15 +408,15 @@ sudo nano voyager.conf
 
 ```
 
-3. enable the site and reload it 
+3. enable the site and reload it
 
 ```
-sudo a2ensite voyager.conf 
+sudo a2ensite voyager.conf
 
 sudo service apache2 reload
 ```
 
-4. allow laravel to access certain folders 
+4. allow laravel to access certain folders
 
 ```
 cd <insert name of project>
@@ -424,13 +424,13 @@ cd <insert name of project>
 sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 ```
 
-5. now require voyager 
+5. now require voyager
 
 ```
 composer require tcg/voyager
 ```
 
-6. in the env file make sure you add your info 
+6. in the env file make sure you add your info
 
 ```
 APP_URL=http://localhost
@@ -441,10 +441,10 @@ DB_PASSWORD=secret
 
 ```
 
-7. now install voyager 
+7. now install voyager
 
 ```
-php artisan voyager:install 
+php artisan voyager:install
 ```
 
 8. create an admin user to access the backend
@@ -471,7 +471,7 @@ View Content
 1. assuming that you already have created a model and table in the database named `Article`
 you can easily follow along, if you haven't then create your own shit
 
-2. make a test 
+2. make a test
 
 ```
 php artisan make:test DataTest
@@ -491,7 +491,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class DataTest extends TestCase
 {
-    
+
 	use DatabaseTransactions;// this will prevent fake data being saved in your database
 	/**
      * A basic test example.
@@ -505,7 +505,7 @@ class DataTest extends TestCase
 }
 ```
 
-4. Now create fake data with the factory like so, and add the `Article` model or 
+4. Now create fake data with the factory like so, and add the `Article` model or
 whatever model you created so that you can create fake data
 
 ```php
@@ -521,7 +521,7 @@ use App\Article; //adding the model
 
 class DataTest extends TestCase
 {
-    
+
 	use DatabaseTransactions;
 	/**
      * A basic test example.
@@ -530,7 +530,7 @@ class DataTest extends TestCase
      */
     public function testBasicTest()
     {
-        
+
 		$content = "And my balls were really chilly on that fateful day";
 		// this creates a row of data
        factory(Article::class)->create([
@@ -538,20 +538,20 @@ class DataTest extends TestCase
             "content" => $content,
             "author_id" =>28
         ]);
-		
+
 		// assertContains will look at an array or string to see if second parameter
 		// contains the first parameter
 		$this->assertContains($content,Article::where("author_id",28)->get());
-		
-		
-		
+
+
+
     }
 }
 
 ```
 
-5. so now run phpunit, and it should be successful because author_id=28 does contain the specific content 
-string 
+5. so now run phpunit, and it should be successful because author_id=28 does contain the specific content
+string
 
 ```
 ./vendor/bin/phpunit
@@ -562,20 +562,20 @@ string
 
 [go back :house:][home]
 
-### how to setup a basic phpunit test 
+### how to setup a basic phpunit test
 
 <details>
 <summary>
 View Content
 </summary>
-1. make a test 
+1. make a test
 
 ```
 php artisan make:test HomeTest
 ```
 
-2. in `tests/Feature` location you will find your new test so open it up 
-and you will see something like this 
+2. in `tests/Feature` location you will find your new test so open it up
+and you will see something like this
 
 ```php
 <?php
@@ -594,15 +594,15 @@ class HomeTest extends TestCase
      */
     public function testExample()
     {
-        
-        
+
+
     }
 }
 
 ```
 
-3. let's just create a simple test to determine if **phpunit** can access a certain page 
-in your website, so copy this down 
+3. let's just create a simple test to determine if **phpunit** can access a certain page
+in your website, so copy this down
 
 
 ```php
@@ -623,11 +623,11 @@ class HomeTest extends TestCase
      */
     public function testExample()
     {
-        
+
         $response = $this->get("/");
-        
+
         $response->Status(200);// this should determine if a route can be accessed
-        
+
     }
 }
 ```
@@ -675,7 +675,7 @@ slug|self explanatory|aut-repellat-commodi-vel-itaque
 
 ### How to create fake data
 
-In the console write this, also make sure you generate all 
+In the console write this, also make sure you generate all
 the faker data before you do the command
 
 ```
@@ -687,7 +687,7 @@ php artisan db:seed
 ### How to generate fake data
 
 1. create a factory model, also make sure that you have the database
-and model created 
+and model created
 
 ```
 php artisan make:factory <insert name>
@@ -710,10 +710,10 @@ $factory->define(Article::class, function (Faker $faker) {
 });
 ```
 
-3. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the 
+3. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the
 method
 
-```php 
+```php
 <?php
 
 use Illuminate\Database\Seeder;
@@ -736,14 +736,14 @@ class DatabaseSeeder extends Seeder
 ```
 [go back home][home]
 
-### Carbon Table 
+### Carbon Table
 
 **reference**
 - [carbon](http://carbon.nesbot.com/docs/#api-introduction)
 
-Here are the common methods I will use with the Carbon class 
+Here are the common methods I will use with the Carbon class
 
-method|description|example 
+method|description|example
 -|-|-
 now()|gets the current datetime|Carbon::now() //2018-02-23 18:11:35.0 UTC (+00:00)
 addYear(year)|adds the amount of years to date, it will default to 1|Carbon::addYear(5) // 2023-02-23 18:17:38.0 UTC (+00:00)
@@ -759,7 +759,7 @@ createFromDate(year,month,day,timezone)|creates a date with parameters you added
 ```php
 
 @auth('master')
-    
+
     If you are logged in under a master guard you will be able to see this
 
 @endauth
@@ -772,20 +772,20 @@ createFromDate(year,month,day,timezone)|creates a date with parameters you added
 
 #### How to add a new css file
 
-1. The css that markdown uses is called `default` in 
-order to change it you have to go to `config/mail.php`. 
-And at the bottom you will see a markdown value that has 
-the property called **theme** change the name of the theme 
+1. The css that markdown uses is called `default` in
+order to change it you have to go to `config/mail.php`.
+And at the bottom you will see a markdown value that has
+the property called **theme** change the name of the theme
 to whatever the new css is called.
 
-2. Next the location where to hold the css files should be 
-in `resources/views/vendor/mail/html/themes` so if you want to 
+2. Next the location where to hold the css files should be
+in `resources/views/vendor/mail/html/themes` so if you want to
 see the changes take place you need add your css files in that area
 
 #### How to add a scss file
 
-1. You typically do the same thing that you do all the time when 
-you create scss files, except in the **webpack.mix.js** file you 
+1. You typically do the same thing that you do all the time when
+you create scss files, except in the **webpack.mix.js** file you
 need to create the output path like this
 
 
@@ -812,8 +812,8 @@ contoller like this `use  App\Mail\<insert name>;`
             "email" => "skivac3@gmail.com",
             "body" => "This is a body"
         ];
-        
-    // sendMark is the markdown mailable that I created 
+
+    // sendMark is the markdown mailable that I created
 
        $mail = new sendMark($data);
        $mail = $mail->build();
@@ -823,7 +823,7 @@ contoller like this `use  App\Mail\<insert name>;`
     }
 ```
 3. Go to `/home/jermaine/Portfolio-Website/vendor/laravel/framework/src/Illuminate/Mail/Mailable.php`,
-  find the method **buildView**, and make sure you change modifier to public 
+  find the method **buildView**, and make sure you change modifier to public
 
 4. After that you're all good
 
@@ -840,11 +840,11 @@ public function preview(){
             "email" => "skivac3@gmail.com",
             "body" => "This is a body"
         ];
-        
-    // sendMark is the markdown mailable that I created 
+
+    // sendMark is the markdown mailable that I created
 
        return new sendMark($data);
-       
+
 
 
     }
@@ -854,12 +854,12 @@ public function preview(){
 
 [go back home][home]
 
-### HOW TO CREATE A 404 PAGE 
+### HOW TO CREATE A 404 PAGE
 
 **reference**
 - [laravel](https://laravel.com/docs/5.6/errors#http-exceptions)
 
-Create a `resources/views/errors/404.blade.php` and add your message 
+Create a `resources/views/errors/404.blade.php` and add your message
 when a 404 error happens.
 
 [go back home][home]
@@ -874,17 +874,17 @@ php artisan make:model <insert name> -rm
 
 ### HOW TO SEND A MARKDOWN MAILABLE
 
-This is pretty much 99% identical to a regular mailable 
+This is pretty much 99% identical to a regular mailable
 except that you need to change the `view()` to `markdown()`
-for example 
+for example
 
-1. first create the markdown file 
+1. first create the markdown file
 
 ```
 php artisan make:mail sendMark --markdown=email.mark
 ```
 
-2. now in the file itself add this 
+2. now in the file itself add this
 
 
 ```php
@@ -949,7 +949,7 @@ php artisan make:mail orderShipped --markdown=orders.shipped
 
 ### HOW TO SEND MAIL WITH MAILABLE
 
-1. create a mailable file 
+1. create a mailable file
 
 ```
 php artisan make:mail mailSend
@@ -957,7 +957,7 @@ php artisan make:mail mailSend
 
 2. In the controller that you are going to send the form data to the Mailable
 make sure that you include the namespace of the mail facade and the mailable.
-Look at the code to get a understanding 
+Look at the code to get a understanding
 
 ```php
 <?php
@@ -971,23 +971,23 @@ use App\Contact;
 
 class ContactController extends Controller
 {
-    
-    
+
+
     public function index(){
 
     	return view("contact");
     }
-    
-    
+
+
     public function send(Request $r){
         $data =[
             "subject" => $r->subject,
             "email" => $r->email,
             "body" => $r->message
         ];
-        
+
          Mail::send(new mailSent($data));
-        
+
         return redirect("/");
     }
 }
@@ -1024,19 +1024,19 @@ class ContactController extends Controller
     }
 ```
 
-4. As long as you created the view, and have similar array properties then this 
+4. As long as you created the view, and have similar array properties then this
 should work.
 
 [go back home][home]
 
-### HOW TO SEND MAIL THE SIMPLE WAY 
+### HOW TO SEND MAIL THE SIMPLE WAY
 
-**Note**: This should work as long as you have already created the view 
+**Note**: This should work as long as you have already created the view
 `email.test`, the contact form, and the routes that are pointing to **index**
 and **send**. Obviously you can change the names around of the view, methods, and controlles and it should still be good
 
 **reference**
-- [artsian web](https://artisansweb.net/sending-email-via-gmail-smtp-server-laravel/) , this reference is 
+- [artsian web](https://artisansweb.net/sending-email-via-gmail-smtp-server-laravel/) , this reference is
 fine but he does have the wrong port and host information
 - [laravel](https://laravel.com/docs/5.6/mail#sending-mail)
 
@@ -1051,33 +1051,33 @@ use App\Contact;
 
 class ContactController extends Controller
 {
-    
+
     // This is the property where you store the email information
     protected $mail;
-    
+
     public function index(){
 
     	return view("contact");
     }
-    
-    
+
+
     public function send(Request $r){
         $data =[
             "subject" => $r->subject,
             "email" => $r->email,
             "body" => $r->message
         ];
-        
+
 		//You have to store the data in a property because the $data will not recognized
 		// and be considered undefined when you try to add into the call back function
         $this->mail = $data;
-        
+
         Mail::send("email.test",$data,function($message){
              $message->to('jermaine0forbes@gmail.com', "jermaine forbes")
             ->subject($this->mail["subject"]);
             $message->from($this->mail["email"]);
         });
-        
+
         return redirect("/");
     }
 }
@@ -1086,10 +1086,10 @@ class ContactController extends Controller
 
 [go back home][home]
 
-### HOW TO SEND MAIL TO YOUR GMAIL FOR THE FIRST TIME 
+### HOW TO SEND MAIL TO YOUR GMAIL FOR THE FIRST TIME
 
-This was a little bit tricky, and there are some things you need to do first 
-so that GMAIL will know that you are sending the mail, and not hackers or harmful 
+This was a little bit tricky, and there are some things you need to do first
+so that GMAIL will know that you are sending the mail, and not hackers or harmful
 entities.
 
 **reference**
@@ -1127,7 +1127,7 @@ you got a message from {{$email}}
 
 ```
 
-4. If you have not already, create a controller method to receive the form data and create a 
+4. If you have not already, create a controller method to receive the form data and create a
 class property to hold the form data to send the data to the mail. Also include the `Illuminate\Support\Facades\Mail`
 namespace. Basically, copy all that I have made;
 
@@ -1143,33 +1143,33 @@ use App\Contact;
 
 class ContactController extends Controller
 {
-    
+
     // This is the property where you store the email information
     protected $mail;
-    
+
     public function index(){
 
     	return view("contact");
     }
-    
-    
+
+
     public function send(Request $r){
         $data =[
             "subject" => $r->subject,
             "email" => $r->email,
             "body" => $r->message
         ];
-        
+
 		//You have to store the data in a property because the $data will not recognized
 		// and be considered undefined when you try to add into the call back function
         $this->mail = $data;
-        
+
         Mail::send("email.test",$data,function($message){
              $message->to('jermaine0forbes@gmail.com', "jermaine forbes")
             ->subject($this->mail["subject"]);
             $message->from($this->mail["email"]);
         });
-        
+
         return redirect("/");
     }
 }
@@ -1180,7 +1180,7 @@ class ContactController extends Controller
 
 6. Now you have to go to this [link](https://security.google.com/settings/security/apppasswords), and make sure you choose the option **Others (custom name)** to generate a password
 
-7. Once you have gotten that password, place this new password in .env file and after you save the file 
+7. Once you have gotten that password, place this new password in .env file and after you save the file
 execute the command `php artisan config:cache`
 
 ```
@@ -1197,11 +1197,16 @@ MAIL_ENCRYPTION=tls
 
 [go back home][home]
 
-### HOW TO USE CARBON ON DATETIME DATA 
+### HOW TO USE CARBON ON DATETIME DATA
 
-Carbon is a Facade that extends the DateTime class. So that means that is has the 
-methods of the DateTime class and new methods to make it easier to format time. But in order 
-to use carbon in the view you have to add the specific columns that are going to use it in 
+<details>
+<summary>
+View Content
+</summary>
+
+Carbon is a Facade that extends the DateTime class. So that means that is has the
+methods of the DateTime class and new methods to make it easier to format time. But in order
+to use carbon in the view you have to add the specific columns that are going to use it in
 the model.
 
 **reference**
@@ -1213,7 +1218,10 @@ protected $dates = ['created_at', 'updated_at', 'disabled_at','mydate'];
 
 ```
 
-[go back home][home]
+</details>
+
+
+[go back :house:][home]
 
 ### HOW TO UNESCAPE HTML
 
@@ -1405,27 +1413,27 @@ is supposed to start the webpack. **Just run** `npm i`
 **reference**
 - [How to Add Wysiwyg Editor in Laravel?](https://www.technig.com/how-to-add-wysiwyg-editor-in-laravel/)
 
-#### Markdown Editor 
+#### Markdown Editor
 
 **reference**
 - [simple intructions](https://github.com/Vinelab/laravel-editor)
 
-1. In the termial 
+1. In the termial
 
 ```
 composer require vinelab/laravel-editor
 ```
 
-2. In `config/app.php` inside **providers** add this 
+2. In `config/app.php` inside **providers** add this
 
 ```
 Vinelab\Editor\EditorServiceProvider',
 ```
 
-3. Now publish the assets by running 
+3. Now publish the assets by running
 
 ```
-php artisan vendor:publish 
+php artisan vendor:publish
 ```
 
 [go back home][home]
@@ -1603,6 +1611,11 @@ Easy, just add `@include('file')`. If the file is another folder then put
 
 ### HOW TO CREATE A BELONGSTO RELATIONSHIP
 
+<details>
+<summary>
+View Content
+</summary>
+
 **reference**
 - [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
 
@@ -1623,9 +1636,17 @@ class User extends Model
 }
 ```
 
-[go back home][home]
+</details>
+
+
+[go back :house:][home]
 
 ### HOW TO CREATE A HASMANY RELATIONSHIP
+
+<details>
+<summary>
+View Content
+</summary>
 
 **reference**
 - [Eloquent: Relationships](https://laravel.com/docs/5.5/eloquent-relationships)
@@ -1647,7 +1668,10 @@ class User extends Model
 }
 ```
 
-[go back home][home]
+</details>
+
+
+[go back :house:][home]
 
 ### HOW TO CREATE A MODEL AND MIGRATION
 
@@ -1832,7 +1856,7 @@ sudo chmod -R 777 ./storage;sudo chmod -R 777 ./bootstrap
 
 cp .env.save .env
 
-    
+
 ```
 
 [go back home][home]
