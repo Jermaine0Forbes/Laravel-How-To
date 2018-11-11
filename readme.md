@@ -31,6 +31,7 @@
 - [how to unescape html][html-unescape]
 - [how to use @auth][@auth]
 - [how to create components][create-component]
+- [how to add parameters to a route component][route-parameter]
 
 ## Carbon 
 - [Carbon table][carbon]
@@ -88,6 +89,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[route-parameter]:#how-to-add-parameters-to-a-route-component
 [public-disk]:#how-to-create-a-public-disk
 [create-component]:#how-to-create-components
 [customize-components]:#how-to-customize-markdown-components
@@ -145,6 +147,28 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+
+### How to add parameters to a route component
+<details>
+<summary>
+View Content
+</summary>
+
+**web.php**
+```php
+Route::get('/home/settings/{id}', 'HomeController@settings')->name('home.setting');
+```
+
+**user-sidebar.blade.php**
+```php
+...
+<li><a href="{{route('home.setting',[Auth::user()->id])}}">settings</a></li>
+...
+```
+</details>
+
+[go back :house:][home]
 
 ### How to create a public disk
 <details>
