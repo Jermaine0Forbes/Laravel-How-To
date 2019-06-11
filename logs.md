@@ -1,12 +1,35 @@
 # laravel logs
 
+## 6/11/19
+
+### Reinstall composer the right way  
+
+```
+curl -sS https://getcomposer.org/installer | sudo php
+sudo mv composer.phar /usr/local/bin/composer
+export PATH="$HOME/.composer/vendor/bin:$PATH"
+
+```
+
+
+### Laravel Errors
+
+`[ErrorException]
+  "continue" targeting switch is equivalent to "break". Did you mean to use "
+  continue 2"?
+`
+---
+
+`[RuntimeException]
+  SHA384 is not supported by your openssl extension, could not verify the phar file integrity`
+
 ## 6/29/18
 
-### How to create an endless scroll with jquery ajax 
+### How to create an endless scroll with jquery ajax
 
-I'm just going to put all the files that you need to create an endless scrolling page 
+I'm just going to put all the files that you need to create an endless scrolling page
 
-#### PaginateController 
+#### PaginateController
 
 ```php
 <?php
@@ -20,33 +43,33 @@ use Illuminate\Routing\Route;
 class PaginateController extends Controller
 {
     //
-    
+
     public function index(){
-        
+
         $customer = Customer::paginate(51);
-       
-        
+
+
         return view("paginate.index",["customer"=>$customer]);
     }
-    
-    
+
+
     public function endless(Request $request){
-        
+
         $customer = Customer::paginate(51);
-       
+
         if ($request->ajax()) {
     		$view = view('components.endless-post',compact('customer'))->render();
             return response()->json(['html'=>$view]);
         }
 
-        
+
         return view("paginate.endless",["customer"=>$customer]);
     }
 }
 
 ```
 
-#### paginate.blade.php 
+#### paginate.blade.php
 
 ```php
 <!DOCTYPE html>
@@ -78,15 +101,15 @@ class PaginateController extends Controller
     <main class="row w-100 justify-content-center">
          @yield('content')
     </main>
-    
-  
+
+
     <!-- Scripts -->
     @if(Route::is("endless"))
         <script src="{{ asset('js/pagination.js') }}"></script>
     @endif
 
-    
-    
+
+
 <!--    <script src="{{ asset('js/app.js') }}"></script>-->
 </body>
 
@@ -95,7 +118,7 @@ class PaginateController extends Controller
 
 ```
 
-#### page-nav.blade.php 
+#### page-nav.blade.php
 
 ```php
 <nav class="navbar navbar-default navbar-static-top mb-0">
@@ -115,7 +138,7 @@ class PaginateController extends Controller
             <ul class="nav  row justified-content-between">
                 <!-- Authentication Links -->
                 @guest
-                
+
                 <li><a href="{{ route('page') }}">Paginate</a></li>
                 <li><a href="{{ route('endless') }}">Endless</a></li>
                 @else
@@ -147,10 +170,10 @@ class PaginateController extends Controller
 ```
 
 
-#### endless.blade.php 
+#### endless.blade.php
 
 ```php
-@extends('layouts.paginate') 
+@extends('layouts.paginate')
 
 @section('content')
 <div class="col-8">
@@ -168,7 +191,7 @@ class PaginateController extends Controller
 ```
 
 
-#### endless-post.blade.php 
+#### endless-post.blade.php
 
 ```php
 @foreach( $customer as $c)
@@ -179,24 +202,24 @@ class PaginateController extends Controller
                 <li>Age: {{$c->age}}</li>
                 <li>Money: ${{$c->money}}</li>
             </ul>
-    
+
         </div>
 @endforeach
 
 ```
 
-#### pagination.js 
+#### pagination.js
 
 ```js
 (function(){
    console.log("she's ready");
-    
+
     var page = 1;
 	$(window).scroll(function() {
-        let windHeight = $(window).scrollTop() + $(window).height(), 
+        let windHeight = $(window).scrollTop() + $(window).height(),
             docHeight = $(document).height();
         //console.log(`window height: ${windHeight} vs. document height: ${docHeight}`)
-        
+
 	    if( windHeight >= docHeight) {
 	        page++;
 	        loadMoreData(page);
@@ -229,7 +252,7 @@ class PaginateController extends Controller
 	              alert('server not responding...');
 	        });
 	}
-    
+
 })();
 
 ```
@@ -237,59 +260,59 @@ class PaginateController extends Controller
 
 ## 6/20/18
 
-### How to convert data to json, nest data inside other data, and send it to a json file 
+### How to convert data to json, nest data inside other data, and send it to a json file
 
 ```php
 
     public function json(){
-        
+
 
         $farm = Farmer::get();
         $ani = Animal::get();
         $arr = [];
-        
+
         foreach($farm as $f){
             $id = $f->id;
-            
+
             foreach($ani as $a){
                 if($id == $a->farmer_id){
                     array_push($arr, $a);
                 }
             }
-            
+
             $f->animal = $arr;
             $arr =[];
-            
-        }
-        
-        $farm = json_encode($farm);
-        
 
-        
-        
+        }
+
+        $farm = json_encode($farm);
+
+
+
+
         $filename = getcwd()."/farmer.json";
         file_put_contents($filename,$farm);
         chmod($filename,0775);
 		chown($filename, "jermaine");
-		
+
 		return redirect("/");
- 
+
     }
 ```
 
 ## 6/8/18
 
-### How to get convert data to json 
+### How to get convert data to json
 
 ```php
   public function json(){
-        
+
         $cust = Customer::limit(20)->get()->toJson();
-        
+
         $farm = Farmer::leftJoin('animals','farmers.id', '=','animals.farmer_id')
             ->get()
             ->toJson();
-        
+
         $filename = getcwd()."/farmer.json";
         file_put_contents($filename,$farm);
         chmod($filename,0775);
@@ -298,7 +321,7 @@ class PaginateController extends Controller
 
 ## 2/29/18
 
-Okay, so I am finding out that dusk cannot run on a server and that you possibly need 
+Okay, so I am finding out that dusk cannot run on a server and that you possibly need
 to use phantom.js to make it work. I will investigate that later
 
 
@@ -306,7 +329,7 @@ to use phantom.js to make it work. I will investigate that later
 
 ### use DatabaseTransactions if you are going to use PHP Testing
 
-I need to remember to inlcude the DatabaseTransactions class in whatever test example 
+I need to remember to inlcude the DatabaseTransactions class in whatever test example
 when testing out the database or an eloquent model
 
 `use Illuminate\Foundation\Testing\DatabaseTransactions`
@@ -320,25 +343,25 @@ try, wish me luck
 ### Error: Failed to connect to localhost port 9515: Connection refused
 
 I'm still trying to learn how to use this php unit testing and I realize
-that all the tutorials that I have been looking at are antiquated because the 
-methods to use them don't exist anymore. This is why I am trying to use dusk but Im 
+that all the tutorials that I have been looking at are antiquated because the
+methods to use them don't exist anymore. This is why I am trying to use dusk but Im
 getting errors messages as well. I think this error message is for the fact that I am
 using localhost to see my laravel app. But, I am not too sure
 
 ### Doing too much shit just for dusk
 
-I am getting the connection refused error, but I am trying some technique that is said to work 
+I am getting the connection refused error, but I am trying some technique that is said to work
 for dusk  
 
 ---
 ## 1/5/18
 
-### Note about CKEditor 
+### Note about CKEditor
 
-It sucks, well, at least the free version sucks. I was trying to get the 
+It sucks, well, at least the free version sucks. I was trying to get the
 editor to not strip away the classes in the elements for about ... a long time
 I was looking through the documentation, trying to figure out how to configure  
-this editor. However, I still have not succeeded in this simple task so I am moving 
+this editor. However, I still have not succeeded in this simple task so I am moving
 on to other wysiwyg editors
 
 
@@ -349,7 +372,7 @@ on to other wysiwyg editors
 
 If you get this error it could be either two things
 
-1. You don't have the csrf_token in the form 
+1. You don't have the csrf_token in the form
 
 ```php
 
