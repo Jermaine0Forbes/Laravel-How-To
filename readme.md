@@ -523,7 +523,7 @@ php artisan make:test DataTest
 
 3. in the `tests/Feature/DataTest.php` add in the DatabaseTransactions like so
 
-```php
+```
 
 <?php
 
@@ -552,7 +552,7 @@ class DataTest extends TestCase
 4. Now create fake data with the factory like so, and add the `Article` model or
 whatever model you created so that you can create fake data
 
-```php
+```
 
 <?php
 
@@ -621,7 +621,7 @@ php artisan make:test HomeTest
 2. in `tests/Feature` location you will find your new test so open it up
 and you will see something like this
 
-```php
+```
 <?php
 
 namespace Tests\Feature;
@@ -649,7 +649,7 @@ class HomeTest extends TestCase
 in your website, so copy this down
 
 
-```php
+```
 
 <?php
 
@@ -796,7 +796,7 @@ class CreateSodasTable extends Migration
 
 5. then go to `databases\factories\Article.php`, and add the faker property
 
-```php
+```
 <?php
 
 use Faker\Generator as Faker;
@@ -814,7 +814,7 @@ $factory->define(Article::class, function (Faker $faker) {
 6. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the
 method
 
-```php
+```
 <?php
 
 use Illuminate\Database\Seeder;
