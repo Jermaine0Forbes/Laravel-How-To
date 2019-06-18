@@ -734,10 +734,67 @@ php artisan db:seed
 and model created
 
 ```
-php artisan make:factory <insert name>
+php artisan make:factory Article
 ```
 
-2. then go to `databases\factories\Factory.php`, and add the faker property
+2. If you have not created a model or the table then type the command in
+
+
+```
+
+php artisan make:model  Article -m  // this creates the model and the migration table
+
+```
+
+
+3. In `databases/migrations` find the migrations table and edit it to your liking
+
+```
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateSodasTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('articles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string("title", "50");
+            $table->text("content");
+            $table->integer("author_id");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('articles');
+    }
+}
+
+
+```
+
+4. Migrate the table
+
+```
+ php artisan migrate
+```
+
+5. then go to `databases\factories\Article.php`, and add the faker property
 
 ```php
 <?php
@@ -754,7 +811,7 @@ $factory->define(Article::class, function (Faker $faker) {
 });
 ```
 
-3. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the
+6. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the
 method
 
 ```php
@@ -778,7 +835,17 @@ class DatabaseSeeder extends Seeder
 }
 
 ```
-[go back home][home]
+
+7. finally, seed the data
+
+```
+php artisan db:seed
+
+```
+
+8. And that will create the rows of data
+
+[go back :house:][home]
 
 ### Carbon Table
 
