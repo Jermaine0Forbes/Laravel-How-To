@@ -71,6 +71,7 @@
 ## Errors
 - [The bootstrap/cache directory must be present and writable][boot-error]
 - [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
+- [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
 
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
@@ -89,6 +90,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[per-err]:#the-stream-or-file-could-not-be-opened
 [route-parameter]:#how-to-add-parameters-to-a-route-component
 [public-disk]:#how-to-create-a-public-disk
 [create-component]:#how-to-create-components
@@ -148,6 +150,24 @@
 
 ---
 
+### The stream or file could not be opened
+
+<details>
+<summary>
+View Content
+</summary>
+
+Just do this in your terminal
+
+```
+cd your-project
+
+sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+
+```
+</details>
+
+[go back :house:][home]
 
 ### How to add parameters to a route component
 <details>
