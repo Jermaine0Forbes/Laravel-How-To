@@ -165,6 +165,9 @@ View Content
 Expression | Description
 -|-
 {{$var}}|Echo content
+{{ $var or 'default' }}|Echo content with a default value
+@extends('layout')|Extends a template with a layout
+@if(condition) //code @endif|Starts an if block
 </details>
 
 [go back :house:][home]
