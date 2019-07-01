@@ -32,6 +32,9 @@
 - [how to use @auth][@auth]
 - [how to create components][create-component]
 - [how to add parameters to a route component][route-parameter]
+- [how to use @foreach][@foreach]
+- [view template table][template-table]
+
 
 ## Carbon
 - [Carbon table][carbon]
@@ -90,6 +93,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[template-table]:#view-template-table
 [per-err]:#the-stream-or-file-could-not-be-opened
 [route-parameter]:#how-to-add-parameters-to-a-route-component
 [public-disk]:#how-to-create-a-public-disk
@@ -147,8 +151,42 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+[@foreach]:#how-to-use-foreach
 
 ---
+
+### view template table
+
+<details>
+<summary>
+View Content
+</summary>
+
+Expression | Description
+-|-
+{{$var}}|Echo content
+</details>
+
+[go back :house:][home]
+
+
+### how to use @foreach
+
+<details>
+<summary>
+View Content
+</summary>
+
+```php
+@foreach( $sodas as $soda)
+  <p>$soda->name</p>
+  <p>$soda->company</p>
+  <p>$soda->price</p>
+@endforeach
+```
+</details>
+
+[go back :house:][home]
 
 ### The stream or file could not be opened
 
@@ -2160,7 +2198,7 @@ looking for.
 ### HOW TO EXTEND A BLADE LAYOUT
 - create a layout file and make sure you have the yield function that has a name
 inside the parentheis
-    - example: yield('main')
+    - example: @yield('main')
 - create a file that extends that layout file and make you have the extends()
 function and the section() function inside of it
 
@@ -2171,7 +2209,7 @@ function and the section() function inside of it
         <head>
         </head>
         <body>
-            yield('main')
+            @yield('main')
         </body>
     </html>
 
@@ -2199,7 +2237,7 @@ you need to add `@extends('folder.file')`
         <head>
         </head>
         <body>
-            yield('main')
+            @yield('main')
         </body>
     </html>
 
