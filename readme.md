@@ -167,7 +167,11 @@ Expression | Description
 {{$var}}|Echo content
 {{ $var or 'default' }}|Echo content with a default value
 @extends('layout')|Extends a template with a layout
-@if(condition) //code @endif|Starts an if block
+@if(condition) ...insert code @endif|Starts an if block
+@section('name') ...insert code @stop|Starts a section
+@while(condition) ...insert code @endwhile|Starts a while block
+@include(file, ['var' => $val,...])|Includes a template, passing new variables.
+@yield('section')|Yields content of a section.
 </details>
 
 [go back :house:][home]
