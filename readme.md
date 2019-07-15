@@ -32,6 +32,9 @@
 - [how to use @auth][@auth]
 - [how to create components][create-component]
 - [how to add parameters to a route component][route-parameter]
+- [how to use @foreach][@foreach]
+- [view template table][template-table]
+
 
 ## Carbon
 - [Carbon table][carbon]
@@ -72,6 +75,7 @@
 ## Errors
 - [The bootstrap/cache directory must be present and writable][boot-error]
 - [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
+- [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
 
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
@@ -90,7 +94,8 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
-[inc-carbon]:#how-to-include-carbon
+[template-table]:#view-template-table
+[per-err]:#the-stream-or-file-could-not-be-opened
 [route-parameter]:#how-to-add-parameters-to-a-route-component
 [public-disk]:#how-to-create-a-public-disk
 [create-component]:#how-to-create-components
@@ -147,9 +152,68 @@
 [timestamps]:#how-to-disable-timestamps
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
+[@foreach]:#how-to-use-foreach
 
 ---
 
+### view template table
+
+<details>
+<summary>
+View Content
+</summary>
+
+Expression | Description
+-|-
+{{$var}}|Echo content
+{{ $var or 'default' }}|Echo content with a default value
+@extends('layout')|Extends a template with a layout
+@if(condition) ...insert code @endif|Starts an if block
+@section('name') ...insert code @stop|Starts a section
+@while(condition) ...insert code @endwhile|Starts a while block
+@include(file, ['var' => $val,...])|Includes a template, passing new variables.
+@yield('section')|Yields content of a section.
+</details>
+
+[go back :house:][home]
+
+
+### how to use @foreach
+
+<details>
+<summary>
+View Content
+</summary>
+
+```php
+@foreach( $sodas as $soda)
+  <p>$soda->name</p>
+  <p>$soda->company</p>
+  <p>$soda->price</p>
+@endforeach
+```
+</details>
+
+[go back :house:][home]
+
+### The stream or file could not be opened
+
+<details>
+<summary>
+View Content
+</summary>
+
+Just do this in your terminal
+
+```
+cd your-project
+
+sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+
+```
+</details>
+
+[go back :house:][home]
 
 ### how to include carbon
 
@@ -525,7 +589,7 @@ php artisan make:test DataTest
 
 3. in the `tests/Feature/DataTest.php` add in the DatabaseTransactions like so
 
-```php
+```
 
 <?php
 
@@ -554,7 +618,7 @@ class DataTest extends TestCase
 4. Now create fake data with the factory like so, and add the `Article` model or
 whatever model you created so that you can create fake data
 
-```php
+```
 
 <?php
 
@@ -623,7 +687,7 @@ php artisan make:test HomeTest
 2. in `tests/Feature` location you will find your new test so open it up
 and you will see something like this
 
-```php
+```
 <?php
 
 namespace Tests\Feature;
@@ -651,7 +715,7 @@ class HomeTest extends TestCase
 in your website, so copy this down
 
 
-```php
+```
 
 <?php
 
@@ -736,12 +800,69 @@ php artisan db:seed
 and model created
 
 ```
-php artisan make:factory <insert name>
+php artisan make:factory Article
 ```
 
-2. then go to `databases\factories\Factory.php`, and add the faker property
+2. If you have not created a model or the table then type the command in
 
-```php
+
+```
+
+php artisan make:model  Article -m  // this creates the model and the migration table
+
+```
+
+
+3. In `databases/migrations` find the migrations table and edit it to your liking
+
+```
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateSodasTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('articles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string("title", "50");
+            $table->text("content");
+            $table->integer("author_id");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('articles');
+    }
+}
+
+
+```
+
+4. Migrate the table
+
+```
+ php artisan migrate
+```
+
+5. then go to `databases\factories\Article.php`, and add the faker property
+
+```
 <?php
 
 use Faker\Generator as Faker;
@@ -756,10 +877,10 @@ $factory->define(Article::class, function (Faker $faker) {
 });
 ```
 
-3. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the
+6. then go to `databases\seeds\DatabaseSeeder.php` and add the code to the
 method
 
-```php
+```
 <?php
 
 use Illuminate\Database\Seeder;
@@ -780,7 +901,17 @@ class DatabaseSeeder extends Seeder
 }
 
 ```
-[go back home][home]
+
+7. finally, seed the data
+
+```
+php artisan db:seed
+
+```
+
+8. And that will create the rows of data
+
+[go back :house:][home]
 
 ### Carbon Table
 
@@ -2095,7 +2226,7 @@ looking for.
 ### HOW TO EXTEND A BLADE LAYOUT
 - create a layout file and make sure you have the yield function that has a name
 inside the parentheis
-    - example: yield('main')
+    - example: @yield('main')
 - create a file that extends that layout file and make you have the extends()
 function and the section() function inside of it
 
@@ -2106,7 +2237,7 @@ function and the section() function inside of it
         <head>
         </head>
         <body>
-            yield('main')
+            @yield('main')
         </body>
     </html>
 
@@ -2134,7 +2265,7 @@ you need to add `@extends('folder.file')`
         <head>
         </head>
         <body>
-            yield('main')
+            @yield('main')
         </body>
     </html>
 
