@@ -35,6 +35,7 @@
 
 ## Carbon
 - [Carbon table][carbon]
+- [how to include carbon][inc-carbon]
 
 ## Controller
 - [how to create a controller][control]
@@ -89,6 +90,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[inc-carbon]:#how-to-include-carbon
 [route-parameter]:#how-to-add-parameters-to-a-route-component
 [public-disk]:#how-to-create-a-public-disk
 [create-component]:#how-to-create-components
@@ -147,6 +149,26 @@
 [single-control]:#how-to-create-a-single-action-controller
 
 ---
+
+
+### how to include carbon
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- []()
+
+```php
+use Carbon\Carbon;
+```
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### How to add parameters to a route component
