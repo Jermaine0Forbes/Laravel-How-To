@@ -94,6 +94,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[inc-carbon]:#how-to-include-carbon
 [template-table]:#view-template-table
 [per-err]:#the-stream-or-file-could-not-be-opened
 [route-parameter]:#how-to-add-parameters-to-a-route-component
@@ -221,9 +222,6 @@ sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 <summary>
 View Content
 </summary>
-
-**reference**
-- []()
 
 ```php
 use Carbon\Carbon;
