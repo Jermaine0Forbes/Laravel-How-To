@@ -2067,9 +2067,9 @@ can alter the model.
 ```
 class Dog extends Model{
 
-    const $CREATED_AT = 'created_date'
+    const CREATED_AT = 'created_date'
 
-    const $UPDATED_AT = 'update_bitch'
+    const UPDATED_AT = 'update_bitch'
 }
 ```
 
