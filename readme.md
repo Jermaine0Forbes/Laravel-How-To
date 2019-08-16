@@ -75,6 +75,7 @@
 - [The bootstrap/cache directory must be present and writable][boot-error]
 - [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
 - [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
+- [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
 
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
@@ -93,6 +94,7 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+[event-boot]:#eventserviceprovider-boot-error
 [template-table]:#view-template-table
 [per-err]:#the-stream-or-file-could-not-be-opened
 [route-parameter]:#how-to-add-parameters-to-a-route-component
@@ -154,6 +156,45 @@
 [@foreach]:#how-to-use-foreach
 
 ---
+
+### EventServiceProvider boot error
+
+<details>
+<summary>
+View Content
+</summary>
+
+**reference**
+- [Laravel: Declaration of App\Providers\EventServiceProvider::boot](https://stackoverflow.com/questions/44788352/laravel-declaration-of-app-providers-eventserviceproviderboot)
+
+**If you get this**
+
+`Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contract
+  s\Events\Dispatcher $events) should be compatible with Illuminate\Foundatio
+  n\Support\Providers\EventServiceProvider::boot()
+`
+
+**or this**
+
+` Declaration of App\Providers\RouteServiceProvider::boot(Illuminate\Routing\
+  Router $router) should be compatible with Illuminate\Foundation\Support\Pro
+  viders\RouteServiceProvider::boot()`
+
+Then comment out the boot function in `RouteServiceProvider` and `EventServiceProvider`
+like this
+
+```php
+// public function boot(Router $router)
+// {
+//     //
+//
+//     parent::boot($router);
+// }
+```
+</details>
+
+[go back :house:][home]
+
 
 ### view template table
 
