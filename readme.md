@@ -38,6 +38,7 @@
 
 ## Carbon
 - [Carbon table][carbon]
+- [how to include carbon][inc-carbon]
 
 ## Controller
 - [how to create a controller][control]
@@ -95,6 +96,7 @@
 - [faker reference table][faker-reference]
 
 [event-boot]:#eventserviceprovider-boot-error
+[inc-carbon]:#how-to-include-carbon
 [template-table]:#view-template-table
 [per-err]:#the-stream-or-file-could-not-be-opened
 [route-parameter]:#how-to-add-parameters-to-a-route-component
@@ -254,6 +256,23 @@ sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
 </details>
 
 [go back :house:][home]
+
+### how to include carbon
+
+<details>
+<summary>
+View Content
+</summary>
+
+```php
+use Carbon\Carbon;
+```
+
+</details>
+
+[go back :house:][home]
+
+
 
 ### How to add parameters to a route component
 <details>
@@ -2089,9 +2108,9 @@ can alter the model.
 ```
 class Dog extends Model{
 
-    const $CREATED_AT = 'created_date'
+    const CREATED_AT = 'created_date'
 
-    const $UPDATED_AT = 'update_bitch'
+    const UPDATED_AT = 'update_bitch'
 }
 ```
 
