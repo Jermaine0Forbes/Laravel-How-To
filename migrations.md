@@ -4,18 +4,70 @@ What is a migration? Essentially, it is file that you create schema for a new ta
 that you want in the database. If the table already exists, then it will not be
 create when you enter in the command **php artisan migrate**
 
+- [how to add a column to an existing table][add-col]
 - [how to create an existing table with migration][ex-table]
 - [view all schema options][schema]
 - [how to create a migration to create a new table][new-table]
 - [how to create a migration file][create]
 - [how to start a migration][start]
 
+[add-col]:#how-to-add-a-column-to-an-existing-table
 [ex-table]:#how-to-create-an-existing-table-with-migration
 [schema]:#view-all-schema-options
 [new-table]:#how-to-create-a-migration-to-create-a-new-table
 [home]:#migrations
 [create]:#how-to-create-a-migration-file
 [start]:#how-to-start-a-migration
+
+### how to add a column to an existing table
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Add a new column to existing table in a migration](https://stackoverflow.com/questions/16791613/add-a-new-column-to-existing-table-in-a-migration)
+---
+1. First make a migration file
+
+```
+php artisan make:migration add_col_user --create=users
+```
+
+2. Now, move the migration file to a new folder so that you can only migrate that
+specific file
+
+```
+mkdir ./database/migrations/add_columns
+
+mv ./database/migrations/add_col_user.php  ./database/migrations/add_columns/add_col_user.php
+```
+
+3. Open up the file and add any columns to the table. **Note** remove the **create**
+static method and replace it with the **table** method
+
+```php
+public function up()
+{   // this will add two columns to the table called sex and race
+    Schema::table('users', function (Blueprint $table) {
+        $table->enum('sex',["male","female"]);
+        $table->string("race",25);
+    });
+}
+
+```
+
+4. Finally, do a migration to that specific folder
+
+```
+php artisan migrate  --path=./database/migrations/add_columns
+```
+5. And that should add the columns to the table
+
+</details>
+
+[go back :house:][home]
 
 ### how to create an existing table with migration
 

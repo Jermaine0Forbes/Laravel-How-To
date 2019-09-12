@@ -7,6 +7,7 @@
 - [how to generate a new application key][new-key]
 - [how to make your laravel project work when pulling it from github][pulling]
 - [how to install Voyager][install-voyager]
+- [how to check the verion of laravel][version]
 
 ## Model
 - [how to create a model][create-model]
@@ -67,6 +68,7 @@
 ## Middleware
 - [how to create a middleware][middleware]
 - [make middleware global][global-middleware]
+- [how to do a basic middlware][basic-middleware]
 
 ## Form
 - [how to create a proper form structure][form]
@@ -95,6 +97,9 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+
+[version]:#how-to-check-your-version-of-laravel
+[basic-middleware]:#how-to-do-a-basic-middleware
 [event-boot]:#eventserviceprovider-boot-error
 [inc-carbon]:#how-to-include-carbon
 [template-table]:#view-template-table
@@ -158,6 +163,160 @@
 [@foreach]:#how-to-use-foreach
 
 ---
+
+### how to check your version of laravel
+
+<details>
+<summary>
+View Content
+</summary>
+
+```
+php artisan --version
+```
+
+</details>
+
+[go back :house:][home]
+
+
+
+
+
+### how to do basic middleware
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Authentication Middleware and Redirects](https://www.youtube.com/watch?v=gHPMtA7kIPQ)
+---
+
+1. In the terminal create a middleware like this
+
+```
+php artisan make:middleware CheckSex
+```
+
+2. Next, let's create a controller that will hold the logic of any routes
+
+```
+php artisan make:controller SexController
+```
+
+3. Inside the controller make two methods like this
+
+
+```php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class SexController extends Controller
+{
+
+    public function __construct(){
+
+    }
+
+    // This will be the initial view that will be seen if everything checks out
+    public function index($sex){
+      return view("male");
+    }
+
+    //this method will be called if you go the uri of /female or an sex object
+    //will have female as the value
+    public function female(){
+      return view("female");
+    }
+}
+```
+
+4. Now in the views folder `resources/views` create a male & female view like this
+
+**male.blade.php**
+```
+<h1> You are a male</h1>
+
+```
+**female.blade.php**
+```
+<h1> You are a female</h1>
+
+```
+
+5. Now, go to the routes in `web/routes.php` and add this
+
+```php
+//so this route will check if you put female, male, or anything else
+Route::get("/sex/{sex}", "SexController@index")->middleware("checksex");
+
+// the uri will just transport you to the female view
+Route::get("/female", "SexController@female");
+```
+
+6. Your new middleware file should be located in `app/Http/Middlware/CheckSex.php`
+and add your own logic to it
+
+```php
+namespace App\Http\Middleware;
+
+use Closure;
+
+class CheckSex
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {   // if the request of sex equals female
+        // then redirect the user to female uri
+        // but if it is something else then get out of the middleware
+        if($request->sex == "female"){
+          return  redirect("/female");
+        }
+
+        return $next($request);
+    }
+}
+
+```
+
+7. Finally, go to `app/Http/Kernel.php` and add the CheckSex class to the **$routeMiddleware**
+
+```php
+protected $routeMiddleware = [
+    'auth' => \App\Http\Middleware\Authenticate::class,
+    'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+    'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+    'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+    'can' => \Illuminate\Auth\Middleware\Authorize::class,
+    'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+    'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+    'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+    'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    'checksex' => \App\Http\Middleware\CheckSex::class // add your middleware like this
+    // you don't have to name your middleware the same thing you could change the
+    // name if you wanted to
+];
+
+
+```
+
+8. So basically if you go to /sex/male, the middleware will allow you to go the male
+view. However, if you put in the parameter /sex/female it will redirect you to the
+female view.
+
+</details>
+
+[go back :house:][home]
 
 ### EventServiceProvider boot error
 
@@ -1470,7 +1629,7 @@ protected $routeMiddleware = [
 in the `app/Http/Kernel.php` location
 
 ```
-php artisan create:middleware <insert name>
+php artisan make:middleware <insert name>
 ```
 
 [go back home][home]
