@@ -4,6 +4,7 @@ What is a migration? Essentially, it is file that you create schema for a new ta
 that you want in the database. If the table already exists, then it will not be
 create when you enter in the command **php artisan migrate**
 
+- [how to refresh a migration][refresh-table]
 - [how to remove seed data from tables][rm-seed]
 - [how to add a column to an existing table][add-col]
 - [how to create an existing table with migration][ex-table]
@@ -12,6 +13,7 @@ create when you enter in the command **php artisan migrate**
 - [how to create a migration file][create]
 - [how to start a migration][start]
 
+[refresh-table]:#how-to-refresh-a-migration
 [rm-seed]:#how-to-remove-seed-data-from-tables
 [add-col]:#how-to-add-a-column-to-an-existing-table
 [ex-table]:#how-to-create-an-existing-table-with-migration
@@ -22,6 +24,63 @@ create when you enter in the command **php artisan migrate**
 [start]:#how-to-start-a-migration
 
 
+### how to refresh a migration
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Rolling Back Migrations](https://laravel.com/docs/6.x/migrations#rolling-back-migrations)
+---
+
+:exclamation: **Note:** this will remove any columns from the migrations and then
+add the columns back into the table. **This is perfect for** adding additional columns
+to the table
+
+---
+
+```php
+Schema::table('users', function (Blueprint $table) {
+    $table->enum('sex',["male","female"]);
+    $table->enum('plan',["free","monthly","annual"]);// added a new column to the schema
+    $table->string("race",15);
+});
+```
+
+```
+php artisan migrate:refresh --path=./path/to/file
+```
+
+#### If you are only trying to refresh one migration file
+
+1. In the migration file comment out the dropColum methods if the columns are not
+in the table anymore
+
+```php
+public function down()
+{
+    Schema::table('users', function(Blueprint $table){
+      // $table->dropColumn('sex');
+      // $table->dropColumn("race");
+      // $table->dropColumn('plan');
+    });
+}
+
+```
+
+2. Do the migration, and add the **path** flag to the command
+
+```
+ php artisan migrate:refresh  --path=./path/to/file
+
+```
+
+
+</details>
+
+[go back :house:][home]
 
 
 ### how to remove seed data from tables

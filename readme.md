@@ -183,7 +183,7 @@ php artisan --version
 
 
 
-### how to do basic middleware
+### how to do a basic middleware
 
 <details>
 <summary>
