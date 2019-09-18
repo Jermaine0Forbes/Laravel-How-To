@@ -4,6 +4,7 @@ What is a migration? Essentially, it is file that you create schema for a new ta
 that you want in the database. If the table already exists, then it will not be
 create when you enter in the command **php artisan migrate**
 
+- [how to remove seed data from tables][rm-seed]
 - [how to add a column to an existing table][add-col]
 - [how to create an existing table with migration][ex-table]
 - [view all schema options][schema]
@@ -11,6 +12,7 @@ create when you enter in the command **php artisan migrate**
 - [how to create a migration file][create]
 - [how to start a migration][start]
 
+[rm-seed]:#how-to-remove-seed-data-from-tables
 [add-col]:#how-to-add-a-column-to-an-existing-table
 [ex-table]:#how-to-create-an-existing-table-with-migration
 [schema]:#view-all-schema-options
@@ -18,6 +20,31 @@ create when you enter in the command **php artisan migrate**
 [home]:#migrations
 [create]:#how-to-create-a-migration-file
 [start]:#how-to-start-a-migration
+
+
+
+
+### how to remove seed data from tables
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [laravel seed rollback after seeded to database](https://stackoverflow.com/questions/44729769/laravel-seed-rollback-after-seeded-to-database)
+---
+:exclamation: **Note:** If you seeded data and you remove all the data from table
+this is the best way to do it.
+
+```
+php artisan migrate:refresh --seed
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to add a column to an existing table
 

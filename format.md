@@ -1,3 +1,35 @@
+:exclamation: **Note:**
+
+:question: **Syntax**
+
+:blue_book: **Summary:**
+
+### :star: Example
+
+
+### title
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:**
+
+---
+
+```php
+
+```
+
+</details>
+
+[go back :house:][home]
+
 ### title
 
 <details>
@@ -22,11 +54,3 @@ View Content
 </details>
 
 [go back :house:][home]
-
-:exclamation: **Note:**
-
-:question: **Syntax**
-
-:blue_book: **Summary:**
-
-### :star: Example
