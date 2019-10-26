@@ -3,7 +3,7 @@
 ## Create
 - [how to create data][create]
 ## Edit
-- how to update data
+- [how to update data][update]
 ## Delete
 - [how to delete a row by id][delete-id]
 
@@ -22,6 +22,7 @@
 
 - [how to group data by a column][groupBy]
 
+[update]:#how-to-update-data
 [delete-id]:#how-to-delete-a-row-by-id
 [data-exists]:#how-to-check-if-a-record-or-data-exists
 [groupBy]:#how-to-group-data-by-a-column
@@ -45,12 +46,10 @@ View Content
 </summary>
 
 :link: **Reference**
-- []()
+- [Updates](https://laravel.com/docs/6.x/eloquent#updates)
 ---
 
-:exclamation: **Note:**
-
----
+**Update method #1**
 
 ```php
 Question::where("id", $id)
@@ -60,6 +59,19 @@ Question::where("id", $id)
 	"subsection" => $req->input("subsection"),
 	"answer" => $req->input("answer")
 ]);
+```
+
+
+**Update method #2**
+
+```php
+$quest = Question::find(1);
+
+$quest->name = "how do you ask a question";
+
+$quest->save()
+
+
 ```
 
 </details>

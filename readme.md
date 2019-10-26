@@ -9,6 +9,11 @@
 - [how to install Voyager][install-voyager]
 - [how to check the verion of laravel][version]
 
+## ORM
+- [how to create data][create-data]
+- [how to update data][update-data]
+- [how to delete data][delete-data]
+
 ## Model
 - [how to create a model][create-model]
 - [how to alter the model name][name-model]
@@ -97,7 +102,9 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
-
+[create-data]:#how-to-create-data
+[update-data]:#how-to-update-data
+[delete-data]:#how-to-delete-data
 [version]:#how-to-check-your-version-of-laravel
 [basic-middleware]:#how-to-do-a-basic-middleware
 [event-boot]:#eventserviceprovider-boot-error
@@ -163,6 +170,112 @@
 [@foreach]:#how-to-use-foreach
 
 ---
+
+### how to create a data
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Inserts](https://laravel.com/docs/6.x/eloquent#inserts)
+---
+
+
+```php
+public function insert(Request $req){
+  $pokemon = new poke;
+
+  $pokemon->name = $req->name;
+
+  $pokemon->save();
+
+}
+```
+
+</details>
+
+[go back :house:][home]
+
+### how to delete data
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Deleting Models](https://laravel.com/docs/6.x/eloquent#deleting-models)
+---
+
+:exclamation: **Note:**
+
+---
+
+**If you want to delete one row**
+
+```php
+Question::destroy($id); // deletes a row by the id
+
+return redirect("questions");
+```
+
+**If you want to delete multiple rows**
+
+```php
+App\Flight::destroy(1);
+
+App\Flight::destroy(1, 2, 3);
+
+App\Flight::destroy([1, 2, 3]);
+
+App\Flight::destroy(collect([1, 2, 3]));
+```
+
+</details>
+
+[go back :house:][home]
+
+### how to update data
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Updates](https://laravel.com/docs/6.x/eloquent#updates)
+---
+
+**Update method #1**
+
+```php
+Question::where("id", $id)
+->update([
+	"question" => $req->input("question"),
+	"section" => $req->input("section"),
+	"subsection" => $req->input("subsection"),
+	"answer" => $req->input("answer")
+]);
+```
+
+
+**Update method #2**
+
+```php
+$quest = Question::find(1);
+
+$quest->name = "how do you ask a question";
+
+$quest->save()
+
+
+```
+
+</details>
+
+[go back :house:][home]
 
 ### how to check your version of laravel
 
