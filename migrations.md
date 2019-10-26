@@ -4,14 +4,24 @@ What is a migration? Essentially, it is file that you create schema for a new ta
 that you want in the database. If the table already exists, then it will not be
 create when you enter in the command **php artisan migrate**
 
-- [how to refresh a migration][refresh-table]
-- [how to remove seed data from tables][rm-seed]
-- [how to add a column to an existing table][add-col]
-- [how to create an existing table with migration][ex-table]
-- [view all schema options][schema]
-- [how to create a migration to create a new table][new-table]
+
+## Create
 - [how to create a migration file][create]
+- [how to create a migration to create a new table][new-table]
+- [view all schema options][schema]
 - [how to start a migration][start]
+## Edit
+- [how to create an existing table with migration][ex-table]
+- [how to add a column to an existing table][add-col]
+- [how to refresh a migration][refresh-table]
+
+## Remove
+- [how to remove seed data from tables][rm-seed]
+
+
+
+
+
 
 [refresh-table]:#how-to-refresh-a-migration
 [rm-seed]:#how-to-remove-seed-data-from-tables

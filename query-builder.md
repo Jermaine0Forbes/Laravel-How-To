@@ -1,17 +1,28 @@
 # Query Builder
 
+## Create
+- [how to create data][create]
+## Edit
+- how to update data
+## Delete
+- [how to delete a row by id][delete-id]
+
+## Methods
 - [all query builder options][all]
+- [how to retrieve one value from a table][value]
+
 - [how to check if a record or data exists][data-exists]
 - [how to shorten the name of the model path][alias]
 - [how to use the select method][select]
 - [how to use the limit method][limit]
 - [how to use the first method][first]
-- [how to retrieve one value from a table][value]
+
 - [how to retrieve all the columns and rows from a table][all]
 - [how to retrieve a row by its primary key][find]
-- [how to create data][create]
+
 - [how to group data by a column][groupBy]
 
+[delete-id]:#how-to-delete-a-row-by-id
 [data-exists]:#how-to-check-if-a-record-or-data-exists
 [groupBy]:#how-to-group-data-by-a-column
 [all]:#all-query-builder-options
@@ -24,6 +35,78 @@
 [all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
+
+
+### how to update data
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:**
+
+---
+
+```php
+Question::where("id", $id)
+->update([
+	"question" => $req->input("question"),
+	"section" => $req->input("section"),
+	"subsection" => $req->input("subsection"),
+	"answer" => $req->input("answer")
+]);
+```
+
+</details>
+
+[go back :house:][home]
+
+
+
+### how to delete a row by id
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Deleting Models](https://laravel.com/docs/6.x/eloquent#deleting-models)
+---
+
+:exclamation: **Note:**
+
+---
+
+**If you want to delete one row**
+
+```php
+Question::destroy($id); // deletes a row by the id
+
+return redirect("questions");
+```
+
+**If you want to delete multiple rows**
+
+```php
+App\Flight::destroy(1);
+
+App\Flight::destroy(1, 2, 3);
+
+App\Flight::destroy([1, 2, 3]);
+
+App\Flight::destroy(collect([1, 2, 3]));
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to check if a record or data exists
 
