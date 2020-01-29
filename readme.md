@@ -9,22 +9,6 @@
 - [how to install Voyager][install-voyager]
 - [how to check the verion of laravel][version]
 
-## Model
-- [how to create a model][create-model]
-- [how to alter the model name][name-model]
-- [how to change primary key name][prime-name]
-- [how to disable timestamps][timestamps]
-- [how to add your database information][data-info]
-- [how to change the created and updated timestamps][create-update]
-- [how to create a model and migration][model-migrate]
-- [how to create a hasMany relationship][hasMany]
-- [how to create a belongsTo relationship][belongsTo]
-- [how to use Carbon methods on datetime data][carbon-meth]
-- [how to create a model, migration, and controller at the same time][create-alot]
-
-## Mix/Webpack
-- [how to make 'npm run dev' work][mix-work]
-- [how to make typescript work][typescript]
 
 ## View
 - [how to extend a blade layout][extend]
@@ -46,10 +30,25 @@
 - [how to create a single action controller][single-control]
 - [how to create a controller with all the CRUD methods][crud-control]
 
+## Errors
+- [The bootstrap/cache directory must be present and writable][boot-error]
+- [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
+- [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
+- [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
+- [Route {route} not defined.][route-undef]
+
+## Events
+- [how to create an event][create-event]
+- [what is the purpose of creating events]
+
 ## File Storage
 - [how to create a public disk][public-disk]
 - [how to publicly store a file][file-store-public]
 - [how to retrieve a file][file-retrieve]
+
+## Form
+- [how to create a proper form structure][form]
+- [form builder table][form-table]
 
 
 ## Mail
@@ -64,27 +63,33 @@
 - [how to pass data to a Mailable][data-mailable]
 
 
-
 ## Middleware
 - [how to create a middleware][middleware]
 - [make middleware global][global-middleware]
 - [how to do a basic middlware][basic-middleware]
 
-## Form
-- [how to create a proper form structure][form]
-- [form builder table][form-table]
+## Model
+- [how to create a model][create-model]
+- [how to alter the model name][name-model]
+- [how to change primary key name][prime-name]
+- [how to disable timestamps][timestamps]
+- [how to add your database information][data-info]
+- [how to change the created and updated timestamps][create-update]
+- [how to create a model and migration][model-migrate]
+- [how to create a hasMany relationship][hasMany]
+- [how to create a belongsTo relationship][belongsTo]
+- [how to use Carbon methods on datetime data][carbon-meth]
+- [how to create a model, migration, and controller at the same time][create-alot]
 
-## Errors
-- [The bootstrap/cache directory must be present and writable][boot-error]
-- [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
-- [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
-- [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
+## Mix/Webpack
+- [how to make 'npm run dev' work][mix-work]
+- [how to make typescript work][typescript]
+
 
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
-
 
 
 ## PHP Unit
@@ -97,7 +102,8 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
-
+[route-undef]:#route-not-defined
+[create-event]:#how-to-create-an-event
 [version]:#how-to-check-your-version-of-laravel
 [basic-middleware]:#how-to-do-a-basic-middleware
 [event-boot]:#eventserviceprovider-boot-error
@@ -163,6 +169,70 @@
 [@foreach]:#how-to-use-foreach
 
 ---
+
+### route not defined
+
+<details>
+<summary>
+View Content
+</summary>
+
+if you get this error, then you probably forgot to attach the name method
+`->name('nameofroute')` to your `Route` facade
+
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:**
+
+---
+
+```php
+
+```
+
+</details>
+
+[go back :house:][home]
+
+### how to create an event
+
+<details>
+<summary>
+View Content
+</summary>
+
+- make an controller and call it DonateController
+- make a view that has a form that has an email field and donation amount csrf_field
+- the routes file create a get & post route. With and index method for get, and a store method for post
+- in the DonateController, create the methods and make the index method return the view "donate" that has the forms .
+- in the `store` add in the event helper with and create a new instance of UserDonated
+- now go to EventsServiceProvider by going to `app\Providers\EventsServiceProvider`
+- In the listen property add a new event called `UserDonated`, and then add  listeners called `EmailToDonator` and `StoreDonation`
+- now go into the console and type `php artisan event:generate`, this will create the events and listeners
+- go to the `UserDonated` event  and make sure you create a property that will take
+the request property
+- Now in the listeners create any logic that will grab the request info and use it to
+*store the donation* and *email that the donation has been received*.
+- So when you make post or save a form the event should trigger the `UserDonated` event
+which should also trigger the listeners
+
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:**
+
+---
+
+```php
+
+```
+
+</details>
+
+[go back :house:][home]
 
 ### how to check your version of laravel
 
