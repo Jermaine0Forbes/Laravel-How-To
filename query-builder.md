@@ -163,7 +163,7 @@ to group the pokemon together based on the trainer ID.  I would do this in the c
 
 ```php
 
-<?php
+//<?php
 
 use App\Pokemon;
 class PokemonController extends Controller{
@@ -280,7 +280,7 @@ Commands|Description
 
 
 ### how to create data
-```
+```php
 	public function insert(Request $req){
 		$pokemon = new poke;
 
@@ -319,6 +319,7 @@ Commands|Description
 - the mode path is actually a namespace, but I probably wouldn't know what
 that is when I look at this later. In any case, you can shorten the name by
 giving it an **alias**, so like you will see in the code
+
 ```
 	use App\pokemon as poke
 ```
@@ -355,13 +356,13 @@ you cannot use it with the model
 ### how to use the select method
 
 
-```
+```php
 	use App\pokemon as poke;
 
 	$result = poke::select('name','type')->get();
 ```
 
-```
+```php
 	// if you have no model
 	use Illuminate\Support\Facades\DB as DB;
 
