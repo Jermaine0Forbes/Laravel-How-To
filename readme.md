@@ -18,16 +18,16 @@
 - [how to create a single action controller][single-control]
 - [how to create a controller with all the CRUD methods][crud-control]
 
-
 ## Errors
 - [The bootstrap/cache directory must be present and writable][boot-error]
 - [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
 - [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
 - [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
+- [Route {route} not defined.][route-undef]
 
 ## Events
-- [how to create an event]
-- [what's the point of an event]
+- [how to create an event][create-event]
+- [what is the purpose of creating events]
 
 ## File Storage
 - [how to create a public disk][public-disk]
@@ -107,6 +107,8 @@
 - [view template table][template-table]
 
 
+[route-undef]:#route-not-defined
+[create-event]:#how-to-create-an-event
 [create-data]:#how-to-create-data
 [update-data]:#how-to-update-data
 [delete-data]:#how-to-delete-data
@@ -176,13 +178,28 @@
 
 ---
 
-### how to create data
+### route not defined
 
 <details>
 <summary>
 View Content
 </summary>
+if you get this error, then you probably forgot to attach the name method
+`->name('nameofroute')` to your `Route` facade
 
+:link: **Reference**
+- []()
+
+</details>
+
+[go back :house:][home]
+
+### how to save data
+
+<details>
+<summary>
+View Content
+</summary>
 :link: **Reference**
 - [Inserts](https://laravel.com/docs/6.x/eloquent#inserts)
 ---
@@ -242,13 +259,39 @@ App\Flight::destroy(collect([1, 2, 3]));
 
 [go back :house:][home]
 
-### how to update data
 
+
+### how to create an event
 <details>
 <summary>
 View Content
 </summary>
 
+- make an controller and call it DonateController
+- make a view that has a form that has an email field and donation amount csrf_field
+- the routes file create a get & post route. With and index method for get, and a store method for post
+- in the DonateController, create the methods and make the index method return the view "donate" that has the forms .
+- in the `store` add in the event helper with and create a new instance of UserDonated
+- now go to EventsServiceProvider by going to `app\Providers\EventsServiceProvider`
+- In the listen property add a new event called `UserDonated`, and then add  listeners called `EmailToDonator` and `StoreDonation`
+- now go into the console and type `php artisan event:generate`, this will create the events and listeners
+- go to the `UserDonated` event  and make sure you create a property that will take
+the request property
+- Now in the listeners create any logic that will grab the request info and use it to
+*store the donation* and *email that the donation has been received*.
+- So when you make post or save a form the event should trigger the `UserDonated` event
+which should also trigger the listeners
+
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:**
+
+</details>
+[go back :house:][home]
+
+### how to update data
 :link: **Reference**
 - [Updates](https://laravel.com/docs/6.x/eloquent#updates)
 ---
@@ -274,9 +317,9 @@ $quest = Question::find(1);
 $quest->name = "how do you ask a question";
 
 $quest->save()
-
-
 ```
+
+
 
 </details>
 
