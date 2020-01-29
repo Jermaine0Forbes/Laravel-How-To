@@ -1,5 +1,19 @@
 # laravel logs
 
+
+## 1/11/20
+
+Attempting to learn how to  do this event thing again.
+
+## 1/10/20
+
+I didn't learn shit, I was too busy doing other things
+
+### Attempting to learn about events
+I have seen events in laravel, but I never how to use them and what's their purpose
+. I understand when javascript have events, but I never knew that I needed to learn
+how to create or manage events in laravel. So let me just read it and see what's going on
+
 ## 6/11/19
 
 ### Reinstall composer the right way  

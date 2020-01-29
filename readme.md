@@ -9,39 +9,6 @@
 - [how to install Voyager][install-voyager]
 - [how to check the verion of laravel][version]
 
-## ORM
-- [how to create data][create-data]
-- [how to update data][update-data]
-- [how to delete data][delete-data]
-
-## Model
-- [how to create a model][create-model]
-- [how to alter the model name][name-model]
-- [how to change primary key name][prime-name]
-- [how to disable timestamps][timestamps]
-- [how to add your database information][data-info]
-- [how to change the created and updated timestamps][create-update]
-- [how to create a model and migration][model-migrate]
-- [how to create a hasMany relationship][hasMany]
-- [how to create a belongsTo relationship][belongsTo]
-- [how to use Carbon methods on datetime data][carbon-meth]
-- [how to create a model, migration, and controller at the same time][create-alot]
-
-## Mix/Webpack
-- [how to make 'npm run dev' work][mix-work]
-- [how to make typescript work][typescript]
-
-## View
-- [how to extend a blade layout][extend]
-- [how to include files ][include]
-- [how to unescape html][html-unescape]
-- [how to use @auth][@auth]
-- [how to create components][create-component]
-- [how to add parameters to a route component][route-parameter]
-- [how to use @foreach][@foreach]
-- [view template table][template-table]
-
-
 ## Carbon
 - [Carbon table][carbon]
 - [how to include carbon][inc-carbon]
@@ -51,10 +18,25 @@
 - [how to create a single action controller][single-control]
 - [how to create a controller with all the CRUD methods][crud-control]
 
+
+## Errors
+- [The bootstrap/cache directory must be present and writable][boot-error]
+- [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
+- [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
+- [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
+
+## Events
+- [how to create an event]
+- [what's the point of an event]
+
 ## File Storage
 - [how to create a public disk][public-disk]
 - [how to publicly store a file][file-store-public]
 - [how to retrieve a file][file-retrieve]
+
+## Form
+- [how to create a proper form structure][form]
+- [form builder table][form-table]
 
 
 ## Mail
@@ -69,28 +51,39 @@
 - [how to pass data to a Mailable][data-mailable]
 
 
+## Model
+- [how to create a model][create-model]
+- [how to alter the model name][name-model]
+- [how to change primary key name][prime-name]
+- [how to disable timestamps][timestamps]
+- [how to add your database information][data-info]
+- [how to change the created and updated timestamps][create-update]
+- [how to create a model and migration][model-migrate]
+- [how to create a hasMany relationship][hasMany]
+- [how to create a belongsTo relationship][belongsTo]
+- [how to use Carbon methods on datetime data][carbon-meth]
+- [how to create a model, migration, and controller at the same time][create-alot]
+
 
 ## Middleware
 - [how to create a middleware][middleware]
 - [make middleware global][global-middleware]
 - [how to do a basic middlware][basic-middleware]
 
-## Form
-- [how to create a proper form structure][form]
-- [form builder table][form-table]
+## Mix/Webpack
+- [how to make 'npm run dev' work][mix-work]
+- [how to make typescript work][typescript]
 
-## Errors
-- [The bootstrap/cache directory must be present and writable][boot-error]
-- [The only supported ciphers are AES-128-CBC and AES-256-CBC with the correct key lengths][cipher-error]
-- [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
-- [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
 
 ## Other
 - [how to add wysiwyg editor in laravel][wysiwyg]
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
 
-
+## ORM
+- [how to create data][create-data]
+- [how to update data][update-data]
+- [how to delete data][delete-data]
 
 ## PHP Unit
 
@@ -101,6 +94,18 @@
 - [how to generate a factory for fake data][fake-data]
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
+
+
+## View
+- [how to extend a blade layout][extend]
+- [how to include files ][include]
+- [how to unescape html][html-unescape]
+- [how to use @auth][@auth]
+- [how to create components][create-component]
+- [how to add parameters to a route component][route-parameter]
+- [how to use @foreach][@foreach]
+- [view template table][template-table]
+
 
 [create-data]:#how-to-create-data
 [update-data]:#how-to-update-data
@@ -171,7 +176,7 @@
 
 ---
 
-### how to create a data
+### how to create data
 
 <details>
 <summary>
