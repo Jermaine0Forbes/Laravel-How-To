@@ -185,12 +185,22 @@
 View Content
 </summary>
 
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:** In this example I am creating a simple event that will trigger when a  person sends
+their email and donation amount through a form. I did not link up any advanced code to
+receive a transaction or send an email to the person.
+
+
+
 1. make an controller and call it DonateController
 
 ```
  php artisan make:controller DonateController
 ```
-2. make a view that has a form that has an email field and donation amount field
+2. make a view called `donate.blade.php` that has a form that has an email field and donation amount field. like this
 
 ```php
 @extends('layouts.app')
@@ -223,31 +233,164 @@ View Content
 
 ```
 - In `web.php` file create a get & post donate route. like this
+
 ```php
 Route::get("/donate","DonateController@index");
 Route::post("/donate","DonateController@store");
 
 ```
 
-- in the DonateController, create the methods and make the index method return the view "donate" that has the forms .
+3. in the DonateController, create the methods and make the index method return the view **donate** that has the forms .
 
-- in the `store` add in the event helper with and create a new instance of UserDonated
+```php
+class DonateController extends Controller
+{
+    public function index(){
+      return view("donate");// shows the form
 
-- now go to EventsServiceProvider by going to `app\Providers\EventsServiceProvider`
-- In the listen property add a new event called `UserDonated`, and then add  listeners called `EmailToDonator` and `StoreDonation`
-- now go into the console and type `php artisan event:generate`, this will create the events and listeners
-- go to the `UserDonated` event  and make sure you create a property that will take
+    }
+
+    // public function store(Request $req){
+    //   event(new UserDonated($req));
+    // }
+}
+```
+
+4. in the `store` method add in the event helper and create a new instance of **UserDonated**
+
+```php
+use App\Events\UserDonated;
+class DonateController extends Controller
+{
+    public function index(){
+      return view("donate");// shows the form
+
+    }
+
+    public function store(Request $req){
+      event(new UserDonated($req));//This event will use request object to get the values
+    }
+}
+```
+
+5. now go to **EventsServiceProvider** by going to `app\Providers\EventsServiceProvider`
+in the *listen* property add a new event called `UserDonated`, and then add  listeners called `EmailToDonator` and `StoreDonation`
+
+
+```php
+
+class EventServiceProvider extends ServiceProvider
+{
+    /**
+     * The event listener mappings for the application.
+     *
+     * @var array
+     */
+    protected $listen = [
+      'App\Events\UserDonated' => [
+          'App\Listeners\EmailToDonator',
+          'App\Listeners\StoreDonation',
+      ],
+    ];
+}
+```
+
+6. now go into the console and type `php artisan event:generate`, this will create the events and listeners
+
+7. go to the `UserDonated` event  and make sure you create a property that will take
 the request property
+
+```php
+
+use Illuminate\Http\Request;
+
+class UserDonated
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
+
+
+}
+```
+
+
 - Now in the listeners create any logic that will grab the request info and use it to
 *store the donation* and *email that the donation has been received*.
+
+**In StoreDonation.php**
+
+```php
+
+class StoreDonation
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  UserDonated  $event
+     * @return void
+     */
+    public function handle(UserDonated $event)
+    {
+      $amount = $event->request->input("amount");
+      dump("We've received your amount of $amount");
+    }
+}
+```
+**In EmailToDonator.php**
+
+```php
+
+class EmailToDonator
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  UserDonated  $event
+     * @return void
+     */
+    public function handle(UserDonated $event)
+    {
+        $email = $event->request->input("email");
+        dump("We've sent you a message to $email");
+    }
+}
+
+
+```
+
 - So when you make post or save a form the event should trigger the `UserDonated` event
 which should also trigger the listeners
 
-:link: **Reference**
-- []()
----
 
-:exclamation: **Note:**
 
 </details>
 [go back :house:][home]
