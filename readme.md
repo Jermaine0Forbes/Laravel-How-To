@@ -178,6 +178,80 @@
 
 ---
 
+
+### how to create an event
+<details>
+<summary>
+View Content
+</summary>
+
+1. make an controller and call it DonateController
+
+```
+ php artisan make:controller DonateController
+```
+2. make a view that has a form that has an email field and donation amount field
+
+```php
+@extends('layouts.app')
+
+@section('content')
+  <div class="container">
+      <div class="row">
+          <div class="col-md-8 justify-content-center">
+             <h1>Donate for Charity</h1>
+             <form class="" action="/donate" method="post">
+                 {{ csrf_field() }}
+               <div class="form-group">
+                 <h4><label for="">Email</label></h4>
+
+                 <input type="email" name="email" value="">
+               </div>
+               <div class="form-group">
+                  <h4> <label for="">Amount</label></h4>
+
+                 <input type="number" name="amount" min="0" value="">
+               </div>
+               <div class="form-group">
+                 <input type="submit" class="btn btn-primary" value="submit">
+               </div>
+             </form>
+          </div>
+      </div>
+  </div>
+@endsection
+
+```
+- In `web.php` file create a get & post donate route. like this
+```php
+Route::get("/donate","DonateController@index");
+Route::post("/donate","DonateController@store");
+
+```
+
+- in the DonateController, create the methods and make the index method return the view "donate" that has the forms .
+
+- in the `store` add in the event helper with and create a new instance of UserDonated
+
+- now go to EventsServiceProvider by going to `app\Providers\EventsServiceProvider`
+- In the listen property add a new event called `UserDonated`, and then add  listeners called `EmailToDonator` and `StoreDonation`
+- now go into the console and type `php artisan event:generate`, this will create the events and listeners
+- go to the `UserDonated` event  and make sure you create a property that will take
+the request property
+- Now in the listeners create any logic that will grab the request info and use it to
+*store the donation* and *email that the donation has been received*.
+- So when you make post or save a form the event should trigger the `UserDonated` event
+which should also trigger the listeners
+
+:link: **Reference**
+- []()
+---
+
+:exclamation: **Note:**
+
+</details>
+[go back :house:][home]
+
 ### route not defined
 
 <details>
@@ -261,35 +335,6 @@ App\Flight::destroy(collect([1, 2, 3]));
 
 
 
-### how to create an event
-<details>
-<summary>
-View Content
-</summary>
-
-- make an controller and call it DonateController
-- make a view that has a form that has an email field and donation amount csrf_field
-- the routes file create a get & post route. With and index method for get, and a store method for post
-- in the DonateController, create the methods and make the index method return the view "donate" that has the forms .
-- in the `store` add in the event helper with and create a new instance of UserDonated
-- now go to EventsServiceProvider by going to `app\Providers\EventsServiceProvider`
-- In the listen property add a new event called `UserDonated`, and then add  listeners called `EmailToDonator` and `StoreDonation`
-- now go into the console and type `php artisan event:generate`, this will create the events and listeners
-- go to the `UserDonated` event  and make sure you create a property that will take
-the request property
-- Now in the listeners create any logic that will grab the request info and use it to
-*store the donation* and *email that the donation has been received*.
-- So when you make post or save a form the event should trigger the `UserDonated` event
-which should also trigger the listeners
-
-:link: **Reference**
-- []()
----
-
-:exclamation: **Note:**
-
-</details>
-[go back :house:][home]
 
 ### how to update data
 :link: **Reference**
