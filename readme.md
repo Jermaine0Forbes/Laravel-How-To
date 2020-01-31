@@ -107,7 +107,7 @@
 - [view template table][template-table]
 
 
-[route-undef]:#route-not-defined
+[route-undef]:#route-not-defined-error
 [create-event]:#how-to-create-an-event
 [create-data]:#how-to-create-data
 [update-data]:#how-to-update-data
@@ -395,17 +395,18 @@ which should also trigger the listeners
 </details>
 [go back :house:][home]
 
-### route not defined
+### route not defined error
 
 <details>
 <summary>
 View Content
 </summary>
-if you get this error, then you probably forgot to attach the name method
-`->name('nameofroute')` to your `Route` facade
 
 :link: **Reference**
 - []()
+
+if you get this error, then you probably forgot to attach the name method
+`->name('nameofroute')` to your `Route` facade
 
 </details>
 
@@ -480,6 +481,11 @@ App\Flight::destroy(collect([1, 2, 3]));
 
 
 ### how to update data
+<details>
+<summary>
+View Content
+</summary>
+
 :link: **Reference**
 - [Updates](https://laravel.com/docs/6.x/eloquent#updates)
 ---
