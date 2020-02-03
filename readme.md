@@ -37,6 +37,7 @@
 ## Form
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
+- [how to retrieve the previous values from a form][old-field]
 
 
 ## Mail
@@ -90,6 +91,10 @@
 - [how to test databases with phpunit][data-phpunit]
 - [how to setup a basic phpunit test][basic-phpunit]
 
+## Queue
+
+- [how to make a simple queue][simple-queue]
+
 ## Seeding / Faker
 - [how to generate a factory for fake data][fake-data]
 - [how to create the fake data][create-fake]
@@ -106,7 +111,8 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
-
+[old-field]:#how-to-retrieve-old-values-from-a-form
+[simple-queue]:#how-to-make-a-simple-queue
 [route-undef]:#route-not-defined-error
 [create-event]:#how-to-create-an-event
 [create-data]:#how-to-create-data
@@ -138,7 +144,7 @@
 [404-page]:#how-to-create-a-404-page
 [create-alot]:#how-to-create-a-model-migration-and-controller
 [md-send]:#how-to-send-a-markdown-mailable
-[md-mailable]:#how-to-make-a-markdown-mailable
+[md-mailable]:#how-to-make-a-markdown-mailable-in-the-terminal
 [mailable]:#how-to-send-mail-with-mailable
 [mail-simple]:#how-to-send-mail-the-simple-way
 [first-mail]:#how-to-send-mail-to-your-gmail-for-the-first-time
@@ -177,6 +183,66 @@
 [@foreach]:#how-to-use-foreach
 
 ---
+
+
+### how to retreive old values from a form
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [old helper](https://laravel.com/docs/5.7/helpers#method-old)
+---
+
+:exclamation: **Note:**
+
+---
+
+```php
+$value = old('value');
+
+$value = old('value', 'default');
+```
+
+</details>
+
+[go back :house:][home]
+
+
+
+### how to make a simple queue
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Why Laravel Queues Are Awesome](https://scotch.io/tutorials/why-laravel-queues-are-awesome)
+---
+
+:exclamation: **Note:**
+
+---
+
+- create queue:table and migrate it
+- in the `.env` file change **QUEUE_DRIVER** to database
+- create job with the `make:job` command
+- Find the job file that you created and add in the logic that you need to execute
+in the *handle* method
+- now in your controller import the job in the file, and execute it by calling the *dispatch* method
+- finally, type in the command line `queue:listen`
+
+```php
+
+```
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### how to create an event
@@ -892,10 +958,10 @@ php artisan vendor:publish --tag=laravel-mail
 View Content
 </summmary>
 
+
+1. create a controller, and a markdown mailable
+
 ```
-create a controller, and a markdown mailable
-
-
 php artisan make:controller <insert name>
 
 php artisan make:mail <insert name> --markdown=<insert name>
@@ -905,13 +971,13 @@ php artisan make:mail <insert name> --markdown=<insert name>
 2. Inside controller do this
 
 ```php
-<?php
+//<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\mailShit;
+use App\Mail\mailShit; // mailShit is the name of the mail Class that I created
 
 class MailController extends Controller
 {
@@ -925,8 +991,6 @@ class MailController extends Controller
             "body" => "this is a body"
         ];
 
-//         Mail::send(new mailShit($data));
-
          return new mailShit($data); // this will preview the mail that you are sending
 
     }
@@ -937,7 +1001,7 @@ class MailController extends Controller
 3. In `app/Mail/<insert name>` add this to the build method
 
 ```php
-<?php
+//<?php
 
 namespace App\Mail;
 
@@ -970,15 +1034,16 @@ class mailShit extends Mailable
      */
     public function build()
     {	// this with method will add values from $this->mail
+      // also mail.shit is located in views/mail/shit.blade.php
         return $this->markdown('mail.shit')->with($this->mail);
     }
 }
 
 ```
 
-4. In the markdown that you created
+4. In `resources/views/mail/shit.blade.php`, which is the markdown that I created
 
-```
+```php
 @component('mail::message')
 # Introduction
 
@@ -1608,7 +1673,8 @@ This is pretty much 99% identical to a regular mailable
 except that you need to change the `view()` to `markdown()`
 for example
 
-1. first create the markdown file
+1. first create the markdown file. The markdown flag will create a folder called `email`
+with the markdown called `mark.blade.php`
 
 ```
 php artisan make:mail sendMark --markdown=email.mark
@@ -1618,7 +1684,7 @@ php artisan make:mail sendMark --markdown=email.mark
 
 
 ```php
-<?php
+//<?php
 
 namespace App\Mail;
 
@@ -1652,7 +1718,7 @@ class sendMark extends Mailable
         return $this->from($m["email"])
             ->to("jermaine0forbes@gmail.com")
             ->subject($m["subject"])
-            ->markdown('email.mark',$m);
+            ->markdown('email.mark',$m);// Note: email.mark = email/mark.blade.php in the views folder
     }
 }
 
@@ -1660,7 +1726,7 @@ class sendMark extends Mailable
 
 [go back home][home]
 
-### HOW TO MAKE A MARKDOWN MAILABLE
+### HOW TO MAKE A MARKDOWN MAILABLE IN THE TERMINAL
 
 **reference**
 - [laravel](https://laravel.com/docs/5.4/mail#markdown-mailables)
@@ -1690,7 +1756,7 @@ make sure that you include the namespace of the mail facade and the mailable.
 Look at the code to get a understanding
 
 ```php
-<?php
+//<?php
 
 namespace App\Http\Controllers;
 
@@ -1750,8 +1816,20 @@ class ContactController extends Controller
         return $this->from($this->mail["email"])
             ->subject($this->mail["subject"])
             ->to("jermaine0forbes@gmail.com")
-            ->view('email.test',$this->mail);
+            ->view('email.test',$this->mail); // email.test = views/email/test.blade.php
     }
+```
+
+4. Create the folder `email` in the views folder and also create view called `test`
+
+**In email/test.blade.php**
+
+```php
+
+<h1>This is a test email </h1>
+
+<p>{{$body}}</p>
+
 ```
 
 4. As long as you created the view, and have similar array properties then this
@@ -1771,7 +1849,7 @@ fine but he does have the wrong port and host information
 - [laravel](https://laravel.com/docs/5.6/mail#sending-mail)
 
 ```php
-<?php
+//<?php
 
 namespace App\Http\Controllers;
 

@@ -1,6 +1,13 @@
 # laravel logs
 
 
+## 2/3/20
+
+### Remember to document
+- the *old* helper
+- the eloquent *push* & *put* method
+- to update the mail tutorials
+
 ## 1/11/20
 
 Attempting to learn how to  do this event thing again.
