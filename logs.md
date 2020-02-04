@@ -1,12 +1,15 @@
 # laravel logs
 
 
-## 2/3/20
+
+
+## 2/4/20
 
 ### Remember to document
 - the *old* helper
 - the eloquent *push* & *put* method
-- to update the mail tutorials
+- to update the mail tutorials **done**
+- session tutorial ` redirect()->with("message", "this is a message")`
 
 ## 1/11/20
 
