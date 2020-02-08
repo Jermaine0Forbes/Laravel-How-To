@@ -38,6 +38,9 @@
 - [how to create a proper form structure][form]
 - [form builder table][form-table]
 - [how to retrieve the previous values from a form][old-field]
+- [how to validate form fields][val-form]
+- [how to output failed validation fields]
+- [validating rule options]
 
 
 ## Mail
@@ -111,7 +114,8 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
-[old-field]:#how-to-retrieve-old-values-from-a-form
+
+[old-field]:#how-to-keep-old-values-from-a-form-field
 [simple-queue]:#how-to-make-a-simple-queue
 [route-undef]:#route-not-defined-error
 [create-event]:#how-to-create-an-event
@@ -185,7 +189,7 @@
 ---
 
 
-### how to retreive old values from a form
+### how to keep old values from a form field
 
 <details>
 <summary>
@@ -196,14 +200,69 @@ View Content
 - [old helper](https://laravel.com/docs/5.7/helpers#method-old)
 ---
 
-:exclamation: **Note:**
+The `old` helper function allows you to retreive the old values from the previous
+request. If you submit a form and there is possibly a validation error. When you
+redirect to the original form you should have the old values in the fields
+
+:exclamation: **Note:** the `old` helper will not keep the value of the password
+field
 
 ---
 
-```php
-$value = old('value');
+**In the form**
 
-$value = old('value', 'default');
+```php
+@section('content')
+  <div class="container">
+      <div class="row">
+          <div class="col-md-8 justify-content-center">
+             <h1>Login into your account</h1>
+             <form class="" action="/form" method="post">
+                 {{ csrf_field() }}
+               <div class="form-group">
+                 <h4><label for="">Enter your Email</label></h4>
+                 <!-- using the old helper function will get the previous email value -->
+                 <input type="email" name="email" value="{{old('email')}}">
+               </div>
+               <div class="form-group">
+                 <h4><label for="">Enter your Username</label></h4>
+                 <!-- using the old helper function will get the previous username value -->
+                 <input type="text" name="username" value="{{old('username')}}">
+               </div>
+               <div class="form-group">
+                  <h4> <label for="">Enter your Passowrd</label></h4>
+
+                 <input type="password" name="password"  value="{{old('password')}}">
+               </div>
+               <div class="form-group">
+                 <input type="submit" class="btn btn-primary" value="submit">
+               </div>
+             </form>
+
+          </div>
+      </div>
+  </div>
+@endsection
+```
+
+**Inside the controller**
+
+```php
+
+public function form(){ //url  GET: /form
+  return view("form");
+}
+
+public function storeForm(Request $req){//url POST: /form
+  $data = $req->validate([
+    'email' => 'required|email:rfc|max:16',
+    "username" => 'required|alpha_num|max:4',
+    'password' => 'required|max:16'
+  ]);// if the validation fails, laravel will redirect to the original page.
+
+
+  dump("$req->email has been successfully created");
+}
 ```
 
 </details>
