@@ -1,6 +1,20 @@
 # laravel logs
 
 
+## 2/9/20
+
+### To make a queue run in the background
+
+`php artisan queue:work &`
+
+to check all the jobs that are running in the background, in the terminal just put
+`jobs`.
+
+- To kill a job process get the id from `jobs -l` and then enter `KILL insertJobId`
+
+- To log things that are happening with jobs make sure you do `php artisan queue:work > storage/logs/jobs.log &`
+
+
 ## 2/8/20
 
 ### Error: Jobs Serialization of 'Closure' is not allowed
