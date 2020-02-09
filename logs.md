@@ -1,12 +1,39 @@
 # laravel logs
 
 
+## 2/8/20
 
+### Error: Jobs Serialization of 'Closure' is not allowed
+
+- [Laravel Jobs Serialization of 'Closure' is not allowed](https://stackoverflow.com/questions/49157861/laravel-jobs-serialization-of-closure-is-not-allowed)
+
+I was having the problem because I was injecting the `Request` object in the Job
+class. So the way around it is making the request a associate array like so
+
+```php
+public function storeForm(Request $req){
+  $data = $req->validate([
+    'email' => 'required|email:rfc|max:30',
+    "username" => 'required|alpha_num|max:16',
+    'password' => 'required|max:16'
+  ]);
+
+$this->dispatch(new SendWelcomeEmail($req->all()));
+
+
+dump("queue has been made");
+}
+
+```
+
+### Remember to document
+- the eloquent *push* & *put* method
+- session tutorial ` redirect()->with("message", "this is a message")`
 
 ## 2/4/20
 
 ### Remember to document
-- the *old* helper
+- the *old* helper **done**
 - the eloquent *push* & *put* method
 - to update the mail tutorials **done**
 - session tutorial ` redirect()->with("message", "this is a message")`

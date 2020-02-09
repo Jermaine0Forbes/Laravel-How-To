@@ -24,6 +24,7 @@
 - [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
 - [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
 - [Route {route} not defined.][route-undef]
+- [Jobs Serialization of 'Closure' is not allowed]
 
 ## Events
 - [how to create an event][create-event]
