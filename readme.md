@@ -24,11 +24,11 @@
 - [The stream or file "path/to/file" could not be opened: failed to open stream: Permission denied][per-err]
 - [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
 - [Route {route} not defined.][route-undef]
-- [Jobs Serialization of 'Closure' is not allowed]
+- [Jobs Serialization of 'Closure' is not allowed][job-error]
 
 ## Events
 - [how to create an event][create-event]
-- [what is the purpose of creating events]
+- [what is the purpose of creating events][why-event]
 
 ## File Storage
 - [how to create a public disk][public-disk]
@@ -40,8 +40,8 @@
 - [form builder table][form-table]
 - [how to retrieve the previous values from a form][old-field]
 - [how to validate form fields][val-form]
-- [how to output failed validation fields]
-- [validating rule options]
+- [how to output failed validation fields][failed-valid]
+- [validating rule options][valid-rules]
 
 
 ## Mail
@@ -115,7 +115,7 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
-
+[job-error]:#jobs-serialization-of-closure-is-not-allowed
 [old-field]:#how-to-keep-old-values-from-a-form-field
 [simple-queue]:#how-to-make-a-simple-queue
 [route-undef]:#route-not-defined-error
@@ -186,8 +186,169 @@
 [create-update]:#how-to-change-the-timestamps
 [single-control]:#how-to-create-a-single-action-controller
 [@foreach]:#how-to-use-foreach
+[why-event]:#what-is-the-purpose-creating-events
+[failed-valid]:#how-to-output-failed-validation-fields
+[valid-rules]:#validating-rule-options
+---
+
+### validating rule options
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [available validation rules](https://laravel.com/docs/6.x/validation#available-validation-rules)
+---
+
+Name | Code
+--|--
+required | `"field" => "required"`
+size | `"field" => "256"`
+email | `"field" => "email"`
+mimes | `"field" => "mimes:jpeg,png"`
+digits between | `"field" => "digits_between:min,max"`
+image | `"field" => "image"`
+between | `"field" => "between:min,max"`
+
+</details>
+
+[go back :house:][home]
+
+### how to output failed validation fields
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [displaying the validation errors](https://laravel.com/docs/6.x/validation#quick-displaying-the-validation-errors)
+---
+
+:exclamation: **Note:** If there is a failed validation rule in the controller
+the request object will automatically redirect you to the original page
 
 ---
+**In the controller**
+```php
+public function storeForm(Request $req){
+  // this is validating the form fields
+  $data = $req->validate([
+    'email' => 'required|email:rfc|max:30',
+    "username" => 'required|alpha_num|max:16',
+    'password' => 'required|max:16'
+  ]);
+
+$this->dispatch(new SendWelcomeEmail($req->all()));
+
+return redirect("thank-you",["response" => "queue has been made"]);
+
+}
+```
+
+**In the form**
+```php
+/*
+in the form/view put this code anywhere on the page. If validation fails it will
+redirect to the page and if $errors->any returns true it will run the number of
+form field errors
+*/
+@if ($errors->any())
+  @foreach ($errors->all() as $error)
+    <div class="alert alert-danger" role="alert">
+      {{$error}}
+    </div>
+  @endforeach
+@endif
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### what is the purpose of creating events
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [confusion #1: How can I use laravel Events effectively?](https://www.reddit.com/r/laravel/comments/d5v6oy/confusion_1_how_can_i_use_laravel_events/)
+---
+
+:exclamation: **Note:** I
+We use events heavily for a number of things but they can be broken down into a few small categories
+
+- Sending notifications (usually emails) as a response to something happening (e.g. someone filled in a form, send an email to people that need to respond to it)
+
+- Database clean up
+
+- We have a lot of related tables and when something gets deleted we need to make sure that those related rows are also deleted. This can actually be a multi step process where each row that is deleted fires more events that cause more records to be deleted.
+
+- Broadcasting the event to external services
+
+- We have a few microservices and a small event bus that can send a message from one service to another. We just need to mark an event as Broadcastable, give it a name and it will be sent to whatever other services are interested in that event.
+---
+
+
+</details>
+
+[go back :house:][home]
+
+
+### Jobs Serialization of 'Closure' is not allowed
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [stackoverflow](https://stackoverflow.com/questions/49157861/laravel-jobs-serialization-of-closure-is-not-allowed)
+---
+
+:exclamation: **Note:** This error will come up if you create an event that has an
+object passed into the constructor and then you try to queue the event by
+implementing "ShouldQueue". Basically to resolve it you would change the object to
+an associative array or something else
+
+---
+
+**In the Controller**
+```php
+public function store(StoreNewsletterRequest $request)
+{
+   StoreNewsletterJob::dispatch($request->all());
+
+   return view('backend.dashboard.index');
+}
+```
+**In the Event**
+```php
+public function handle()
+{
+   if(!Newsletter::isSubscribed($this->request['email']))
+   {
+
+       Newsletter::subscribe($this->request['email'], [
+
+           config('newsletter.list_fields.firstname') => $this->request->firstname,
+           config('newsletter.list_fields.lastname') => $this->request->lastname
+
+       ]);
+   }
+}
+
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### how to keep old values from a form field
@@ -528,8 +689,6 @@ which should also trigger the listeners
 View Content
 </summary>
 
-:link: **Reference**
-- []()
 
 if you get this error, then you probably forgot to attach the name method
 `->name('nameofroute')` to your `Route` facade
@@ -890,7 +1049,7 @@ Just do this in your terminal
 ```
 cd your-project
 
-sudo chmod -R 755 ./; sudo chmod -R o+w ./storage
+sudo chmod -R 775 ./; sudo chmod -R o+w ./storage;
 
 ```
 </details>
@@ -1014,9 +1173,9 @@ php artisan vendor:publish --tag=laravel-mail
 ### How to pass data to a Mailable
 
 <details>
-<summmary>
+<summary>
 View Content
-</summmary>
+</summary>
 
 
 1. create a controller, and a markdown mailable
@@ -1133,12 +1292,17 @@ Thanks,<br>
 ### The bootstrap/cache directory must be present and writable
 
 <details>
-<summmary>
+<summary>
 View Content
-</summmary>
+</summary>
 
-**reference**
+:link: **Reference**
 - [stackoverflow](https://stackoverflow.com/questions/43718391/laravel-throws-the-bootstrap-cache-directory-must-be-present-and-writable-erro)
+---
+
+Run this in terminal
+
+`php artisan cache:clear`
 
 </details>
 
@@ -1149,12 +1313,23 @@ View Content
 ### The only supported ciphers are
 
 <details>
-<summmary>
+<summary>
 View Content
-</summmary>
+</summary>
 
-**reference**
+:link: **Reference**
 - [stackoverflow](https://stackoverflow.com/questions/39693312/the-only-supported-ciphers-are-aes-128-cbc-and-aes-256-cbc-with-the-correct-key)
+---
+
+Run this in terminal
+
+```
+ php artisan key:generate;
+
+ php artisan config:clear;
+
+ php artisan config:cache;
+```
 
 </details>
 
@@ -2738,6 +2913,7 @@ cp .env.save .env
 you have to add the **_invoke** function in the controller
 
 ```php
+
     class Index extends Controller{
 
         public function _invoke(){
@@ -2748,7 +2924,7 @@ you have to add the **_invoke** function in the controller
 
     // and in the routes or web.php
 
-    Route::get(''/someRoute' , 'Index');
+    Route::get('/someRoute' , 'Index');
 ```
 
 [go back to home][home]
@@ -2781,17 +2957,53 @@ with, but I don't have all the information available right now.
 
 
 ### HOW TO REMOVE 500 INTERNAL SERVER ERROR
+
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [unexpected '=' Illuminate/Support/Arr.php on line 388](https://laracasts.com/discuss/channels/laravel/unexpected-illuminatesupportarrphp-on-line-388)
+- [a2enmod](http://manpages.ubuntu.com/manpages/bionic/en/man8/a2enmod.8.html)
+---
+
+#### 1st method
+
 - to remove the 500 error signal you need to type in the command line
 
 ```
-    sudo chmod 755 -R insertProjectFolder
+    sudo chmod 775 -R insertProjectFolder
 ```
 - then write this to the storage folder of your laravel app
 
 ```
     chmod -R o+w insertProjectFolder/storage
 ```
-[go back to home][home]
+
+#### 2nd method if the first one didn't work
+
+If the first method did not work, check to see what version of php is needed for the
+project. And see if apache is using that particular version. I had an experience where
+I installed a new version of laravel and I constantly get the 500 status code. Until I read
+that you have to uninstall an old module version of PHP on Apache and install a new or
+recommended version of PHP. And that took care of it for me
+
+**In the terminal**
+```
+a2dismod php7.0;
+a2enmod php7.3;
+sudo service apache2 restart;
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+
 
 
 
