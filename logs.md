@@ -1,6 +1,46 @@
 # laravel logs
 
 
+## 2/24/20
+
+### Remember to log
+
+- how to validate form fields
+- how to make a simple queue
+
+#### how to validate form fields
+
+```html
+<form class="" action="/form" method="post">
+    {{ csrf_field() }}
+  <div class="form-group">
+    <h4><label for="">Enter your Email</label></h4>
+
+    <input type="email" name="email" value="{{old('email')}}">
+  </div>
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary" value="submit">
+  </div>
+</form>
+```
+
+```php
+public function storeForm(Request $req){
+
+  // this will validate the email field
+  $data = $req->validate([
+    'email' => 'required|email:rfc|max:30',
+  ]);
+
+$this->dispatch(new SendWelcomeEmail($req->all()));
+
+return redirect("thank-you",["response" => "queue has been made"]);
+
+}
+
+```
+
 ## 2/9/20
 
 ### To make a queue run in the background

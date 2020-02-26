@@ -189,7 +189,62 @@
 [why-event]:#what-is-the-purpose-creating-events
 [failed-valid]:#how-to-output-failed-validation-fields
 [valid-rules]:#validating-rule-options
+[val-form]:#how-to-validate-form-fields
 ---
+
+
+### how to validate form fields
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [laravel](https://laravel.com/docs/6.x/validation)
+---
+
+1. Create a view and add a form, then create the controller to handle the post
+request
+```html
+<form class="" action="/form" method="post">
+    {{ csrf_field() }}
+  <div class="form-group">
+    <h4><label for="">Enter your Email</label></h4>
+
+    <input type="email" name="email" value="{{old('email')}}">
+  </div>
+
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary" value="submit">
+  </div>
+</form>
+```
+
+2. In the controller use the **request** object method called **validate** like
+the code below
+
+```php
+public function storeForm(Request $req){
+
+  // this will validate the email field
+  $data = $req->validate([
+    'email' => 'required|email:rfc|max:30',
+  ]);
+
+$this->dispatch(new SendWelcomeEmail($req->all()));
+
+return redirect("thank-you",["response" => "queue has been made"]);
+
+}
+
+```
+
+3. Note. that if the form field is not valid then it will redirect back the original page
+
+</details>
+
+[go back :house:][home]
 
 ### validating rule options
 
@@ -444,21 +499,170 @@ View Content
 - [Why Laravel Queues Are Awesome](https://scotch.io/tutorials/why-laravel-queues-are-awesome)
 ---
 
-:exclamation: **Note:**
+1. First, create a queue table if you haven't already, and then migrate it
+
+```
+php artisan queue:table
+
+php artisan migrate
+```
+
+2. In the `.env`  file change **QUEUE_DRIVER** to database
+
+```
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+SESSION_DRIVER=file
+QUEUE_DRIVER= database  // this is where you place it
+```
+
+3. Now you can create the job that you want in the terminal
+
+```
+php artisan make:job ContactJob
+```
+
+4. This is optional, but I will also create a mailable that will be sent when the
+job will be dispatched
+
+```
+php artisan make:mail ContactMail --markdown="email.contact-mail"
+```
+
+### Inside ContactMail
+
+```php
+class ContactMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    private $email = "25912bc407-05be27@inbox.mailtrap.io";
+    public $contact;
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($request)
+    {
+        $this->contact = $request;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->markdown('email.contact-mail')
+        ->to($this->email)
+        ->with($this->contact);
+    }
+}
+
+```
+
+### inside contact-mail.blade.php
+
+```php
+@component('mail::message')
+# Thanks {{$email}}
+
+We will get back to you for your message
 
 ---
 
-- create queue:table and migrate it
-- in the `.env` file change **QUEUE_DRIVER** to database
-- create job with the `make:job` command
-- Find the job file that you created and add in the logic that you need to execute
-in the *handle* method
-- now in your controller import the job in the file, and execute it by calling the *dispatch* method
-- finally, type in the command line `queue:listen`
+```html
+{{$message}}
+```
+@component('mail::button', ['url' => ''])
+Button Text
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent
+```
+
+5. Create the view and controller to create a form and recieve the posted info
+
+### inside the ContactController
 
 ```php
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Jobs\ContactJob;
+
+class ContactController extends Controller
+{
+  public function index(){
+     return view("contact");
+  }
+
+  public function store(Request $req){
+    $data = $req->validate([
+      'email' => 'required|email:rfc|max:30',
+      "subject" => 'required|max:50',
+      'message' => 'string|max:250'
+    ]);
+
+    ContactJob::dispatch($req->all());
+
+    dump("success");
+  }
+}
 
 ```
+
+6. Now create add the logic into the job `ContactJob` in the **handle** method
+
+```php
+namespace App\Jobs;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use App\Mail\ContactMail;
+use Illuminate\Support\Facades\Mail;
+
+class ContactJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    public $request;
+    public $tries = 10;
+
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct($request)
+    {
+        $this->request = $request;
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+       Mail::send(new ContactMail($this->request));
+        dump("Contact email, ".$this->request["email"]." has been successfully sent");
+    }
+}
+
+
+```
+
+7. finally, type in `queue:listen` in order for your application to listen to any jobs
+that are being fired off. In this example an email will be sent with a message stating
+that the email was sent successfully
 
 </details>
 
@@ -473,7 +677,7 @@ View Content
 </summary>
 
 :link: **Reference**
-- []()
+- [laravel](https://laravel.com/docs/6.x/events)
 ---
 
 :exclamation: **Note:** In this example I am creating a simple event that will trigger when a  person sends
