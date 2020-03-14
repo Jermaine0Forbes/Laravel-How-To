@@ -120,7 +120,7 @@
 [simple-queue]:#how-to-make-a-simple-queue
 [route-undef]:#route-not-defined-error
 [create-event]:#how-to-create-an-event
-[create-data]:#how-to-create-data
+[create-data]:#how-to-save-data
 [update-data]:#how-to-update-data
 [delete-data]:#how-to-delete-data
 [version]:#how-to-check-your-version-of-laravel
@@ -847,7 +847,6 @@ class StoreDonation
 }
 ```
 **In EmailToDonator.php**
-
 ```php
 
 class EmailToDonator
@@ -881,9 +880,8 @@ class EmailToDonator
 - So when you make post or save a form the event should trigger the `UserDonated` event
 which should also trigger the listeners
 
-
-
 </details>
+
 [go back :house:][home]
 
 ### route not defined error
