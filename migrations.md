@@ -128,7 +128,7 @@ View Content
 1. First make a migration file
 
 ```
-php artisan make:migration add_col_user --create=users
+php artisan make:migration add_col_user --table=users
 ```
 
 2. Now, move the migration file to a new folder so that you can only migrate that
