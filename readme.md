@@ -12,6 +12,7 @@
 ## Carbon
 - [Carbon table][carbon]
 - [how to include carbon][inc-carbon]
+- [how to format a date property][format-carbon]
 
 ## Controller
 - [how to create a controller][control]
@@ -115,6 +116,7 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[format-carbon]:#how-to-format-a-date-property
 [job-error]:#jobs-serialization-of-closure-is-not-allowed
 [old-field]:#how-to-keep-old-values-from-a-form-field
 [simple-queue]:#how-to-make-a-simple-queue
@@ -191,6 +193,68 @@
 [valid-rules]:#validating-rule-options
 [val-form]:#how-to-validate-form-fields
 ---
+
+### how to format a date property
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [stackoverflow](https://stackoverflow.com/questions/33405939/laravel-5-carbon-format-datetime)
+- [scotch.io](https://scotch.io/tutorials/easier-datetime-in-laravel-and-php-with-carbon)
+---
+
+:exclamation: **Note:** If you want to format your dates in a view here
+are the steps to go and do it.
+
+---
+
+Letter|Specific Date|Example
+-|-|-
+m|month|03
+M|month|Mar
+F|month|March
+d|day|24
+D|day|Mon
+l|day|Monday
+jS|day|24th
+y|year|20
+Y|year|2020
+
+
+
+1. In the model at the `$dates` property in the class
+
+```php
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
+{
+   /**
+   * The attributes that should be mutated to dates.
+   *
+   * @var array
+   */
+   protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+}
+```
+
+2. Now you should have the ability to format it like so
+
+```php
+<div class="current-date">
+  {{$create_at->format("M, d, Y")}} // Example, Mar , 24, 2020
+</div>
+```
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### how to validate form fields
