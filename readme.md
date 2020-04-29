@@ -101,6 +101,9 @@
 - [how to make a simple queue][simple-queue]
 
 ## Seeding / Faker
+- [how to reset tables and seed them][refresh-seed]
+- [how to create a seeder][create-seeder]
+- [how to create a factory][create-factory]
 - [how to generate a factory for fake data][fake-data]
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
@@ -116,6 +119,7 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[create-factory]:#how-to-create-a-factory
 [format-carbon]:#how-to-format-a-date-property
 [job-error]:#jobs-serialization-of-closure-is-not-allowed
 [old-field]:#how-to-keep-old-values-from-a-form-field
@@ -192,7 +196,70 @@
 [failed-valid]:#how-to-output-failed-validation-fields
 [valid-rules]:#validating-rule-options
 [val-form]:#how-to-validate-form-fields
+[create-seeder]:#how-to-create-a-seeder
+[refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+### how to reset tables and seed them
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [laravel](https://laravel.com/docs/7.x/seeding#running-seeders)
+---
+
+```
+php artisan migrate:fresh --seed
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to create a seeder
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [laravel](https://laravel.com/docs/7.x/seeding#writing-seeders)
+---
+
+
+```
+php artisan make:seeder UserSeeder
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to create a factory
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [laravel](https://laravel.com/docs/7.x/database-testing#generating-factories)
+---
+
+
+```
+php artisan make:factory UserFactory
+```
+
+</details>
+
+[go back :house:][home]
 
 ### how to format a date property
 
