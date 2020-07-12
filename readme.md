@@ -44,6 +44,8 @@
 - [how to output failed validation fields][failed-valid]
 - [validating rule options][valid-rules]
 
+## Geo IP
+- [how to make laravel geoip work][geoip]
 
 ## Mail
 - [how to send mail to your gmail for the first time][first-mail]
@@ -119,6 +121,7 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[geoip]:#how-to-make-geoip-work
 [create-factory]:#how-to-create-a-factory
 [format-carbon]:#how-to-format-a-date-property
 [job-error]:#jobs-serialization-of-closure-is-not-allowed
@@ -199,6 +202,70 @@
 [create-seeder]:#how-to-create-a-seeder
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+### how to make geoip work
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [Laravel cache store does not support tagging](https://stackoverflow.com/questions/37462365/laravel-cache-store-does-not-support-tagging)
+- [Get Started](https://lyften.com/projects/laravel-geoip/doc/)
+---
+:question: **Syntax**
+
+``
+
+---
+
+1. install the geoip library in the terminal
+
+```bash
+composer require torann/geoip
+composer require geoip2/geoip2
+
+
+```
+
+2. In the `config/app.php` add this code to the **providers** and **aliases**
+
+```php
+'providers' => [
+
+    \Torann\GeoIP\GeoIPServiceProvider::class,
+
+]
+
+...
+
+'aliases' => [
+
+    'GeoIP' => \Torann\GeoIP\Facades\GeoIP::class,
+
+];
+
+```
+
+3. In the .env file change the **CACHE_DRIVER** to
+
+```
+CACHE_DRIVER=array
+```
+4. Now do this in the TERMINAL
+
+```bash
+php artisan config:cache
+
+php artisan vendor:publish --provider="Torann\GeoIP\GeoIPServiceProvider" --tag=config
+```
+
+</details>
+
+[go back :house:][home]
+
+
 
 ### how to reset tables and seed them
 
