@@ -125,10 +125,29 @@ App\Flight::destroy(collect([1, 2, 3]));
 **reference**
 - [Laravel checking if record exists](https://stackoverflow.com/questions/27095090/laravel-checking-if-record-exists)
 
+#### Example 1: 
+
 ```php
 if (User::where('email', '=', Input::get('email'))->exists()) {
    // user found
 }
+```
+
+#### Example 2: 
+
+```php
+if($role == "Ceertif Control Admin" && Auth::user()->admin()->exists()){
+            $projectMonth = Auth::user()->admin()->client()->lots()->lotControls()->selectRaw(" COUNT(status) as status")->whereBetween("created_at", [$startMonth, $endMonth])->groupBy("status")->get();
+            $projectYear =  Auth::user()->admin()->client()->lots()->lotControls()->selectRaw(" COUNT(status) as status")->whereBetween("created_at", [$startYear, $endYear])->groupBy("status")->get();
+        }
+```
+
+#### Example 3: 
+
+```php
+$isExist = User::select("*")
+	->where("email", "yemmerich@example.net")
+	->exists();
 ```
 
 [go back home][home]
