@@ -22,7 +22,9 @@
 
 - [how to group data by a column][groupBy]
 - [how to alias a table][alias-table]
+- [how to concat two columns][concat-columns]
 
+[concat-columns]:#how-to-concat-two-columns
 [alias-table]:#how-to-alias-a-table
 [update]:#how-to-update-data
 [delete-id]:#how-to-delete-a-row-by-id
@@ -38,6 +40,66 @@
 [all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
+
+
+
+### how to concat two columns
+
+<details>
+<summary>
+View Content
+</summary>
+
+- [Laravel concat two columns with example](https://www.itsolutionstuff.com/post/laravel-concat-two-columns-with-exampleexample.html)
+
+#### example 1 
+
+when doing a query you use an alias and concat the two values
+
+```php
+/**
+ * Show the application dashboard.
+ *
+ * @return \Illuminate\Http\Response
+ */
+public function index()
+{
+    $users = User::select("*", DB::raw("CONCAT(users.first_name,' ',users.last_name) as full_name"))
+        ->get();
+  
+    return view('home', compact('users'));
+}
+```
+
+#### example 2
+
+create a method withihn the model, so when you do a query for that model. That attribute will be printed out
+
+```php
+
+  class User extends Model{
+
+    /**
+    * Get the user's full concatenated name.
+    * -- Must postfix the word 'Attribute' to the function name
+    *
+    * @return string
+    */
+    public function getFullNameAttribute()
+    {
+        return "{$this->first_name} {$this->last_name}";
+    }
+  }
+```
+
+```php
+  <span>{$user->full_name}</span>
+```
+
+</details>
+
+
+[go back :house:][home]
 
 
 ### how to alias a table
