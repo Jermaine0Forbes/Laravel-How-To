@@ -21,7 +21,9 @@
 - [how to retrieve a row by its primary key][find]
 
 - [how to group data by a column][groupBy]
+- [how to alias a table][alias-table]
 
+[alias-table]:#how-to-alias-a-table
 [update]:#how-to-update-data
 [delete-id]:#how-to-delete-a-row-by-id
 [data-exists]:#how-to-check-if-a-record-or-data-exists
@@ -37,6 +39,26 @@
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
 
+
+### how to alias a table
+
+<details>
+<summary>
+View Content
+</summary>
+
+- [stackoverflow](https://stackoverflow.com/questions/17713730/how-to-alias-a-table-in-laravel-eloquent-queries-or-using-query-builder)
+
+```php
+$users = DB::table('really_long_table_name AS t')
+           ->select('t.id AS uid')
+           ->get();
+```
+
+</details>
+
+
+[go back :house:][home]
 
 ### how to update data
 
