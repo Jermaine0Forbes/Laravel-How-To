@@ -71,6 +71,7 @@
 - [how to create a belongsTo relationship][belongsTo]
 - [how to use Carbon methods on datetime data][carbon-meth]
 - [how to create a model, migration, and controller at the same time][create-alot]
+- [how to modify the ]
 
 
 ## Middleware

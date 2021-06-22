@@ -23,7 +23,11 @@
 - [how to group data by a column][groupBy]
 - [how to alias a table][alias-table]
 - [how to concat two columns][concat-columns]
+- [how to check if collection is empty][is-empty]
+- [how to get value instead of array][get-value]
 
+[get-value]:#how-to-get-value-instead-of-array
+[is-empty]:#how-to-check-if-collection-is-empty
 [concat-columns]:#how-to-concat-two-columns
 [alias-table]:#how-to-alias-a-table
 [update]:#how-to-update-data
@@ -40,6 +44,57 @@
 [all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
+
+
+### how to get value instead of array
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [stackoverflow](https://stackoverflow.com/questions/34405138/laravel-5-2-pluck-method-returns-array)
+---
+
+```php
+  DB::table('users')->where('id', 1)->value('name');
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to check if collection is empty
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [stackoverflow](https://stackoverflow.com/questions/35839303/laravel-check-if-collection-is-empty)
+---
+
+Here are a couple of ways to check if the collection is empty
+
+```php
+
+// first way
+if ($mentor->first()) { } 
+
+// second way
+if ($mentor->isEmpty()) { }
+
+// third way
+if ($mentor->count()) { }
+```
+
+</details>
+
+[go back :house:][home]
 
 
 
