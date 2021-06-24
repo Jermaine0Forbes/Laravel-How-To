@@ -71,7 +71,7 @@
 - [how to create a belongsTo relationship][belongsTo]
 - [how to use Carbon methods on datetime data][carbon-meth]
 - [how to create a model, migration, and controller at the same time][create-alot]
-- [how to modify the ]
+- [how to modify the data before retrieving it ][modify-before]
 
 
 ## Middleware
@@ -122,6 +122,7 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[modify-before]:#how-to-modify-the-data-before-retrieving-it
 [geoip]:#how-to-make-geoip-work
 [create-factory]:#how-to-create-a-factory
 [format-carbon]:#how-to-format-a-date-property
@@ -203,6 +204,59 @@
 [create-seeder]:#how-to-create-a-seeder
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+### how to modify the data before retrieving it
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [laravel](https://laravel.com/docs/8.x/eloquent-mutators)
+---
+
+#### Accessors
+
+Accessors transforms the attribute/column when it is accessed.
+
+So in this example if you ever access the first name of the user. The first letter would be uppercased.
+The only thing you need to is create a method with the name of the attribute/column in between `get{column}Attribute` .
+
+```php
+class User extends Model
+{
+    /**
+     * Get the user's first name.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getFirstNameAttribute($value)
+    {
+        return ucfirst($value);
+    }
+}
+```
+
+You can also create a new attribute that doesn't exist in the database for example
+
+```php
+/**
+ * Get the user's full name.
+ *
+ * @return string
+ */
+public function getFullNameAttribute()
+{
+    return "{$this->first_name} {$this->last_name}";
+}
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to make geoip work
 
