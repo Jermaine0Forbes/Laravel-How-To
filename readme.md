@@ -13,6 +13,7 @@
 - [Carbon table][carbon]
 - [how to include carbon][inc-carbon]
 - [how to format a date property][format-carbon]
+- [how to add a day][add-day]
 
 ## Controller
 - [how to create a controller][control]
@@ -89,10 +90,11 @@
 - [how to create a search engine][search-engine]
 - [how to create a 404 page][404-page]
 
-## ORM
+## Eloquent/ORM
 - [how to create data][create-data]
 - [how to update data][update-data]
 - [how to delete data][delete-data]
+- [how to create multiple where clauses][multi-where]
 
 ## PHP Unit
 
@@ -122,6 +124,8 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[multi-where]:#how-to-create-multiple-where-clauses
+[add-day]:#how-to-add-days-to-an-existing-carbon-date
 [modify-before]:#how-to-modify-the-data-before-retrieving-it
 [geoip]:#how-to-make-geoip-work
 [create-factory]:#how-to-create-a-factory
@@ -204,6 +208,57 @@
 [create-seeder]:#how-to-create-a-seeder
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+
+### how to create multiple where clauses
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+- [stackoverflow](https://stackoverflow.com/questions/19325312/how-to-create-multiple-where-clause-query-using-laravel-eloquent)
+---
+
+```php
+// This is a simple example on how to have multiple where clauses
+
+$users = User::where(['field' => 'value', 'another_field' => 'another_value', ...])->get();
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to add days to an existing carbon date
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [Laravel Carbon Add Days to Date Example](https://www.itsolutionstuff.com/post/laravel-carbon-add-days-to-date-exampleexample.html)
+---
+
+```php
+    public function index()
+    {
+        $currentDateTime = Carbon::now();
+        $newDateTime = Carbon::now()->addDay();
+             
+        print_r($currentDateTime);
+        print_r($newDateTime);
+    }
+```
+
+</details>
+
+[go back :house:][home]
+
 
 ### how to modify the data before retrieving it
 
