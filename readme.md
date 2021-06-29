@@ -27,6 +27,7 @@
 - [Declaration of App\Providers\EventServiceProvider::boot(Illuminate\Contracts\Events\Dispatcher $events) should be compatible with Illuminate\Foundation\Support\Providers\EventServiceProvider::boot()][event-boot]
 - [Route {route} not defined.][route-undef]
 - [Jobs Serialization of 'Closure' is not allowed][job-error]
+- [Unable to locate publishable resources][publish-error]
 
 ## Events
 - [how to create an event][create-event]
@@ -95,6 +96,7 @@
 - [how to update data][update-data]
 - [how to delete data][delete-data]
 - [how to create multiple where clauses][multi-where]
+- [how to check if data exists][data-exists]
 
 ## PHP Unit
 
@@ -124,6 +126,9 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+
+[data-exists]:#how-to-check-if-data-exists
+[publish-error]:#unable-to-locate-publishable-resources
 [multi-where]:#how-to-create-multiple-where-clauses
 [add-day]:#how-to-add-days-to-an-existing-carbon-date
 [modify-before]:#how-to-modify-the-data-before-retrieving-it
@@ -208,6 +213,64 @@
 [create-seeder]:#how-to-create-a-seeder
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+### how to check if data exists
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [Laravel Eloquent exists() and doesntExist() Example](https://www.itsolutionstuff.com/post/laravel-eloquent-exists-and-doesntexist-exampleexample.html)
+---
+
+
+```php
+ public function index()
+    {
+        $isExist = User::select("*")
+                        ->where("email", "yemmerich@example.net")
+                        ->exists();
+   
+        if ($isExist) {
+            dd('Record is available.');
+        }else{
+            dd('Record is not available.');
+        }
+  
+    }
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### Unable to locate publishable resources
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [stackoverflow](https://stackoverflow.com/questions/60719259/unable-to-locate-publishable-resources)
+---
+
+If you ever attempt to do a `php artisan vendor:publish` and you get an error like `Unable to locate publishable resources`, then type this into the terminal 
+
+```
+    php artisan clear-compiled
+    composer dumpautoload
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### how to create multiple where clauses

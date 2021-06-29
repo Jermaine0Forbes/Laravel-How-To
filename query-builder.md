@@ -26,6 +26,9 @@
 - [how to check if collection is empty][is-empty]
 - [how to get value instead of array][get-value]
 
+- [how to check if data exists][data-exists]
+
+[data-exists]:#how-to-check-if-data-exists
 [get-value]:#how-to-get-value-instead-of-array
 [is-empty]:#how-to-check-if-collection-is-empty
 [concat-columns]:#how-to-concat-two-columns
@@ -44,6 +47,42 @@
 [all]:#how-to-retrieve-all-the-columns-and-rows-from-a-table
 [find]:#how-to-retrieve-a-row-by-its-primary-key
 [create]:#how-to-create-data
+
+
+
+### how to check if data exists
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [Laravel Eloquent exists() and doesntExist() Example](https://www.itsolutionstuff.com/post/laravel-eloquent-exists-and-doesntexist-exampleexample.html)
+---
+
+
+```php
+ public function index()
+    {
+        $isExist = User::select("*")
+                        ->where("email", "yemmerich@example.net")
+                        ->exists();
+   
+        if ($isExist) {
+            dd('Record is available.');
+        }else{
+            dd('Record is not available.');
+        }
+  
+    }
+
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### how to get value instead of array
