@@ -98,6 +98,7 @@
 - [how to delete data][delete-data]
 - [how to create multiple where clauses][multi-where]
 - [how to check if data exists][data-exists]
+- [how to get last query executed][last-query]
 
 ## PHP Unit
 
@@ -129,6 +130,7 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[last-query]:#how-to-get-last-query-executed
 [file-ext]:#how-to-get-the-extension-of-a-file
 [task-win10]:#how-to-use-scheduler-on-windows-10
 [data-exists]:#how-to-check-if-data-exists
@@ -218,6 +220,42 @@
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
 
+
+### how to get last query executed
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [Get last query executed in Laravel 5.8](https://infinityknow.com/get-last-query-executed-in-laravel-5-8/)
+---
+
+#### Example 1
+
+```php
+$product = Product::where('id',1)->toSql();
+
+print_r($product);
+```
+
+#### Example 2
+
+```php
+DB::enableQueryLog();
+
+$product = Product::get();
+
+$results = DB::getQueryLog();
+
+print_r($results);
+```
+
+</details>
+
+[go back :house:][home]
 
 
 ### how to get the extension of a file
