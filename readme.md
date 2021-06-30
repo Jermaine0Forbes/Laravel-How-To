@@ -37,6 +37,7 @@
 - [how to create a public disk][public-disk]
 - [how to publicly store a file][file-store-public]
 - [how to retrieve a file][file-retrieve]
+- [how to get the extension of a file][file-ext]
 
 ## Form
 - [how to create a proper form structure][form]
@@ -115,6 +116,8 @@
 - [how to create the fake data][create-fake]
 - [faker reference table][faker-reference]
 
+## Task Scheduler
+- [how to use scheduler on windows 10][task-win10]
 
 ## View
 - [how to extend a blade layout][extend]
@@ -126,7 +129,8 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
-
+[file-ext]:#how-to-get-the-extension-of-a-file
+[task-win10]:#how-to-use-scheduler-on-windows-10
 [data-exists]:#how-to-check-if-data-exists
 [publish-error]:#unable-to-locate-publishable-resources
 [multi-where]:#how-to-create-multiple-where-clauses
@@ -213,6 +217,73 @@
 [create-seeder]:#how-to-create-a-seeder
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+
+
+### how to get the extension of a file
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [stackoverflow](https://stackoverflow.com/questions/38403558/get-an-image-extension-from-an-uploaded-file-in-laravel)
+---
+
+:exclamation: **Note:** You can get the extension of a file by using the **File** facade or the request helper
+
+---
+
+```php
+// 1st option
+$extension = $request->file('file')->extension();
+
+// 2nd option
+$extension = File::extension($filename);
+
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to use scheduler on windows 10
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [How to use Laravel Task Scheduler on Windows 10](https://quantizd.com/how-to-use-laravel-task-scheduler-on-windows-10/)
+---
+
+:exclamation: **Note:** To understand how to do it properly you should visit the link because it provides screenshots on how to do it properly.
+
+---
+
+1. Type Task Scheduler in Windows 10 Search and run it.
+
+2. Create a new task by right-clicking on Task Scheduler (Local). Give it a name. Select Run only when the user is logged on and check Hidden to make sure you command line won’t popup every single minute when scheduler runs your task. Select Windows 10 or your preferred platform from Configure for drop-down options and click ok.
+
+3. Switch to Trigger tab and click on new to create a trigger for your task. Select Daily and set enter 365 in Recur every days input field. Now move to advance settings and check Repeat task every option and choose 5 minutes from the drop-down. After doing that edit 5 minutes text to 1 minute. Choose Indefinitely for the duration and check enabled. Click OK to move on to next step.
+
+4. Switch to Actions tab and click on new to create actions for your task. Select Start a Program from the drop-down. In Program/Script input enter your PHP installation path which in my case is `C:\xampp\php\php.exe`  In Add Arguments option enter the path to your projects artisan file which in my case is `C:\xampp\htdocs\blogbits\artisan schedule:run`  Click ok to save your action.
+
+5. Switch to the Settings tab. Check Run task as soon as possible after a scheduled start is missed and click ok to save.
+
+
+```php
+
+```
+
+</details>
+
+[go back :house:][home]
 
 ### how to check if data exists
 
