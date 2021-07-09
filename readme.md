@@ -14,6 +14,7 @@
 - [how to include carbon][inc-carbon]
 - [how to format a date property][format-carbon]
 - [how to add a day][add-day]
+- [how to subtract days from a date][sub-days]
 
 ## Controller
 - [how to create a controller][control]
@@ -99,6 +100,8 @@
 - [how to create multiple where clauses][multi-where]
 - [how to check if data exists][data-exists]
 - [how to get last query executed][last-query]
+- [how to get data by date formats][where-date]
+
 
 ## PHP Unit
 
@@ -130,6 +133,8 @@
 - [how to use @foreach][@foreach]
 - [view template table][template-table]
 
+[sub-days]:#how-to-subtract-days-from-a-date
+[where-date]:#how-to-get-data-by-date-formats
 [last-query]:#how-to-get-last-query-executed
 [file-ext]:#how-to-get-the-extension-of-a-file
 [task-win10]:#how-to-use-scheduler-on-windows-10
@@ -219,6 +224,74 @@
 [create-seeder]:#how-to-create-a-seeder
 [refresh-seed]:#how-to-reset-tables-and-seed-them
 ---
+
+
+### how to subtract days from a date
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [stackoverflow](https://stackoverflow.com/questions/41122265/laravel-carbon-subtract-days-from-current-date)
+---
+
+The *subDays()* method in **Carbon** shoud allow you to subtract the number of days
+
+```php
+$users = Users::where('status_id', 'active')
+           ->where( 'created_at', '>', Carbon::now()->subDays(30))
+           ->get();
+```
+
+</details>
+
+[go back :house:][home]
+
+
+### how to get data by date formats
+
+<details>
+<summary>
+View Content
+</summary>
+
+:link: **Reference**
+
+- [Eloquent date filtering: whereDate() and other methods](https://laraveldaily.com/eloquent-date-filtering-wheredate-and-other-methods/)
+---
+
+
+How to get data by the year
+
+```php
+$q->whereYear('created_at', '=', date('y'));
+```
+
+How to get data by the month
+
+```php
+$q->whereMonth('created_at', '=', date('m'));
+```
+
+How to get data by the day
+
+```php
+$q->whereDay('created_at', '=', date('d'));
+```
+
+How to get data by the date
+
+```php
+$q->whereDate('created_at', '=', Carbon::today()->toDateString());
+```
+
+</details>
+
+[go back :house:][home]
+
 
 
 ### how to get last query executed
